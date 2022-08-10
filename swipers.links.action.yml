@@ -1,0 +1,5 @@
+entity.slider.add_form:
+  route_name: 'entity.slider.add_form'
+  title: 'Add Swiper Slider'
+  appears_on:
+    - entity.slider.collection

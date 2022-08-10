@@ -1,0 +1,31 @@
+entity.slider.collection:
+  path: '/admin/config/media/swiper-studio'
+  defaults:
+    _entity_list: 'slider'
+    _title: 'Swiper slider configuration'
+  requirements:
+    _permission: 'administer swiper-slider'
+
+entity.slider.add_form:
+  path: '/admin/config/media/swiper-studio/add'
+  defaults:
+    _entity_form: 'slider.add'
+    _title: 'Add a Swiper Slider'
+  requirements:
+    _permission: 'administer swiper-slider'
+
+entity.slider.edit_form:
+  path: '/admin/config/media/swiper-studio/{slider}'
+  defaults:
+    _entity_form: 'slider.edit'
+    _title: 'Edit swiper slider'
+  requirements:
+    _permission: 'administer swiper-slider'
+
+entity.slider.delete_form:
+  path: '/admin/config/media/swiper-studio/{slider}/delete'
+  defaults:
+    _entity_form: 'slider.delete'
+    _title: 'Delete a swiper slider'
+  requirements:
+    _permission: 'administer swiper-slider'

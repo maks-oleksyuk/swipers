@@ -1,0 +1,23 @@
+swipers.slider.*:
+  type: config_entity
+  label: 'Swiper Studio slider setting'
+  mapping:
+    main:
+      type: sequence
+      label: 'Timer'
+      sequence:
+        id:
+          type: string
+          label: 'ID'
+        label:
+          type: label
+          label: 'Label'
+        uuid:
+          type: string
+        description:
+          type: string
+    slider:
+      type: sequence
+      label: 'Slider'
+      sequence:
+        direction: string

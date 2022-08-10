@@ -1,0 +1,21 @@
+{
+  "name": "drupal/swiper_studio_slider",
+  "description": "A module to create sliders using swiper slider js library",
+  "minimum-stability": "stable",
+  "homepage": "https://www.drupal.org/project/swiper_studio_slider",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Maks Oleksyuk",
+      "email": "maksym.oleksyuk@gmail.com"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/swiper_studio_slider",
+    "source": "https://git.drupalcode.org/project/swiper_studio_slider"
+  },
+  "require": {
+    "drupal/core": "^9",
+    "nolimits4web/swiper": "dev-master"
+  }
+}

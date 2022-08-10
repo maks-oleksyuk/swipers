@@ -1,0 +1,7 @@
+name: Swiper Studio Slider
+type: module
+description: 'The Most Modern Mobile Touch Slider'
+package: Swiper
+version: VERSION
+core_version_requirement: ^9
+configure: entity.slider.collection
