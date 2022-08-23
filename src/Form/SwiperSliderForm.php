@@ -88,6 +88,7 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['style']['padding_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding start'),
+      '#description' => $this->t('Padding top in horizontal direction and padding left in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
@@ -96,6 +97,7 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['style']['padding_end'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding end'),
+      '#description' => $this->t('Padding bottom in horizontal direction and padding right in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
@@ -231,6 +233,7 @@ class SwiperSliderForm extends EntityForm {
     $form['parameters']['per_view'] = [
       '#type' => 'select',
       '#title' => $this->t('Slides per view'),
+      '#description' => $this->t("Number of slides per view (slides visible at the same time on slider's container)"),
       '#options' => [
         '1' => '1',
         '2' => '2',
@@ -248,6 +251,7 @@ class SwiperSliderForm extends EntityForm {
     $form['parameters']['per_group'] = [
       '#type' => 'select',
       '#title' => $this->t('Slides per group'),
+      '#description' => $this->t('Set numbers of slides to define and enable group sliding. Useful to use with "Slides per view" > 1'),
       '#options' => [
         '1' => '1',
         '2' => '2',
@@ -265,6 +269,7 @@ class SwiperSliderForm extends EntityForm {
     $form['parameters']['rows'] = [
       '#type' => 'select',
       '#title' => $this->t('Slides rows'),
+      '#description' => $this->t('Number of slides rows, for multirow layout'),
       '#options' => [
         '1' => '1',
         '2' => '2',
@@ -281,14 +286,89 @@ class SwiperSliderForm extends EntityForm {
     $form['parameters']['centered'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Centered slides'),
+      '#description' => $this->t('If enabled, then active slide will be centered, not always on the left side'),
     ];
     $form['parameters']['style']['space'] = [
       '#type' => 'range',
       '#title' => $this->t('Space between slides'),
+      '#description' => $this->t('Distance between slides'),
       '#min' => 0,
       '#max' => 100,
       '#step' => 1,
       '#default_value' => 0,
+    ];
+    $form['parameters']['initial_slide'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Initial slide'),
+      '#description' => $this->t('Index number of initial slide (starts from 0)'),
+      '#options' => [
+        '0' => '0',
+        '1' => '1',
+        '2' => '2',
+        '3' => '3',
+        '4' => '4',
+        '5' => '5',
+        '6' => '6',
+        '7' => '7',
+        '8' => '8',
+        '9' => '9',
+      ],
+    ];
+    $form['parameters']['auto_height'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Auto height'),
+      '#description' => $this->t('Enable and slider wrapper will adapt its height to the height of the currently active slide'),
+    ];
+    $form['parameters']['grab_cursor'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Grab cursor'),
+      '#description' => $this->t('This option may a little improve desktop usability. If enabled, user will see the "grab" cursor when hover on Swiper'),
+    ];
+    $form['parameters']['slide_to_clicked_slide'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Slide to clicked slide'),
+      '#description' => $this->t('Enable and click on any slide will produce transition to this slide'),
+    ];
+    $form['parameters']['loop_mode'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Loop mode'),
+      '#description' => $this->t('Enables continuous loop mode'),
+      '#options' => [
+        'disabled' => 'disabled',
+        'loop' => 'loop',
+        'rewind' => 'rewind',
+      ],
+    ];
+
+    $form['effects'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Effects'),
+    ];
+    $form['effects']['effect'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Effect'),
+      '#options' => [
+        'slide' => 'slide',
+        'fade' => 'fade',
+        'cube' => 'cube',
+        'flip' => 'flip',
+        'coverflow' => 'coverflow',
+        'cards' => 'cards',
+        'panorama' => 'panorama',
+        'carousel' => 'carousel',
+        'shutters' => 'shutters',
+        'slicer' => 'slicer',
+        'gl' => 'gl',
+      ],
+    ];
+    $form['effects']['duration'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Transition duration'),
+      '#description' => $this->t('Duration of transition between slides (in ms)'),
+      '#min' => 0,
+      '#max' => 10000,
+      '#step' => 100,
+      '#default_value' => 300,
     ];
     return $form;
   }
