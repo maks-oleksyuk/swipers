@@ -62,6 +62,9 @@ class SwiperSliderForm extends EntityForm {
         'ltr' => 'ltr',
         'rtl' => 'rtl',
       ],
+      '#attributes' => [
+        'name' => 'slider_direction',
+      ],
     ];
 
     $form['slider']['style'] = [
@@ -152,6 +155,9 @@ class SwiperSliderForm extends EntityForm {
         'center_bottom' => 'center bottom',
         'right_bottom' => 'right bottom',
       ],
+      '#attributes' => [
+        'name' => 'content_position',
+      ],
       '#states' => [
         'visible' => [
           [':input[name="text"]' => ['checked' => TRUE]],
@@ -228,6 +234,9 @@ class SwiperSliderForm extends EntityForm {
       '#options' => [
         'horizontal' => 'horizontal',
         'vertical' => 'vertical',
+      ],
+      '#attributes' => [
+        'name' => 'parameters_direction',
       ],
     ];
     $form['parameters']['per_view'] = [
@@ -422,6 +431,9 @@ class SwiperSliderForm extends EntityForm {
         'center' => 'center',
         'bottom' => 'bottom',
       ],
+      '#attributes' => [
+        'name' => 'navigation_position',
+      ],
       '#states' => [
         'visible' => [
           [':input[name="navigation_status"]' => ['checked' => TRUE]],
@@ -483,6 +495,9 @@ class SwiperSliderForm extends EntityForm {
       '#options' => [
         'start' => 'start',
         'end' => 'end',
+      ],
+      '#attributes' => [
+        'name' => 'pagination_position',
       ],
       '#states' => [
         'visible' => [
@@ -675,6 +690,9 @@ class SwiperSliderForm extends EntityForm {
       '#options' => [
         'start' => 'start',
         'end' => 'end',
+      ],
+      '#attributes' => [
+        'name' => 'scrollbar_position',
       ],
       '#states' => [
         'visible' => [
@@ -1029,6 +1047,167 @@ class SwiperSliderForm extends EntityForm {
       '#states' => [
         'visible' => [
           [':input[name="zoom_status"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+
+    $form['pro'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Pro parameters'),
+    ];
+    // @todo add 'Custom CSS styles' modal form
+    $form['pro']['css_mode'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('CSS mode'),
+      '#description' => $this->t("When enabled it will use modern CSS Scroll Snap API. It doesn't support all of Swiper's features, but potentially should bring a much better performance in simple configurations."),
+    ];
+    $form['pro']['simulate_touch'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Simulate touch'),
+      '#description' => $this->t('If enabled, Swiper will accept mouse events like touch events (click and drag to change slides)'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['watch_slides_progress'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Watch slides progress'),
+      '#description' => $this->t('Enable this feature to calculate each slides progress and visibility (slides in viewport will have additional visible class)'),
+    ];
+    $form['pro']['allow_slide_prev'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow slide prev'),
+      '#description' => $this->t('Enables swiping to previous slide direction (to left or top)'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['allow_slide_next'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow slide next'),
+      '#description' => $this->t('Enables swiping to next slide direction (to right or bottom)'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['allow_touch_move'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow touch move'),
+      '#description' => $this->t('If disabled, then the only way to switch the slide is use of external API functions like slidePrev or slideNext'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['follow_finger'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Follow finger'),
+      '#description' => $this->t('If disabled, then slider will be animated only when you release it, it will not move while you hold your finger on it'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['long_swipes'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Long swipes'),
+      '#description' => $this->t('Enable long swipes'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['short_swipes'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Short swipes'),
+      '#description' => $this->t('Enable short swipes'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['observer'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Observer'),
+      '#description' => $this->t('Enables Mutation Observer on Swiper and its elements. In this case Swiper will be updated (reinitialized) each time if you change its style (like hide/show) or modify its child elements (like adding/removing slides)'),
+    ];
+    $form['pro']['observer_parents'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Observe parents'),
+      '#description' => $this->t('Enable if you also need to watch Mutations for Swiper parent elements'),
+    ];
+    $form['pro']['resistance'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Resistance'),
+      '#description' => $this->t('Enables resistant bounds'),
+      '#default_value' => TRUE,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['resistance_ratio'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Resistance ratio'),
+      '#description' => $this->t('This option allows you to control resistance ratio'),
+      '#min' => 0,
+      '#max' => 1,
+      '#step' => 0.05,
+      '#default_value' => 0.85,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['resize_observer'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Resize observer'),
+      '#description' => $this->t('When enabled it will use ResizeObserver (if supported by browser) on swiper container to detect container resize (instead of watching for window resize)'),
+      '#default_value' => TRUE,
+    ];
+    $form['pro']['touch_threshold'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Touch threshold'),
+      '#description' => $this->t('Threshold value in px. If "touch distance" will be lower than this value then swiper will not move'),
+      '#min' => 0,
+      '#max' => 100,
+      '#step' => 1,
+      '#default_value' => 0,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
+        ],
+      ],
+    ];
+    $form['pro']['touch_radio'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Touch ratio'),
+      '#min' => 0,
+      '#max' => 10,
+      '#step' => 0.25,
+      '#default_value' => 1,
+      '#states' => [
+        'disabled' => [
+          [':input[name="css_mode"]' => ['checked' => TRUE]],
         ],
       ],
     ];

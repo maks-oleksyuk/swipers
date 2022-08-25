@@ -6,11 +6,11 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\swipers\SwiperSliderInterface;
 
 /**
- * Defines the Swiper Slider configuration entity .
+ * Defines the Swiper Slider configuration entity.
  *
  * @ConfigEntityType(
  *   id = "slider",
- *   label = @Translation("Swiper Slider optionset"),
+ *   label = @Translation("Swiper Slider"),
  *   label_collection = @Translation("slider"),
  *   handlers = {
  *     "list_builder" = "Drupal\swipers\SwiperSliderListBuilder",
@@ -43,28 +43,28 @@ use Drupal\swipers\SwiperSliderInterface;
 class SwiperSlider extends ConfigEntityBase implements SwiperSliderInterface {
 
   /**
-   * The cent ID.
+   * The slider ID.
    *
    * @var string
    */
   protected string $id;
 
   /**
-   * The cent label.
+   * The slider label.
    *
    * @var string
    */
   protected string $label;
 
   /**
-   * The cent status.
+   * The slider status.
    *
    * @var bool
    */
   protected $status;
 
   /**
-   * The cent description.
+   * The slider description.
    *
    * @var string
    */

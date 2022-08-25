@@ -3,9 +3,9 @@ swipers.slider.*:
   label: 'Swiper Studio slider setting'
   mapping:
     main:
-      type: sequence
+      type: mapping
       label: 'Timer'
-      sequence:
+      mapping:
         id:
           type: string
           label: 'ID'
@@ -17,7 +17,7 @@ swipers.slider.*:
         description:
           type: string
     slider:
-      type: sequence
+      type: mapping
       label: 'Slider'
-      sequence:
+      mapping:
         direction: string
