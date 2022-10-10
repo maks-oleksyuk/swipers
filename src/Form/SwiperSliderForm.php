@@ -18,6 +18,8 @@ class SwiperSliderForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
 
+    $form['#tree'] = TRUE;
+
     $form['main'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Main Settings'),
@@ -57,13 +59,10 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t('Language direction'),
-      '#default_value' => $this->entity->get('direction'),
+      '#default_value' => $this->entity->get('slider')['direction'] ?? 'ltr',
       '#options' => [
         'ltr' => 'ltr',
         'rtl' => 'rtl',
-      ],
-      '#attributes' => [
-        'name' => 'slider_direction',
       ],
     ];
 
@@ -75,6 +74,7 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['style']['size'] = [
       '#type' => 'select',
       '#title' => $this->t('Slider size'),
+      '#default_value' => $this->entity->get('slider')['style']['size'] ?? 'responsive',
       '#options' => [
         'responsive' => 'responsive',
         'custom' => 'custom',
@@ -83,6 +83,7 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['style']['overflow'] = [
       '#type' => 'select',
       '#title' => $this->t('Overflow'),
+      '#default_value' => $this->entity->get('slider')['style']['overflow'] ?? 'hidden',
       '#options' => [
         'hidden' => 'hidden',
         'visible' => 'visible',
@@ -95,7 +96,7 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => 0,
+      '#default_value' => $this->entity->get('slider')['style']['padding_start'] ?? 0,
     ];
     $form['slider']['style']['padding_end'] = [
       '#type' => 'range',
@@ -104,19 +105,24 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => 0,
+      '#default_value' => $this->entity->get('slider')['style']['padding_end'] ?? 0,
     ];
 
-    $form['content'] = [
+    $form['content_styles'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Slides Content & Styles'),
+      '#title' => $this->t('Slider sizes & styles'),
     ];
-    $form['content']['images'] = [
+    $form['content_styles']['content'] = [
+      '#type' => 'details',
+      '#open' => FALSE,
+      '#title' => $this->t('Slides content'),
+    ];
+    $form['content_styles']['content']['images'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Images'),
       '#default_value' => FALSE,
     ];
-    $form['content']['images_set'] = [
+    $form['content_styles']['content']['images_set'] = [
       '#type' => 'select',
       '#title' => $this->t('Images set'),
       '#options' => [
@@ -131,17 +137,17 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['content']['title'] = [
+    $form['content_styles']['content']['title'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Title'),
       '#default_value' => TRUE,
     ];
-    $form['content']['text'] = [
+    $form['content_styles']['content']['text'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Text'),
       '#default_value' => FALSE,
     ];
-    $form['content']['position'] = [
+    $form['content_styles']['content']['position'] = [
       '#type' => 'select',
       '#title' => $this->t('Content position'),
       '#options' => [
@@ -166,12 +172,12 @@ class SwiperSliderForm extends EntityForm {
       ],
     ];
     // @todo add form item with modal form to custom content.
-    $form['content']['style'] = [
+    $form['content_styles']['style'] = [
       '#type' => 'details',
       '#open' => FALSE,
       '#title' => $this->t('Slides styles'),
     ];
-    $form['content']['style']['border_radius'] = [
+    $form['content_styles']['style']['border_radius'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border radius'),
       '#min' => 0,
@@ -179,7 +185,7 @@ class SwiperSliderForm extends EntityForm {
       '#step' => 2,
       '#default_value' => 0,
     ];
-    $form['content']['style']['border_width'] = [
+    $form['content_styles']['style']['border_width'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border width'),
       '#min' => 0,
@@ -187,12 +193,12 @@ class SwiperSliderForm extends EntityForm {
       '#step' => 1,
       '#default_value' => 0,
     ];
-    $form['content']['style']['border_color'] = [
+    $form['content_styles']['style']['border_color'] = [
       '#type' => 'color',
       '#default_value' => '#ff0000',
       '#title' => $this->t('Slide border color'),
     ];
-    $form['content']['style']['vertical_start'] = [
+    $form['content_styles']['style']['vertical_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Content vertical padding'),
       '#min' => 0,
@@ -200,7 +206,7 @@ class SwiperSliderForm extends EntityForm {
       '#step' => 4,
       '#default_value' => 48,
     ];
-    $form['content']['style']['horizontal_start'] = [
+    $form['content_styles']['style']['horizontal_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Content horizontal padding'),
       '#min' => 0,
@@ -208,17 +214,17 @@ class SwiperSliderForm extends EntityForm {
       '#step' => 4,
       '#default_value' => 48,
     ];
-    $form['content']['style']['background_color'] = [
+    $form['content_styles']['style']['background_color'] = [
       '#type' => 'color',
       '#default_value' => '#333333',
       '#title' => $this->t('Background color'),
     ];
-    $form['content']['style']['title_color'] = [
+    $form['content_styles']['style']['title_color'] = [
       '#type' => 'color',
       '#default_value' => '#ffffff',
       '#title' => $this->t('Title color'),
     ];
-    $form['content']['style']['text_color'] = [
+    $form['content_styles']['style']['text_color'] = [
       '#type' => 'color',
       '#default_value' => '#ffffff',
       '#title' => $this->t('Text color'),
@@ -649,7 +655,7 @@ class SwiperSliderForm extends EntityForm {
     ];
     $form['modules']['scrollbar']['track_color'] = [
       '#type' => 'color',
-      '#default_value' => '#0000001a',
+      '#default_value' => '#000000',
       '#title' => $this->t('Track color'),
       '#description' => $this->t('Scrollbar track color'),
       '#states' => [
@@ -660,7 +666,7 @@ class SwiperSliderForm extends EntityForm {
     ];
     $form['modules']['scrollbar']['thumb_color'] = [
       '#type' => 'color',
-      '#default_value' => '#00000080',
+      '#default_value' => '#000000',
       '#title' => $this->t('Thumb color'),
       '#description' => $this->t('Scrollbar thumb color'),
       '#states' => [
@@ -1220,6 +1226,13 @@ class SwiperSliderForm extends EntityForm {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function save(array $form, FormStateInterface $form_state): int {
+    $values = $form_state->getValues();
+    $this->entity
+      ->set('label', $values['main']['label'])
+      ->set('id', $values['main']['id'])
+      ->set('status', $values['main']['status'])
+      ->set('description', $values['main']['description'])
+      ->set('content', $values['content_styles']['content']);
     $result = parent::save($form, $form_state);
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW

@@ -36,7 +36,9 @@ use Drupal\swipers\SwiperSliderInterface;
  *   config_export = {
  *     "id",
  *     "label",
- *     "description"
+ *     "description",
+ *     "slider",
+ *     "content"
  *   }
  * )
  */
@@ -54,7 +56,7 @@ class SwiperSlider extends ConfigEntityBase implements SwiperSliderInterface {
    *
    * @var string
    */
-  protected string $label;
+  protected $label;
 
   /**
    * The slider status.
@@ -68,13 +70,20 @@ class SwiperSlider extends ConfigEntityBase implements SwiperSliderInterface {
    *
    * @var string
    */
-  protected string $description;
+  protected $description;
 
   /**
-   * The slider direction (ltr|rtl).
+   * The slider settings.
    *
-   * @var string
+   * @var array
    */
-  protected string $direction;
+  protected $slider = [];
+
+  /**
+   * The content settings.
+   *
+   * @var array
+   */
+  protected $content = [];
 
 }

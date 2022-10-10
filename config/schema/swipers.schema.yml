@@ -1,23 +1,59 @@
 swipers.slider.*:
   type: config_entity
-  label: 'Swiper Studio slider setting'
+  label: 'Swiper Studio slider settings'
   mapping:
-    main:
-      type: mapping
-      label: 'Timer'
-      mapping:
-        id:
-          type: string
-          label: 'ID'
-        label:
-          type: label
-          label: 'Label'
-        uuid:
-          type: string
-        description:
-          type: string
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    description:
+      type: string
     slider:
-      type: mapping
-      label: 'Slider'
-      mapping:
-        direction: string
+      type: sequence
+      sequence:
+        type: mapping
+        mapping:
+          direction:
+            type: string
+            label: 'Language direction'
+          style:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                size:
+                  type: string
+                  label: 'Slider size'
+                overflow:
+                  type: string
+                  label: 'Overflow'
+                padding_start:
+                  type: integer
+                  label: 'Padding start'
+                padding_end:
+                  type: integer
+                  label: 'Padding end'
+    content:
+      type: sequence
+      sequence:
+        type: mapping
+        mapping:
+          images:
+            type: boolean
+            label: 'Images'
+          images_set:
+            type: string
+            label: 'Images set'
+          title:
+            type: boolean
+            label: 'Title'
+          text:
+            type: boolean
+            label: 'Text'
+          position:
+            type: string
+            label: 'Content position'
