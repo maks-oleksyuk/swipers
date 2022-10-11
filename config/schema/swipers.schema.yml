@@ -28,6 +28,18 @@ swipers.slider.*:
                 size:
                   type: string
                   label: 'Slider size'
+                width_type:
+                  type: string
+                  label: 'Width'
+                width_value:
+                  type: integer
+                  label: 'Width value'
+                height_type:
+                  type: string
+                  label: 'Height'
+                height_value:
+                  type: integer
+                  label: 'Height value'
                 overflow:
                   type: string
                   label: 'Overflow'
@@ -37,23 +49,145 @@ swipers.slider.*:
                 padding_end:
                   type: integer
                   label: 'Padding end'
-    content:
+    slides:
       type: sequence
       sequence:
         type: mapping
         mapping:
-          images:
-            type: boolean
-            label: 'Images'
-          images_set:
+          content:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                images:
+                  type: boolean
+                  label: 'Images'
+                images_set:
+                  type: string
+                  label: 'Images set'
+                title:
+                  type: boolean
+                  label: 'Title'
+                text:
+                  type: boolean
+                  label: 'Text'
+                position:
+                  type: string
+                  label: 'Content position'
+          styles:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                border_radius:
+                  type: integer
+                  label: 'Slide border radius'
+                border_width:
+                  type: integer
+                  label: 'Slide border width'
+                border_color:
+                  type: string
+                  label: 'Slide border color'
+                vertical_start:
+                  type: integer
+                  label: 'Content vertical padding'
+                horizontal_start:
+                  type: integer
+                  label: 'Content horizontal padding'
+                background_color:
+                  type: string
+                  label: 'Background color'
+                title_color:
+                  type: string
+                  label: 'Title color'
+                text_color:
+                  type: string
+                  label: 'Text color'
+    parameters:
+      type: sequence
+      sequence:
+        type: mapping
+        mapping:
+          direction:
             type: string
-            label: 'Images set'
-          title:
-            type: boolean
-            label: 'Title'
-          text:
-            type: boolean
-            label: 'Text'
-          position:
+            label: 'Slide direction'
+          per_view:
             type: string
-            label: 'Content position'
+            label: 'Slides per view'
+          size_type:
+            type: string
+            label: 'Slide size'
+          size_value:
+            type: integer
+            label: 'Slide size value'
+          per_group:
+            type: string
+            label: 'Slides per group'
+          rows:
+            type: integer
+            label: 'Slides rows'
+          centered:
+            type: boolean
+            label: 'Centered slides'
+          space:
+            type: integer
+            label: 'Space between slides'
+          initial_slide:
+            type: integer
+            label: 'Initial slide'
+          auto_height:
+            type: boolean
+            label: 'Auto height'
+          grab_cursor:
+            type: boolean
+            label: 'Grab cursor'
+          slide_to_clicked_slide:
+            type: boolean
+            label: 'Slide to clicked slide'
+          loop_mode:
+            type: string
+            label: 'Loop mode'
+    effects:
+      type: sequence
+      sequence:
+        type: mapping
+        mapping:
+          effect:
+            type: string
+            label: 'Effect'
+          fade:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                crossfade:
+                  type: boolean
+                  label: 'Crossfade'
+          cube:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                slide_shadows:
+                  type: boolean
+                  label: 'Slide shadows'
+                main_shadow:
+                  type: boolean
+                  label: 'Main shadow'
+                main_shadow_offset:
+                  type: integer
+                  label: 'Main shadow offset'
+                main_shadow_scale:
+                  type: integer
+                  label: 'Main shadow scale'
+          coverflow:
+            type: sequence
+            sequence:
+              type: mapping
+              mapping:
+                slide_shadows:
+                  type: boolean
+                  label: 'Slide shadows'
+                depth:
+                  type: integer
+                  label: 'Depth'

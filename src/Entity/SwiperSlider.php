@@ -38,7 +38,9 @@ use Drupal\swipers\SwiperSliderInterface;
  *     "label",
  *     "description",
  *     "slider",
- *     "content"
+ *     "slides",
+ *     "parameters",
+ *     "effects"
  *   }
  * )
  */
@@ -80,10 +82,24 @@ class SwiperSlider extends ConfigEntityBase implements SwiperSliderInterface {
   protected $slider = [];
 
   /**
-   * The content settings.
+   * Slides Content & Styles settings.
    *
    * @var array
    */
-  protected $content = [];
+  protected $slides = [];
+
+  /**
+   * Parameters.
+   *
+   * @var array
+   */
+  protected $parameters = [];
+
+  /**
+   * Effects.
+   *
+   * @var array
+   */
+  protected $effects = [];
 
 }

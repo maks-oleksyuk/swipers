@@ -37,6 +37,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $this->entity->id(),
       '#machine_name' => [
         'exists' => '\Drupal\swipers\Entity\SwiperSlider::load',
+        'source' => ['main', 'label'],
       ],
       '#disabled' => !$this->entity->isNew(),
     ];
@@ -51,7 +52,8 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $this->entity->get('description'),
       '#description' => $this->t('Description of the slider.'),
     ];
-
+    // Slider.
+    $slider = $this->entity->get('slider');
     $form['slider'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Slider'),
@@ -59,13 +61,13 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t('Language direction'),
-      '#default_value' => $this->entity->get('slider')['direction'] ?? 'ltr',
+      '#default_value' => $slider['direction'] ?? 'ltr',
       '#options' => [
-        'ltr' => 'ltr',
-        'rtl' => 'rtl',
+        'ltr' => 'LTR',
+        'rtl' => 'RTL',
       ],
     ];
-
+    // Slider sizes & styles.
     $form['slider']['style'] = [
       '#type' => 'details',
       '#open' => FALSE,
@@ -74,16 +76,65 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['style']['size'] = [
       '#type' => 'select',
       '#title' => $this->t('Slider size'),
-      '#default_value' => $this->entity->get('slider')['style']['size'] ?? 'responsive',
+      '#default_value' => $slider['style']['size'] ?? 'responsive',
       '#options' => [
         'responsive' => 'responsive',
         'custom' => 'custom',
       ],
     ];
+    // @todo add ajax function to change max and step parameters
+    $form['slider']['style']['width_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Width'),
+      '#default_value' => $slider['style']['width_type'] ?? NULL,
+      '#options' => [
+        'relative' => 'relative',
+        'fixed' => 'fixed',
+      ],
+      '#states' => [
+        'visible' => [
+          'select[name="slider[style][size]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
+    $form['slider']['style']['width_value'] = [
+      '#type' => 'range',
+      '#default_value' => $slider['style']['width_value'] ?? NULL,
+      '#min' => 0,
+      '#states' => [
+        'visible' => [
+          'select[name="slider[style][size]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
+    $form['slider']['style']['height_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Height'),
+      '#default_value' => $slider['style']['height_type'] ?? NULL,
+      '#options' => [
+        'relative' => 'relative',
+        'fixed' => 'fixed',
+      ],
+      '#states' => [
+        'visible' => [
+          'select[name="slider[style][size]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
+    $form['slider']['style']['height_value'] = [
+      '#type' => 'range',
+      '#default_value' => $slider['style']['height_value'] ?? NULL,
+      '#min' => 0,
+      '#states' => [
+        'visible' => [
+          'select[name="slider[style][size]"]' => ['value' => 'custom'],
+        ],
+      ],
+    ];
     $form['slider']['style']['overflow'] = [
       '#type' => 'select',
       '#title' => $this->t('Overflow'),
-      '#default_value' => $this->entity->get('slider')['style']['overflow'] ?? 'hidden',
+      '#default_value' => $slider['style']['overflow'] ?? 'hidden',
       '#options' => [
         'hidden' => 'hidden',
         'visible' => 'visible',
@@ -96,7 +147,7 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $this->entity->get('slider')['style']['padding_start'] ?? 0,
+      '#default_value' => $slider['style']['padding_start'] ?? 0,
     ];
     $form['slider']['style']['padding_end'] = [
       '#type' => 'range',
@@ -105,24 +156,26 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $this->entity->get('slider')['style']['padding_end'] ?? 0,
+      '#default_value' => $slider['style']['padding_end'] ?? 0,
     ];
-
-    $form['content_styles'] = [
+    // Slides Content & Styles.
+    $slides = $this->entity->get('slides');
+    $form['slides'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Slider sizes & styles'),
+      '#title' => $this->t('Slides Content & Styles'),
     ];
-    $form['content_styles']['content'] = [
+    // Slides Content.
+    $form['slides']['content'] = [
       '#type' => 'details',
       '#open' => FALSE,
       '#title' => $this->t('Slides content'),
     ];
-    $form['content_styles']['content']['images'] = [
+    $form['slides']['content']['images'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Images'),
-      '#default_value' => FALSE,
+      '#default_value' => $slides['content']['images'] ?? FALSE,
     ];
-    $form['content_styles']['content']['images_set'] = [
+    $form['slides']['content']['images_set'] = [
       '#type' => 'select',
       '#title' => $this->t('Images set'),
       '#options' => [
@@ -131,23 +184,24 @@ class SwiperSliderForm extends EntityForm {
         'movies' => 'movies',
         'custom' => 'custom',
       ],
+      '#default_value' => $slides['content']['images_set'] ?? FALSE,
       '#states' => [
         'visible' => [
-          'input[name="images"]' => ['checked' => TRUE],
+          'input[name="slides[content][images]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['content_styles']['content']['title'] = [
+    $form['slides']['content']['title'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Title'),
-      '#default_value' => TRUE,
+      '#default_value' => $slides['content']['title'] ?? TRUE,
     ];
-    $form['content_styles']['content']['text'] = [
+    $form['slides']['content']['text'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Text'),
-      '#default_value' => FALSE,
+      '#default_value' => $slides['content']['text'] ?? FALSE,
     ];
-    $form['content_styles']['content']['position'] = [
+    $form['slides']['content']['position'] = [
       '#type' => 'select',
       '#title' => $this->t('Content position'),
       '#options' => [
@@ -161,75 +215,76 @@ class SwiperSliderForm extends EntityForm {
         'center_bottom' => 'center bottom',
         'right_bottom' => 'right bottom',
       ],
-      '#attributes' => [
-        'name' => 'content_position',
-      ],
+      '#default_value' => $slides['content']['position'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="text"]' => ['checked' => TRUE]],
-          [':input[name="title"]' => ['checked' => TRUE]],
+          [':input[name="slides[content][title]"]' => ['checked' => TRUE]],
+          [':input[name="slides[content][text]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
     // @todo add form item with modal form to custom content.
-    $form['content_styles']['style'] = [
+    // Slides Styles.
+    $form['slides']['style'] = [
       '#type' => 'details',
       '#open' => FALSE,
       '#title' => $this->t('Slides styles'),
     ];
-    $form['content_styles']['style']['border_radius'] = [
+    $form['slides']['style']['border_radius'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border radius'),
       '#min' => 0,
-      '#max' => 56,
+      '#max' => 64,
       '#step' => 2,
-      '#default_value' => 0,
+      '#default_value' => $slides['style']['border_radius'] ?? 0,
     ];
-    $form['content_styles']['style']['border_width'] = [
+    $form['slides']['style']['border_width'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border width'),
       '#min' => 0,
       '#max' => 16,
       '#step' => 1,
-      '#default_value' => 0,
+      '#default_value' => $slides['style']['border_width'] ?? 0,
     ];
-    $form['content_styles']['style']['border_color'] = [
+    $form['slides']['style']['border_color'] = [
       '#type' => 'color',
-      '#default_value' => '#ff0000',
+      '#default_value' => $slides['style']['border_color'] ?? '#ff0000',
       '#title' => $this->t('Slide border color'),
     ];
-    $form['content_styles']['style']['vertical_start'] = [
+    $form['slides']['style']['vertical_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Content vertical padding'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => 48,
+      '#default_value' => $slides['style']['vertical_start'] ?? 48,
     ];
-    $form['content_styles']['style']['horizontal_start'] = [
+    $form['slides']['style']['horizontal_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Content horizontal padding'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => 48,
+      '#default_value' => $slides['style']['horizontal_start'] ?? 48,
     ];
-    $form['content_styles']['style']['background_color'] = [
+    $form['slides']['style']['background_color'] = [
       '#type' => 'color',
-      '#default_value' => '#333333',
       '#title' => $this->t('Background color'),
+      '#description' => $this->t('Slide background color, will be disabled if parallax and images are enabled'),
+      '#default_value' => $slides['style']['background_color'] ?? '#333333',
     ];
-    $form['content_styles']['style']['title_color'] = [
+    $form['slides']['style']['title_color'] = [
       '#type' => 'color',
-      '#default_value' => '#ffffff',
       '#title' => $this->t('Title color'),
+      '#default_value' => $slides['style']['title_color'] ?? '#ffffff',
     ];
-    $form['content_styles']['style']['text_color'] = [
+    $form['slides']['style']['text_color'] = [
       '#type' => 'color',
-      '#default_value' => '#ffffff',
       '#title' => $this->t('Text color'),
+      '#default_value' => $slides['style']['text_color'] ?? '#ffffff',
     ];
-
+    // Parameters.
+    $params = $this->entity->get('parameters');
     $form['parameters'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Parameters'),
@@ -241,26 +296,56 @@ class SwiperSliderForm extends EntityForm {
         'horizontal' => 'horizontal',
         'vertical' => 'vertical',
       ],
-      '#attributes' => [
-        'name' => 'parameters_direction',
-      ],
+      '#default_value' => $params['direction'] ?? 'horizontal',
     ];
     $form['parameters']['per_view'] = [
       '#type' => 'select',
       '#title' => $this->t('Slides per view'),
       '#description' => $this->t("Number of slides per view (slides visible at the same time on slider's container)"),
       '#options' => [
-        '1' => '1',
-        '2' => '2',
-        '3' => '3',
-        '4' => '4',
-        '5' => '5',
-        '6' => '6',
-        '7' => '7',
-        '8' => '8',
-        '9' => '9',
-        '10' => '10',
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9,
+        '10' => 10,
         'auto' => 'auto',
+      ],
+      '#default_value' => $params['per_view'] ?? 1,
+      '#states' => [
+        'disabled' => [
+          ['select[name="effects[effect]"]' => ['value' => 'fade']],
+          ['select[name="effects[effect]"]' => ['value' => 'cube']],
+          ['select[name="effects[effect]"]' => ['value' => 'flip']],
+        ],
+      ],
+    ];
+    $form['parameters']['size_type'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Slide size'),
+      '#default_value' => $params['size_type'] ?? NULL,
+      '#options' => [
+        'relative' => 'relative',
+        'fixed' => 'fixed',
+      ],
+      '#states' => [
+        'visible' => [
+          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
+        ],
+      ],
+    ];
+    $form['parameters']['size_value'] = [
+      '#type' => 'range',
+      '#default_value' => $params['size_value'] ?? NULL,
+      '#min' => 0,
+      '#states' => [
+        'visible' => [
+          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
+        ],
       ],
     ];
     $form['parameters']['per_group'] = [
@@ -268,17 +353,25 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides per group'),
       '#description' => $this->t('Set numbers of slides to define and enable group sliding. Useful to use with "Slides per view" > 1'),
       '#options' => [
-        '1' => '1',
-        '2' => '2',
-        '3' => '3',
-        '4' => '4',
-        '5' => '5',
-        '6' => '6',
-        '7' => '7',
-        '8' => '8',
-        '9' => '9',
-        '10' => '10',
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9,
+        '10' => 10,
         'auto' => 'auto',
+      ],
+      '#default_value' => $params['per_group'] ?? 1,
+      '#states' => [
+        'disabled' => [
+          ['select[name="effects[effect]"]' => ['value' => 'fade']],
+          ['select[name="effects[effect]"]' => ['value' => 'cube']],
+          ['select[name="effects[effect]"]' => ['value' => 'flip']],
+        ],
       ],
     ];
     $form['parameters']['rows'] = [
@@ -286,63 +379,88 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides rows'),
       '#description' => $this->t('Number of slides rows, for multirow layout'),
       '#options' => [
-        '1' => '1',
-        '2' => '2',
-        '3' => '3',
-        '4' => '4',
-        '5' => '5',
-        '6' => '6',
-        '7' => '7',
-        '8' => '8',
-        '9' => '9',
-        '10' => '10',
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9,
+        '10' => 10,
+      ],
+      '#default_value' => $params['rows'] ?? 1,
+      '#states' => [
+        'disabled' => [
+          'select[name="parameters[direction]"]' => ['value' => 'vertical'],
+        ],
       ],
     ];
     $form['parameters']['centered'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Centered slides'),
       '#description' => $this->t('If enabled, then active slide will be centered, not always on the left side'),
+      '#default_value' => $params['centered'] ?? FALSE,
+      '#states' => [
+        'disabled' => [
+          ['select[name="effects[effect]"]' => ['value' => 'fade']],
+          ['select[name="effects[effect]"]' => ['value' => 'cube']],
+          ['select[name="effects[effect]"]' => ['value' => 'flip']],
+        ],
+      ],
     ];
-    $form['parameters']['style']['space'] = [
+    $form['parameters']['space'] = [
       '#type' => 'range',
       '#title' => $this->t('Space between slides'),
       '#description' => $this->t('Distance between slides'),
       '#min' => 0,
       '#max' => 100,
       '#step' => 1,
-      '#default_value' => 0,
+      '#default_value' => $params['space'] ?? 0,
     ];
     $form['parameters']['initial_slide'] = [
       '#type' => 'select',
       '#title' => $this->t('Initial slide'),
       '#description' => $this->t('Index number of initial slide (starts from 0)'),
       '#options' => [
-        '0' => '0',
-        '1' => '1',
-        '2' => '2',
-        '3' => '3',
-        '4' => '4',
-        '5' => '5',
-        '6' => '6',
-        '7' => '7',
-        '8' => '8',
-        '9' => '9',
+        '0' => 0,
+        '1' => 1,
+        '2' => 2,
+        '3' => 3,
+        '4' => 4,
+        '5' => 5,
+        '6' => 6,
+        '7' => 7,
+        '8' => 8,
+        '9' => 9,
       ],
+      '#default_value' => $params['initial_slide'] ?? 0,
     ];
     $form['parameters']['auto_height'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Auto height'),
       '#description' => $this->t('Enable and slider wrapper will adapt its height to the height of the currently active slide'),
+      '#default_value' => $params['auto_height'] ?? FALSE,
     ];
     $form['parameters']['grab_cursor'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Grab cursor'),
       '#description' => $this->t('This option may a little improve desktop usability. If enabled, user will see the "grab" cursor when hover on Swiper'),
+      '#default_value' => $params['grab_cursor'] ?? FALSE,
     ];
     $form['parameters']['slide_to_clicked_slide'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Slide to clicked slide'),
       '#description' => $this->t('Enable and click on any slide will produce transition to this slide'),
+      '#default_value' => $params['slide_to_clicked_slide'] ?? FALSE,
+      '#states' => [
+        'disabled' => [
+          ['select[name="effects[effect]"]' => ['value' => 'fade']],
+          ['select[name="effects[effect]"]' => ['value' => 'cube']],
+          ['select[name="effects[effect]"]' => ['value' => 'flip']],
+        ],
+      ],
     ];
     $form['parameters']['loop_mode'] = [
       '#type' => 'select',
@@ -353,8 +471,10 @@ class SwiperSliderForm extends EntityForm {
         'loop' => 'loop',
         'rewind' => 'rewind',
       ],
+      '#default_value' => $params['loop_mode'] ?? 'disabled',
     ];
-
+    // Effects.
+    $effects = $this->entity->get('effects');
     $form['effects'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Effects'),
@@ -375,7 +495,133 @@ class SwiperSliderForm extends EntityForm {
         'slicer' => 'slicer',
         'gl' => 'gl',
       ],
+      '#default_value' => $effects['effect'] ?? 'slide',
     ];
+    // Fade.
+    $form['effects']['fade'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['fade']['crossfade'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Crossfade'),
+      '#description' => $this->t('Enables slides cross fade'),
+      '#default_value' => $effects['fade']['crossfade'] ?? FALSE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'fade'],
+        ],
+      ],
+    ];
+    // Cube.
+    $form['effects']['cube'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['cube']['slide_shadows'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Slide shadows'),
+      '#description' => $this->t('Enables slides shadows'),
+      '#default_value' => $effects['cube']['slide_shadows'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cube'],
+        ],
+      ],
+    ];
+    $form['effects']['cube']['main_shadow'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Main shadow'),
+      '#description' => $this->t('Enables main slider shadow'),
+      '#default_value' => $effects['cube']['main_shadow'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cube'],
+        ],
+      ],
+    ];
+    $form['effects']['cube']['main_shadow_offset'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Main shadow offset'),
+      '#description' => $this->t('Main shadow offset in px'),
+      '#min' => 0,
+      '#max' => 100,
+      '#step' => 1,
+      '#default_value' => $effects['cube']['main_shadow_offset'] ?? 20,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cube'],
+        ],
+      ],
+    ];
+    $form['effects']['cube']['main_shadow_scale'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Main shadow scale'),
+      '#description' => $this->t('Main shadow scale ratio'),
+      '#min' => 0,
+      '#max' => 2,
+      '#step' => 0.01,
+      '#default_value' => $effects['cube']['main_shadow_scale'] ?? 0.94,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cube'],
+        ],
+      ],
+    ];
+    // Flip.
+    $form['effects']['flip'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['flip']['slide_shadows'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Slide shadows'),
+      '#description' => $this->t('Enables slides shadows'),
+      '#default_value' => $effects['flip']['slide_shadows'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'flip'],
+        ],
+      ],
+    ];
+    $form['effects']['flip']['limit_rotation'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Limit rotation'),
+      '#description' => $this->t('Limit edge slides rotation'),
+      '#default_value' => $effects['flip']['limit_rotation'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'flip'],
+        ],
+      ],
+    ];
+    // Coverflow.
+    $form['effects']['coverflow'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['coverflow']['slide_shadows'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Slide shadows'),
+      '#description' => $this->t('Enables slides shadows'),
+      '#default_value' => $effects['coverflow']['slide_shadows'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    $form['effects']['coverflow']['depth'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Depth'),
+      '#description' => $this->t('Main shadow offset in px'),
+      '#min' => 0,
+      '#max' => 1000,
+      '#step' => 1,
+      '#default_value' => $effects['coverflow']['depth'] ?? 100,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+
     $form['effects']['duration'] = [
       '#type' => 'range',
       '#title' => $this->t('Transition duration'),
@@ -383,7 +629,7 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 10000,
       '#step' => 100,
-      '#default_value' => 300,
+      '#default_value' => $effects['duration'] ?? 300,
     ];
 
     $form['modules'] = [
@@ -1231,8 +1477,7 @@ class SwiperSliderForm extends EntityForm {
       ->set('label', $values['main']['label'])
       ->set('id', $values['main']['id'])
       ->set('status', $values['main']['status'])
-      ->set('description', $values['main']['description'])
-      ->set('content', $values['content_styles']['content']);
+      ->set('description', $values['main']['description']);
     $result = parent::save($form, $form_state);
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW
