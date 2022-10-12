@@ -297,6 +297,11 @@ class SwiperSliderForm extends EntityForm {
         'vertical' => 'vertical',
       ],
       '#default_value' => $params['direction'] ?? 'horizontal',
+      '#states' => [
+        'disabled' => [
+          'select[name="effects[effect]"]' => ['value' => 'carousel'],
+        ],
+      ],
     ];
     $form['parameters']['per_view'] = [
       '#type' => 'select',
@@ -321,6 +326,10 @@ class SwiperSliderForm extends EntityForm {
           ['select[name="effects[effect]"]' => ['value' => 'fade']],
           ['select[name="effects[effect]"]' => ['value' => 'cube']],
           ['select[name="effects[effect]"]' => ['value' => 'flip']],
+          ['select[name="effects[effect]"]' => ['value' => 'cards']],
+          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
+          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
+          ['select[name="effects[effect]"]' => ['value' => 'gl']],
         ],
       ],
     ];
@@ -371,6 +380,11 @@ class SwiperSliderForm extends EntityForm {
           ['select[name="effects[effect]"]' => ['value' => 'fade']],
           ['select[name="effects[effect]"]' => ['value' => 'cube']],
           ['select[name="effects[effect]"]' => ['value' => 'flip']],
+          ['select[name="effects[effect]"]' => ['value' => 'cards']],
+          ['select[name="effects[effect]"]' => ['value' => 'carousel']],
+          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
+          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
+          ['select[name="effects[effect]"]' => ['value' => 'gl']],
         ],
       ],
     ];
@@ -407,6 +421,11 @@ class SwiperSliderForm extends EntityForm {
           ['select[name="effects[effect]"]' => ['value' => 'fade']],
           ['select[name="effects[effect]"]' => ['value' => 'cube']],
           ['select[name="effects[effect]"]' => ['value' => 'flip']],
+          ['select[name="effects[effect]"]' => ['value' => 'cards']],
+          ['select[name="effects[effect]"]' => ['value' => 'carousel']],
+          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
+          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
+          ['select[name="effects[effect]"]' => ['value' => 'gl']],
         ],
       ],
     ];
@@ -459,6 +478,12 @@ class SwiperSliderForm extends EntityForm {
           ['select[name="effects[effect]"]' => ['value' => 'fade']],
           ['select[name="effects[effect]"]' => ['value' => 'cube']],
           ['select[name="effects[effect]"]' => ['value' => 'flip']],
+          ['select[name="effects[effect]"]' => ['value' => 'cards']],
+          ['select[name="effects[effect]"]' => ['value' => 'panorama']],
+          ['select[name="effects[effect]"]' => ['value' => 'carousel']],
+          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
+          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
+          ['select[name="effects[effect]"]' => ['value' => 'gl']],
         ],
       ],
     ];
@@ -610,7 +635,7 @@ class SwiperSliderForm extends EntityForm {
     $form['effects']['coverflow']['depth'] = [
       '#type' => 'range',
       '#title' => $this->t('Depth'),
-      '#description' => $this->t('Main shadow offset in px'),
+      '#description' => $this->t('Depth offset in px (slides translate in Z axis)'),
       '#min' => 0,
       '#max' => 1000,
       '#step' => 1,
@@ -618,6 +643,191 @@ class SwiperSliderForm extends EntityForm {
       '#states' => [
         'visible' => [
           'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    $form['effects']['coverflow']['rotate'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Rotate'),
+      '#description' => $this->t('Slide rotate in degrees'),
+      '#min' => 0,
+      '#max' => 360,
+      '#step' => 1,
+      '#default_value' => $effects['coverflow']['rotate'] ?? 50,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    $form['effects']['coverflow']['scale'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Scale'),
+      '#description' => $this->t('Slide scale effect'),
+      '#min' => 0,
+      '#max' => 2,
+      '#step' => 0.05,
+      '#default_value' => $effects['coverflow']['scale'] ?? 1,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    $form['effects']['coverflow']['stretch'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Stretch'),
+      '#description' => $this->t('Stretch space between slides (in px)'),
+      '#min' => -100,
+      '#max' => 100,
+      '#step' => 1,
+      '#default_value' => $effects['coverflow']['stretch'] ?? 0,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    $form['effects']['coverflow']['multiplier'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Effect multiplier'),
+      '#min' => -0,
+      '#max' => 3,
+      '#step' => 0.1,
+      '#default_value' => $effects['coverflow']['multiplier'] ?? 1,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'coverflow'],
+        ],
+      ],
+    ];
+    // Cards.
+    $form['effects']['cards'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['cards']['slide_shadows'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Slide shadows'),
+      '#description' => $this->t('Enables slides shadows'),
+      '#default_value' => $effects['cards']['slide_shadows'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cards'],
+        ],
+      ],
+    ];
+    $form['effects']['cards']['rotate'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Rotate'),
+      '#description' => $this->t('Enables cards rotation'),
+      '#default_value' => $effects['cards']['rotate'] ?? TRUE,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'cards'],
+        ],
+      ],
+    ];
+    // Panorama.
+    $form['effects']['panorama'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['panorama']['depth'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Depth'),
+      '#description' => $this->t('Depth offset in px'),
+      '#min' => 0,
+      '#max' => 1000,
+      '#step' => 10,
+      '#default_value' => $effects['panorama']['depth'] ?? 200,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'panorama'],
+        ],
+      ],
+    ];
+    $form['effects']['panorama']['rotate'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Rotate'),
+      '#description' => $this->t('Slides "arc" rotate in degrees'),
+      '#min' => 0,
+      '#max' => 60,
+      '#step' => 1,
+      '#default_value' => $effects['panorama']['rotate'] ?? 30,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'panorama'],
+        ],
+      ],
+    ];
+    // Shutters.
+    $form['effects']['shutters'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['shutters']['split'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Split'),
+      '#description' => $this->t('Split images into panes (shutters)'),
+      '#min' => 3,
+      '#max' => 10,
+      '#step' => 1,
+      '#default_value' => $effects['shutters']['split'] ?? 5,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'shutters'],
+        ],
+      ],
+    ];
+    // Slicer.
+    $form['effects']['slicer'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['slicer']['split'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Split'),
+      '#description' => $this->t('Split images into slices'),
+      '#min' => 2,
+      '#max' => 20,
+      '#step' => 1,
+      '#default_value' => $effects['slicer']['split'] ?? 5,
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'slicer'],
+        ],
+      ],
+    ];
+    // Gl.
+    $form['effects']['gl'] = [
+      '#type' => 'container',
+    ];
+    $form['effects']['gl']['shader'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Shader'),
+      '#description' => $this->t('Shader used for transition effect. If set to "random" it will randomly pick new shader with every new transition'),
+      '#options' => [
+        'random' => 'random',
+        'dots' => 'dots',
+        'flyeye' => 'flyeye',
+        'morph_x' => 'morph x',
+        'morph_y' => 'morph y',
+        'page_curl' => 'page curl',
+        'peel_x' => 'peel x',
+        'peel_y' => 'peel y',
+        'polygons_fall' => 'polygons fall',
+        'polygons_morph' => 'polygons morph',
+        'polygons_wind' => 'polygons wind',
+        'pixelize' => 'pixelize',
+        'ripple' => 'ripple',
+        'shutters' => 'shutters',
+        'slices' => 'slices',
+        'squares' => 'squares',
+        'stretch' => 'stretch',
+        'wave_x' => 'wave x',
+        'wind' => 'wind',
+      ],
+      '#default_value' => $effects['gl']['shader'] ?? 'random',
+      '#states' => [
+        'visible' => [
+          'select[name="effects[effect]"]' => ['value' => 'gl'],
         ],
       ],
     ];
@@ -631,32 +841,30 @@ class SwiperSliderForm extends EntityForm {
       '#step' => 100,
       '#default_value' => $effects['duration'] ?? 300,
     ];
-
+    // Modules.
+    $modules = $this->entity->get('modules');
     $form['modules'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Modules'),
     ];
-
+    // Navigation.
     $form['modules']['navigation'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Navigation'),
     ];
     $form['modules']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Navigation'),
       '#description' => $this->t('Enables navigation arrows/buttons'),
-      '#attributes' => [
-        'name' => 'navigation_status',
-      ],
+      '#default_value' => $modules['navigation']['status'] ?? FALSE,
     ];
     $form['modules']['navigation']['color'] = [
       '#type' => 'color',
-      '#default_value' => '#007afa',
       '#title' => $this->t('Color'),
       '#description' => $this->t('Navigation buttons color'),
+      '#default_value' => $modules['navigation']['color'] ?? '#007afa',
       '#states' => [
         'visible' => [
-          [':input[name="navigation_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -668,9 +876,10 @@ class SwiperSliderForm extends EntityForm {
         'inside' => 'inside',
         'outside' => 'outside',
       ],
+      '#default_value' => $modules['navigation']['placement'] ?? 'inside',
       '#states' => [
         'visible' => [
-          [':input[name="navigation_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -683,12 +892,10 @@ class SwiperSliderForm extends EntityForm {
         'center' => 'center',
         'bottom' => 'bottom',
       ],
-      '#attributes' => [
-        'name' => 'navigation_position',
-      ],
+      '#default_value' => $modules['navigation']['placement'] ?? 'center',
       '#states' => [
         'visible' => [
-          [':input[name="navigation_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -696,33 +903,31 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Hide on click'),
       '#description' => $this->t("Toggle navigation buttons visibility after click on Slider's container"),
+      '#default_value' => $modules['navigation']['hide_on_click'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="navigation_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
-
+    // Pagination.
     $form['modules']['pagination'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Pagination'),
     ];
     $form['modules']['pagination']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Pagination'),
       '#description' => $this->t('Enables pagination'),
-      '#attributes' => [
-        'name' => 'pagination_status',
-      ],
+      '#default_value' => $modules['pagination']['status'] ?? FALSE,
     ];
     $form['modules']['pagination']['color'] = [
       '#type' => 'color',
-      '#default_value' => '#007afa',
       '#title' => $this->t('Color'),
       '#description' => $this->t('Pagination color'),
+      '#default_value' => $modules['pagination']['color'] ?? '#007afa',
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -734,9 +939,10 @@ class SwiperSliderForm extends EntityForm {
         'inside' => 'inside',
         'outside' => 'outside',
       ],
+      '#default_value' => $modules['pagination']['placement'] ?? 'inside',
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -748,12 +954,10 @@ class SwiperSliderForm extends EntityForm {
         'start' => 'start',
         'end' => 'end',
       ],
-      '#attributes' => [
-        'name' => 'pagination_position',
-      ],
+      '#default_value' => $modules['pagination']['position'] ?? 'end',
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -761,9 +965,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Hide on click'),
       '#description' => $this->t("Toggle (hide/show) pagination container visibility after click on Slider's container"),
+      '#default_value' => $modules['pagination']['hide_on_click'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -775,9 +980,10 @@ class SwiperSliderForm extends EntityForm {
         'progressbar' => 'progressbar',
         'fraction' => 'fraction',
       ],
+      '#default_value' => $modules['pagination']['type'] ?? 'bullets',
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
         ],
       ],
     ];
@@ -785,9 +991,11 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Clickable'),
       '#description' => $this->t('If enabled then clicking on pagination button will cause transition to appropriate slide. Only for "bullets" pagination type'),
+      '#default_value' => $modules['pagination']['clickable'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
+          'select[name="modules[pagination][type]"]' => ['value' => 'bullets'],
         ],
       ],
     ];
@@ -795,9 +1003,11 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Dynamic bullets'),
       '#description' => $this->t('Good to enable if you use bullets pagination with a lot of slides. So it will keep only few bullets visible at the same time'),
+      '#default_value' => $modules['pagination']['dynamic_bullets'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
+          'select[name="modules[pagination][type]"]' => ['value' => 'bullets'],
         ],
       ],
     ];
@@ -808,28 +1018,38 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 1,
       '#max' => 10,
       '#step' => 1,
-      '#default_value' => 1,
+      '#default_value' => $modules['pagination']['dynamic_main_bullets'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="pagination_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
+          'select[name="modules[pagination][type]"]' => ['value' => 'bullets'],
         ],
         'disabled' => [
-          [':input[name="dynamic_bullets"]' => ['checked' => FALSE]],
+          ':input[name="modules[pagination][dynamic_bullets]"]' => ['checked' => FALSE],
         ],
       ],
     ];
-
+    $form['modules']['pagination']['progressbar_opposite'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Progressbar opposite'),
+      '#description' => $this->t("Makes pagination progressbar opposite to Swiper's direction parameter, means vertical progressbar for horizontal swiper direction and horizontal progressbar for vertical swiper direction"),
+      '#default_value' => $modules['pagination']['progressbar_opposite'] ?? FALSE,
+      '#states' => [
+        'visible' => [
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
+          'select[name="modules[pagination][type]"]' => ['value' => 'progressbar'],
+        ],
+      ],
+    ];
+    // Autoplay.
     $form['modules']['autoplay'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Autoplay'),
     ];
     $form['modules']['autoplay']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Autoplay'),
       '#description' => $this->t('Enables autoplay'),
-      '#attributes' => [
-        'name' => 'autoplay_status',
-      ],
+      '#default_value' => $modules['autoplay']['status'] ?? FALSE,
     ];
     $form['modules']['autoplay']['delay'] = [
       '#type' => 'range',
@@ -838,10 +1058,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 10000,
       '#step' => 100,
-      '#default_value' => 3000,
+      '#default_value' => $modules['autoplay']['delay'] ?? 3000,
       '#states' => [
         'visible' => [
-          [':input[name="autoplay_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[autoplay][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -849,9 +1069,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Pause on pointer enter'),
       '#description' => $this->t('When enabled autoplay will be paused on mouse enter over Swiper container. If "Disable on interaction" is also enabled, it will stop autoplay instead of pause'),
+      '#default_value' => $modules['autoplay']['pause'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="autoplay_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[autoplay][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -859,10 +1080,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Disable on interaction'),
       '#description' => $this->t('Disabled and autoplay will not be disabled after user interactions (swipes), it will be restarted every time after interaction'),
-      '#default_value' => TRUE,
+      '#default_value' => $modules['autoplay']['disable'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="autoplay_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[autoplay][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -870,9 +1091,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Reverse direction'),
       '#description' => $this->t('Enables autoplay in reverse direction'),
+      '#default_value' => $modules['autoplay']['reverse_direction'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="autoplay_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[autoplay][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -880,44 +1102,42 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Stop on last slide'),
       '#description' => $this->t('When enabled autoplay will be stopped when it reaches last slide (has no effect in loop mode)'),
+      '#default_value' => $modules['autoplay']['stop_on_last_slide'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="autoplay_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[autoplay][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Scrollbar.
     $form['modules']['scrollbar'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Scrollbar'),
     ];
     $form['modules']['scrollbar']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Scrollbar'),
       '#description' => $this->t('Enables scrollbar'),
-      '#attributes' => [
-        'name' => 'scrollbar_status',
-      ],
+      '#default_value' => $modules['scrollbar']['status'] ?? FALSE,
     ];
     $form['modules']['scrollbar']['track_color'] = [
       '#type' => 'color',
-      '#default_value' => '#000000',
       '#title' => $this->t('Track color'),
       '#description' => $this->t('Scrollbar track color'),
+      '#default_value' => $modules['scrollbar']['track_color'] ?? '#000000',
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
     $form['modules']['scrollbar']['thumb_color'] = [
       '#type' => 'color',
-      '#default_value' => '#000000',
       '#title' => $this->t('Thumb color'),
       '#description' => $this->t('Scrollbar thumb color'),
+      '#default_value' => $modules['scrollbar']['thumb_color'] ?? '#3b3b3b',
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -929,9 +1149,10 @@ class SwiperSliderForm extends EntityForm {
         'inside' => 'inside',
         'outside' => 'outside',
       ],
+      '#default_value' => $modules['scrollbar']['placement'] ?? 'inside',
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -943,12 +1164,10 @@ class SwiperSliderForm extends EntityForm {
         'start' => 'start',
         'end' => 'end',
       ],
-      '#attributes' => [
-        'name' => 'scrollbar_position',
-      ],
+      '#default_value' => $modules['scrollbar']['position'] ?? 'end',
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -956,9 +1175,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Draggable'),
       '#description' => $this->t('Makes scrollbar draggable that allows you to control slider position'),
+      '#default_value' => $modules['scrollbar']['draggable'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -966,10 +1186,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Hide after interaction'),
       '#description' => $this->t('Hide scrollbar automatically after user interaction'),
-      '#default_value' => TRUE,
+      '#default_value' => $modules['scrollbar']['hide_after_interaction'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -977,32 +1197,31 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Snap on release'),
       '#description' => $this->t('Snap slider position to slides when you release scrollbar'),
+      '#default_value' => $modules['scrollbar']['snap_on_release'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="scrollbar_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[scrollbar][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Free mode.
     $form['modules']['free_mode'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Free mode'),
     ];
     $form['modules']['free_mode']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Free mode'),
       '#description' => $this->t('Enables free mode'),
-      '#attributes' => [
-        'name' => 'free_mode_status',
-      ],
+      '#default_value' => $modules['free_mode']['status'] ?? FALSE,
     ];
     $form['modules']['free_mode']['sticky'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Sticky'),
       '#description' => $this->t('Enables snap to slides positions in free mode'),
+      '#default_value' => $modules['free_mode']['sticky'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1010,9 +1229,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Momentum'),
       '#description' => $this->t('If enabled, then slide will keep moving for a while after you release it'),
+      '#default_value' => $modules['free_mode']['momentum'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1020,10 +1240,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Momentum bounce'),
       '#description' => $this->t('Enables momentum bounce in free mode'),
-      '#default_value' => TRUE,
+      '#default_value' => $modules['free_mode']['momentum_bounce'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1034,10 +1254,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0.1,
       '#max' => 3,
       '#step' => 0.1,
-      '#default_value' => 1,
+      '#default_value' => $modules['free_mode']['momentum_bounce_ratio'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1048,10 +1268,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0.1,
       '#max' => 3,
       '#step' => 0.1,
-      '#default_value' => 1,
+      '#default_value' => $modules['free_mode']['momentum_ratio'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1062,34 +1282,31 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0.1,
       '#max' => 3,
       '#step' => 0.1,
-      '#default_value' => 1,
+      '#default_value' => $modules['free_mode']['momentum_ratio'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="free_mode_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[free_mode][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Keyboard control.
     $form['modules']['keyboard_control'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Keyboard control'),
     ];
     $form['modules']['keyboard_control']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Keyboard control'),
       '#description' => $this->t('Enables keyboard control'),
-      '#attributes' => [
-        'name' => 'keyboard_control_status',
-      ],
+      '#default_value' => $modules['keyboard_control']['status'] ?? FALSE,
     ];
     $form['modules']['keyboard_control']['only_in_viewport'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Only in viewport'),
       '#description' => $this->t('When enabled it will control sliders that are currently in viewport'),
-      '#default_value' => TRUE,
+      '#default_value' => $modules['keyboard_control']['only_in_viewport'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="keyboard_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[keyboard_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1097,33 +1314,31 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Page UP/Down keys'),
       '#description' => $this->t('When enabled it will enable keyboard navigation by Page Up and Page Down keys'),
-      '#default_value' => TRUE,
+      '#default_value' => $modules['keyboard_control']['only_in_viewport'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="keyboard_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[keyboard_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Mousewheel control.
     $form['modules']['mousewheel_control'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Mousewheel control'),
     ];
     $form['modules']['mousewheel_control']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Mousewheel control'),
       '#description' => $this->t('Enables mousewheel control'),
-      '#attributes' => [
-        'name' => 'mousewheel_control_status',
-      ],
+      '#default_value' => $modules['mousewheel_control']['status'] ?? FALSE,
     ];
     $form['modules']['mousewheel_control']['force_to_axis'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Force to axis'),
       '#description' => $this->t('Enable to force mousewheel swipes to axis. So in horizontal mode mousewheel will work only with horizontal mousewheel scrolling, and only with vertical scrolling in vertical mode.'),
+      '#default_value' => $modules['mousewheel_control']['force_to_axis'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="mousewheel_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1131,9 +1346,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Invert scrolling'),
       '#description' => $this->t('Enable to invert sliding direction'),
+      '#default_value' => $modules['mousewheel_control']['invert_scrolling'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="mousewheel_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1141,9 +1357,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Release on edges'),
       '#description' => $this->t('Enable and swiper will release mousewheel event and allow page scrolling when swiper is on edge positions (in the beginning or in the end)'),
+      '#default_value' => $modules['mousewheel_control']['release_on_edges'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="mousewheel_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1154,25 +1371,22 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0.1,
       '#max' => 2,
       '#step' => 0.1,
-      '#default_value' => 1,
+      '#default_value' => $modules['mousewheel_control']['sensitivity'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="mousewheel_control_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Parallax.
     $form['modules']['parallax'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Parallax'),
     ];
     $form['modules']['parallax']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Parallax'),
       '#description' => $this->t('Enables parallax transition effects'),
-      '#attributes' => [
-        'name' => 'parallax_status',
-      ],
+      '#default_value' => $modules['parallax']['status'] ?? FALSE,
     ];
     $form['modules']['parallax']['effect_multiplier'] = [
       '#type' => 'range',
@@ -1180,33 +1394,31 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0.1,
       '#max' => 5,
       '#step' => 0.1,
-      '#default_value' => 1,
+      '#default_value' => $modules['parallax']['effect_multiplier'] ?? 1,
       '#states' => [
         'visible' => [
-          [':input[name="parallax_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[parallax][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-
+    // Lazy loading.
     $form['modules']['lazy_loading'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Lazy loading'),
     ];
     $form['modules']['lazy_loading']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Lazy loading'),
       '#description' => $this->t('Enables images lazy loading. It will also enable slides images'),
-      '#attributes' => [
-        'name' => 'lazy_loading_status',
-      ],
+      '#default_value' => $modules['lazy_loading']['status'] ?? FALSE,
     ];
     $form['modules']['lazy_loading']['check_in_view'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Check in view'),
       '#description' => $this->t('Enables to check is the Swiper in view before lazy loading images on initial slides'),
+      '#default_value' => $modules['lazy_loading']['check_in_view'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="lazy_loading_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1214,9 +1426,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Load on transition start'),
       '#description' => $this->t('By default, Swiper will load lazy images after transition to this slide, so you may enable this parameter if you need it to start loading of new image in the beginning of transition'),
+      '#default_value' => $modules['lazy_loading']['load_on_transition_start'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="lazy_loading_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1224,9 +1437,10 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Load in prev next slides'),
       '#description' => $this->t('Enables lazy loading for the closest slides images (for previous and next slide images)'),
+      '#default_value' => $modules['lazy_loading']['load_in_prev_next_slides'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="lazy_loading_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1240,10 +1454,10 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => 1,
       '#states' => [
         'visible' => [
-          [':input[name="lazy_loading_status"]' => ['checked' => TRUE]],
+          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
         ],
         'disabled' => [
-          [':input[name="load_in_prev_next_slides"]' => ['checked' => FALSE]],
+          ':input[name="modules[lazy_loading][load_in_prev_next_slides]"]' => ['checked' => FALSE],
         ],
       ],
     ];

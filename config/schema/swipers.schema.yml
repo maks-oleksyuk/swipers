@@ -13,181 +13,430 @@ swipers.slider.*:
     description:
       type: string
     slider:
-      type: sequence
-      sequence:
-        type: mapping
-        mapping:
-          direction:
-            type: string
-            label: 'Language direction'
-          style:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                size:
-                  type: string
-                  label: 'Slider size'
-                width_type:
-                  type: string
-                  label: 'Width'
-                width_value:
-                  type: integer
-                  label: 'Width value'
-                height_type:
-                  type: string
-                  label: 'Height'
-                height_value:
-                  type: integer
-                  label: 'Height value'
-                overflow:
-                  type: string
-                  label: 'Overflow'
-                padding_start:
-                  type: integer
-                  label: 'Padding start'
-                padding_end:
-                  type: integer
-                  label: 'Padding end'
+      type: mapping
+      label: 'Slider'
+      mapping:
+        direction:
+          type: string
+          label: 'Language direction'
+        style:
+          type: mapping
+          label: 'Slider sizes & styles'
+          mapping:
+            size:
+              type: string
+              label: 'Slider size'
+            width_type:
+              type: string
+              label: 'Width type'
+            width_value:
+              type: integer
+              label: 'Width value'
+            height_type:
+              type: string
+              label: 'Height type'
+            height_value:
+              type: integer
+              label: 'Height value'
+            overflow:
+              type: string
+              label: 'Overflow'
+            padding_start:
+              type: integer
+              label: 'Padding start'
+            padding_end:
+              type: integer
+              label: 'Padding end'
     slides:
-      type: sequence
-      sequence:
-        type: mapping
-        mapping:
-          content:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                images:
-                  type: boolean
-                  label: 'Images'
-                images_set:
-                  type: string
-                  label: 'Images set'
-                title:
-                  type: boolean
-                  label: 'Title'
-                text:
-                  type: boolean
-                  label: 'Text'
-                position:
-                  type: string
-                  label: 'Content position'
-          styles:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                border_radius:
-                  type: integer
-                  label: 'Slide border radius'
-                border_width:
-                  type: integer
-                  label: 'Slide border width'
-                border_color:
-                  type: string
-                  label: 'Slide border color'
-                vertical_start:
-                  type: integer
-                  label: 'Content vertical padding'
-                horizontal_start:
-                  type: integer
-                  label: 'Content horizontal padding'
-                background_color:
-                  type: string
-                  label: 'Background color'
-                title_color:
-                  type: string
-                  label: 'Title color'
-                text_color:
-                  type: string
-                  label: 'Text color'
+      type: mapping
+      label: 'Slides Content & Styles'
+      mapping:
+        content:
+          type: mapping
+          label: 'Slides content'
+          mapping:
+            images:
+              type: boolean
+              label: 'Images'
+            images_set:
+              type: string
+              label: 'Images set'
+            title:
+              type: boolean
+              label: 'Title'
+            text:
+              type: boolean
+              label: 'Text'
+            position:
+              type: string
+              label: 'Content position'
+        style:
+          type: mapping
+          label: 'Slides styles'
+          mapping:
+            border_radius:
+              type: integer
+              label: 'Slide border radius'
+            border_width:
+              type: integer
+              label: 'Slide border width'
+            border_color:
+              type: string
+              label: 'Slide border color'
+            vertical_start:
+              type: integer
+              label: 'Content vertical padding'
+            horizontal_start:
+              type: integer
+              label: 'Content horizontal padding'
+            background_color:
+              type: string
+              label: 'Background color'
+            title_color:
+              type: string
+              label: 'Title color'
+            text_color:
+              type: string
+              label: 'Text color'
     parameters:
-      type: sequence
-      sequence:
-        type: mapping
-        mapping:
-          direction:
-            type: string
-            label: 'Slide direction'
-          per_view:
-            type: string
-            label: 'Slides per view'
-          size_type:
-            type: string
-            label: 'Slide size'
-          size_value:
-            type: integer
-            label: 'Slide size value'
-          per_group:
-            type: string
-            label: 'Slides per group'
-          rows:
-            type: integer
-            label: 'Slides rows'
-          centered:
-            type: boolean
-            label: 'Centered slides'
-          space:
-            type: integer
-            label: 'Space between slides'
-          initial_slide:
-            type: integer
-            label: 'Initial slide'
-          auto_height:
-            type: boolean
-            label: 'Auto height'
-          grab_cursor:
-            type: boolean
-            label: 'Grab cursor'
-          slide_to_clicked_slide:
-            type: boolean
-            label: 'Slide to clicked slide'
-          loop_mode:
-            type: string
-            label: 'Loop mode'
+      type: mapping
+      label: 'Parameters'
+      mapping:
+        direction:
+          type: string
+          label: 'Slide direction'
+        per_view:
+          type: string
+          label: 'Slides per view'
+        size_type:
+          type: string
+          label: 'Slide size'
+        size_value:
+          type: integer
+          label: 'Slide size value'
+        per_group:
+          type: string
+          label: 'Slides per group'
+        rows:
+          type: integer
+          label: 'Slides rows'
+        centered:
+          type: boolean
+          label: 'Centered slides'
+        space:
+          type: integer
+          label: 'Space between slides'
+        initial_slide:
+          type: integer
+          label: 'Initial slide'
+        auto_height:
+          type: boolean
+          label: 'Auto height'
+        grab_cursor:
+          type: boolean
+          label: 'Grab cursor'
+        slide_to_clicked_slide:
+          type: boolean
+          label: 'Slide to clicked slide'
+        loop_mode:
+          type: string
+          label: 'Loop mode'
     effects:
-      type: sequence
-      sequence:
-        type: mapping
-        mapping:
-          effect:
-            type: string
-            label: 'Effect'
-          fade:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                crossfade:
-                  type: boolean
-                  label: 'Crossfade'
-          cube:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                slide_shadows:
-                  type: boolean
-                  label: 'Slide shadows'
-                main_shadow:
-                  type: boolean
-                  label: 'Main shadow'
-                main_shadow_offset:
-                  type: integer
-                  label: 'Main shadow offset'
-                main_shadow_scale:
-                  type: integer
-                  label: 'Main shadow scale'
-          coverflow:
-            type: sequence
-            sequence:
-              type: mapping
-              mapping:
-                slide_shadows:
-                  type: boolean
-                  label: 'Slide shadows'
-                depth:
-                  type: integer
-                  label: 'Depth'
+      type: mapping
+      label: 'Effects'
+      mapping:
+        effect:
+          type: string
+          label: 'Effect'
+        fade:
+          type: mapping
+          label: 'Fade'
+          mapping:
+            crossfade:
+              type: boolean
+              label: 'Crossfade'
+        flip:
+          type: mapping
+          label: 'Flip'
+          mapping:
+            slide_shadows:
+              type: boolean
+              label: 'Slide shadows'
+            limit_rotation:
+              type: boolean
+              label: 'Limit rotation'
+        cube:
+          type: mapping
+          label: 'Cube'
+          mapping:
+            slide_shadows:
+              type: boolean
+              label: 'Slide shadows'
+            main_shadow:
+              type: boolean
+              label: 'Main shadow'
+            main_shadow_offset:
+              type: integer
+              label: 'Main shadow offset'
+            main_shadow_scale:
+              type: integer
+              label: 'Main shadow scale'
+        coverflow:
+          type: mapping
+          label: 'Coverflow'
+          mapping:
+            slide_shadows:
+              type: boolean
+              label: 'Slide shadows'
+            depth:
+              type: integer
+              label: 'Depth'
+            rotate:
+              type: integer
+              label: 'Rotate'
+            scale:
+              type: float
+              label: 'Scale'
+            stretch:
+              type: integer
+              label: 'Stretch'
+            multiplier:
+              type: float
+              label: 'Effect multiplier'
+        cards:
+          type: mapping
+          label: 'Cards'
+          mapping:
+            slide_shadows:
+              type: boolean
+              label: 'Slide shadows'
+            rotate:
+              type: boolean
+              label: 'Rotate'
+        panorama:
+          type: mapping
+          label: 'Panorama'
+          mapping:
+            depth:
+              type: integer
+              label: 'Depth'
+            rotate:
+              type: integer
+              label: 'Rotate'
+        shutters:
+          type: mapping
+          label: 'Shutters'
+          mapping:
+            split:
+              type: integer
+              label: 'Split'
+        slicer:
+          type: mapping
+          label: 'Slicer'
+          mapping:
+            split:
+              type: integer
+              label: 'Split'
+        gl:
+          type: mapping
+          label: 'Gl'
+          mapping:
+            shader:
+              type: string
+              label: 'Shader'
+        duration:
+          type: integer
+          label: 'Duration'
+    modules:
+      type: mapping
+      label: 'Modules'
+      mapping:
+        navigation:
+          type: mapping
+          label: 'Navigation'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            color:
+              type: string
+              label: 'Color'
+            placement:
+              type: string
+              label: 'Placement'
+            position:
+              type: string
+              label: 'Position'
+            hide_on_click:
+              type: boolean
+              label: 'Hide on click'
+        pagination:
+          type: mapping
+          label: 'Pagination'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            color:
+              type: string
+              label: 'Color'
+            placement:
+              type: string
+              label: 'Placement'
+            position:
+              type: string
+              label: 'Position'
+            hide_on_click:
+              type: boolean
+              label: 'Hide on click'
+            type:
+              type: string
+              label: 'Type'
+            clickable:
+              type: boolean
+              label: 'Clickable'
+            dynamic_bullets:
+              type: boolean
+              label: 'Dynamic bullets'
+            dynamic_main_bullets:
+              type: integer
+              label: 'Dynamic main bullets'
+            progressbar_opposite:
+              type: boolean
+              label: 'Progressbar opposite'
+        autoplay:
+          type: mapping
+          label: 'Autoplay'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            delay:
+              type: integer
+              label: 'Delay'
+            pause:
+              type: boolean
+              label: 'Pause on pointer enter'
+            disable:
+              type: boolean
+              label: 'Disable on interaction'
+            reverse_direction:
+              type: boolean
+              label: 'Reverse direction'
+            stop_on_last_slide:
+              type: boolean
+              label: 'Stop on last slide'
+        scrollbar:
+          type: mapping
+          label: 'Scrollbar'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            track_color:
+              type: string
+              label: 'Track color'
+            thumb_color:
+              type: string
+              label: 'Thumb color'
+            placement:
+              type: string
+              label: 'Placement'
+            position:
+              type: string
+              label: 'Position'
+            draggable:
+              type: boolean
+              label: 'Draggable'
+            hide_after_interaction:
+              type: boolean
+              label: 'Hide after interaction'
+            snap_on_release:
+              type: boolean
+              label: 'Snap on release'
+        free_mode:
+          type: mapping
+          label: 'Free mode'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            sticky:
+              type: boolean
+              label: 'Sticky'
+            momentum:
+              type: boolean
+              label: 'Momentum'
+            momentum_bounce:
+              type: boolean
+              label: 'Momentum bounce'
+            momentum_bounce_ratio:
+              type: float
+              label: 'Momentum bounce ratio'
+            momentum_ratio:
+              type: float
+              label: 'Momentum ratio'
+            momentum_velocity_ratio:
+              type: float
+              label: 'Momentum velocity ratio'
+        keyboard_control:
+          type: mapping
+          label: 'Keyboard control'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            only_in_viewport:
+              type: boolean
+              label: 'Only in viewport'
+            keys:
+              type: boolean
+              label: 'Page UP/Down keys'
+        mousewheel_control:
+          type: mapping
+          label: 'Mousewheel control'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            force_to_axis:
+              type: boolean
+              label: 'Force to axis'
+            invert_scrolling:
+              type: boolean
+              label: 'Invert scrolling'
+            release_on_edges:
+              type: boolean
+              label: 'Release on edges'
+            sensitivity:
+              type: float
+              label: 'Sensitivity'
+        parallax:
+          type: mapping
+          label: 'Parallax'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            effect_multiplier:
+              type: float
+              label: 'Effect multiplier'
+        lazy_loading:
+          type: mapping
+          label: 'Lazy loading'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            check_in_view:
+              type: boolean
+              label: 'Check in view'
+            load_on_transition_start:
+              type: boolean
+              label: 'Load on transition start'
+            load_in_prev_next_slides:
+              type: boolean
+              label: 'Load in prev next slides'
+            load_in_prev_next_amount:
+              type: integer
+              label: 'Load in prev next amount'

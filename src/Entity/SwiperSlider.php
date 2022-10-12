@@ -40,7 +40,8 @@ use Drupal\swipers\SwiperSliderInterface;
  *     "slider",
  *     "slides",
  *     "parameters",
- *     "effects"
+ *     "effects",
+ *     "modules"
  *   }
  * )
  */
@@ -101,5 +102,12 @@ class SwiperSlider extends ConfigEntityBase implements SwiperSliderInterface {
    * @var array
    */
   protected $effects = [];
+
+  /**
+   * Modules settings.
+   *
+   * @var array
+   */
+  protected $modules = [];
 
 }
