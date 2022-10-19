@@ -440,3 +440,66 @@ swipers.slider.*:
             load_in_prev_next_amount:
               type: integer
               label: 'Load in prev next amount'
+        accessibility:
+          type: mapping
+          label: 'Accessibility'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+        zoom:
+          type: mapping
+          label: 'Zoom'
+          mapping:
+            status:
+              type: boolean
+              label: 'Status'
+            minimal_ratio:
+              type: integer
+              label: 'Minimal ratio'
+            maximum_ratio:
+              type: integer
+              label: 'Maximum ratio'
+    pro:
+      type: mapping
+      label: 'Pro parameters'
+      mapping:
+        css_mode:
+          type: boolean
+          label: 'CSS mode'
+        simulate_touch:
+          type: boolean
+          label: 'Simulate touch'
+        watch_slides_progress:
+          type: boolean
+          label: 'Watch slides progress'
+        allow_slide_prev:
+          type: boolean
+          label: 'Allow slide prev'
+        allow_slide_next:
+          type: boolean
+          label: 'Allow slide next'
+        allow_touch_move:
+          type: boolean
+          label: 'Allow touch move'
+        follow_finger:
+          type: boolean
+          label: 'Follow finger'
+        long_swipes:
+          type: boolean
+          label: 'Long swipes'
+        short_swipes:
+          type: boolean
+          label: 'Short swipes'
+        observer:
+          type: boolean
+          label: 'Observer'
+        observer_parents:
+          type: boolean
+          label: 'Observer parents'
+        resistance:
+          type: boolean
+          label: 'Resistance'
+        resistance_ratio:
+          type: float
+          label: 'Resistance ratio'
