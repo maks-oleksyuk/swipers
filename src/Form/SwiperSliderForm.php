@@ -1605,7 +1605,7 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    // @todo fix states in observer, observer_parents, resistance_ratio
+    // @todo fix states in observer, observer_parents
     $form['pro']['observer'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Observer'),
@@ -1650,7 +1650,7 @@ class SwiperSliderForm extends EntityForm {
       '#states' => [
         'disabled' => [
           [':input[name="pro[css_mode]"]' => ['checked' => TRUE]],
-          [':input[name="pro[resistance_ratio]"]' => ['checked' => TRUE]],
+          [':input[name="pro[resistance]"]' => ['checked' => FALSE]],
         ],
       ],
     ];
