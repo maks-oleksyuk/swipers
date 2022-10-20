@@ -26,25 +26,25 @@ swipers.slider.*:
             size:
               type: string
               label: 'Slider size'
-            width_type:
+            w_type:
               type: string
               label: 'Width type'
-            width_value:
+            w_value:
               type: integer
               label: 'Width value'
-            height_type:
+            h_type:
               type: string
               label: 'Height type'
-            height_value:
+            h_value:
               type: integer
               label: 'Height value'
             overflow:
               type: string
               label: 'Overflow'
-            padding_start:
+            p_start:
               type: integer
               label: 'Padding start'
-            padding_end:
+            p_end:
               type: integer
               label: 'Padding end'
     slides:
@@ -74,13 +74,13 @@ swipers.slider.*:
           type: mapping
           label: 'Slides styles'
           mapping:
-            border_radius:
+            br_radius:
               type: integer
               label: 'Slide border radius'
-            border_width:
+            br_width:
               type: integer
               label: 'Slide border width'
-            border_color:
+            br_color:
               type: string
               label: 'Slide border color'
             vertical_start:
@@ -503,3 +503,12 @@ swipers.slider.*:
         resistance_ratio:
           type: float
           label: 'Resistance ratio'
+        resize_observer:
+          type: boolean
+          label: 'Resize observer'
+        touch_threshold:
+          type: integer
+          label: 'Touch threshold'
+        touch_radio:
+          type: float
+          label: 'Touch ratio'

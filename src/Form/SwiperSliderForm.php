@@ -17,20 +17,19 @@ class SwiperSliderForm extends EntityForm {
    */
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
-
     $form['#tree'] = TRUE;
-
+    // Main config settings.
     $form['main'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Main Settings'),
     ];
     $form['main']['label'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Label'),
       '#maxlength' => 255,
-      '#default_value' => $this->entity->label(),
-      '#description' => $this->t('Label for the slider.'),
       '#required' => TRUE,
+      '#title' => $this->t('Label'),
+      '#description' => $this->t('Label for the slider.'),
+      '#default_value' => $this->entity->label(),
     ];
     $form['main']['id'] = [
       '#type' => 'machine_name',
@@ -49,8 +48,8 @@ class SwiperSliderForm extends EntityForm {
     $form['main']['description'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Description'),
-      '#default_value' => $this->entity->get('description'),
       '#description' => $this->t('Description of the slider.'),
+      '#default_value' => $this->entity->get('description'),
     ];
     // Slider.
     $slider = $this->entity->get('slider');
@@ -83,10 +82,10 @@ class SwiperSliderForm extends EntityForm {
       ],
     ];
     // @todo add ajax function to change max and step parameters
-    $form['slider']['style']['width_type'] = [
+    $form['slider']['style']['w_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Width'),
-      '#default_value' => $slider['style']['width_type'] ?? NULL,
+      '#default_value' => $slider['style']['w_type'] ?? 'relative',
       '#options' => [
         'relative' => 'relative',
         'fixed' => 'fixed',
@@ -97,9 +96,9 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['slider']['style']['width_value'] = [
+    $form['slider']['style']['w_value'] = [
       '#type' => 'range',
-      '#default_value' => $slider['style']['width_value'] ?? NULL,
+      '#default_value' => $slider['style']['w_value'] ?? NULL,
       '#min' => 0,
       '#states' => [
         'visible' => [
@@ -107,10 +106,10 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['slider']['style']['height_type'] = [
+    $form['slider']['style']['h_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Height'),
-      '#default_value' => $slider['style']['height_type'] ?? NULL,
+      '#default_value' => $slider['style']['h_type'] ?? 'relative',
       '#options' => [
         'relative' => 'relative',
         'fixed' => 'fixed',
@@ -121,9 +120,9 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['slider']['style']['height_value'] = [
+    $form['slider']['style']['h_value'] = [
       '#type' => 'range',
-      '#default_value' => $slider['style']['height_value'] ?? NULL,
+      '#default_value' => $slider['style']['h_value'] ?? NULL,
       '#min' => 0,
       '#states' => [
         'visible' => [
@@ -140,23 +139,23 @@ class SwiperSliderForm extends EntityForm {
         'visible' => 'visible',
       ],
     ];
-    $form['slider']['style']['padding_start'] = [
+    $form['slider']['style']['p_start'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding start'),
       '#description' => $this->t('Padding top in horizontal direction and padding left in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slider['style']['padding_start'] ?? 0,
+      '#default_value' => $slider['style']['p_start'] ?? 0,
     ];
-    $form['slider']['style']['padding_end'] = [
+    $form['slider']['style']['p_end'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding end'),
       '#description' => $this->t('Padding bottom in horizontal direction and padding right in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slider['style']['padding_end'] ?? 0,
+      '#default_value' => $slider['style']['p_end'] ?? 0,
     ];
     // Slides Content & Styles.
     $slides = $this->entity->get('slides');
@@ -184,7 +183,7 @@ class SwiperSliderForm extends EntityForm {
         'movies' => 'movies',
         'custom' => 'custom',
       ],
-      '#default_value' => $slides['content']['images_set'] ?? FALSE,
+      '#default_value' => $slides['content']['images_set'] ?? 'nature',
       '#states' => [
         'visible' => [
           'input[name="slides[content][images]"]' => ['checked' => TRUE],
@@ -215,7 +214,7 @@ class SwiperSliderForm extends EntityForm {
         'center_bottom' => 'center bottom',
         'right_bottom' => 'right bottom',
       ],
-      '#default_value' => $slides['content']['position'] ?? TRUE,
+      '#default_value' => $slides['content']['position'] ?? 'center',
       '#states' => [
         'visible' => [
           [':input[name="slides[content][title]"]' => ['checked' => TRUE]],
@@ -230,25 +229,25 @@ class SwiperSliderForm extends EntityForm {
       '#open' => FALSE,
       '#title' => $this->t('Slides styles'),
     ];
-    $form['slides']['style']['border_radius'] = [
+    $form['slides']['style']['br_radius'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border radius'),
       '#min' => 0,
       '#max' => 64,
       '#step' => 2,
-      '#default_value' => $slides['style']['border_radius'] ?? 0,
+      '#default_value' => $slides['style']['br_radius'] ?? 0,
     ];
-    $form['slides']['style']['border_width'] = [
+    $form['slides']['style']['br_width'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border width'),
       '#min' => 0,
       '#max' => 16,
       '#step' => 1,
-      '#default_value' => $slides['style']['border_width'] ?? 0,
+      '#default_value' => $slides['style']['br_width'] ?? 0,
     ];
-    $form['slides']['style']['border_color'] = [
+    $form['slides']['style']['br_color'] = [
       '#type' => 'color',
-      '#default_value' => $slides['style']['border_color'] ?? '#ff0000',
+      '#default_value' => $slides['style']['br_color'] ?? '#ff0000',
       '#title' => $this->t('Slide border color'),
     ];
     $form['slides']['style']['vertical_start'] = [
@@ -864,7 +863,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['navigation']['color'] ?? '#007afa',
       '#states' => [
         'visible' => [
-          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[navigation][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -879,7 +878,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['navigation']['placement'] ?? 'inside',
       '#states' => [
         'visible' => [
-          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[navigation][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -895,7 +894,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['navigation']['placement'] ?? 'center',
       '#states' => [
         'visible' => [
-          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[navigation][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -906,7 +905,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['navigation']['hide_on_click'] ?? FALSE,
       '#states' => [
         'visible' => [
-          [':input[name="modules[navigation][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[navigation][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -927,7 +926,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['pagination']['color'] ?? '#007afa',
       '#states' => [
         'visible' => [
-          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -942,7 +941,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['pagination']['placement'] ?? 'inside',
       '#states' => [
         'visible' => [
-          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -957,7 +956,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['pagination']['position'] ?? 'end',
       '#states' => [
         'visible' => [
-          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -968,7 +967,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['pagination']['hide_on_click'] ?? TRUE,
       '#states' => [
         'visible' => [
-          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -983,7 +982,7 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $modules['pagination']['type'] ?? 'bullets',
       '#states' => [
         'visible' => [
-          [':input[name="modules[pagination][status]"]' => ['checked' => TRUE]],
+          ':input[name="modules[pagination][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1646,7 +1645,7 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 1,
       '#step' => 0.05,
-      '#default_value' => 0.85,
+      '#default_value' => $pro['resistance_ratio'] ?? 0.85,
       '#states' => [
         'disabled' => [
           [':input[name="pro[css_mode]"]' => ['checked' => TRUE]],
@@ -1658,7 +1657,7 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'checkbox',
       '#title' => $this->t('Resize observer'),
       '#description' => $this->t('When enabled it will use ResizeObserver (if supported by browser) on swiper container to detect container resize (instead of watching for window resize)'),
-      '#default_value' => TRUE,
+      '#default_value' => $pro['resize_observer'] ?? TRUE,
     ];
     $form['pro']['touch_threshold'] = [
       '#type' => 'range',
@@ -1667,10 +1666,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 100,
       '#step' => 1,
-      '#default_value' => 0,
+      '#default_value' => $pro['touch_threshold'] ?? 0,
       '#states' => [
         'disabled' => [
-          [':input[name="css_mode"]' => ['checked' => TRUE]],
+          ':input[name="css_mode"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1680,10 +1679,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 10,
       '#step' => 0.25,
-      '#default_value' => 1,
+      '#default_value' => $pro['touch_radio'] ?? 1,
       '#states' => [
         'disabled' => [
-          [':input[name="css_mode"]' => ['checked' => TRUE]],
+          ':input[name="css_mode"]' => ['checked' => TRUE],
         ],
       ],
     ];
