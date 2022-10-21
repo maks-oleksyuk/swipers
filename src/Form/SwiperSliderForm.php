@@ -50,6 +50,7 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Description'),
       '#description' => $this->t('Description of the slider.'),
       '#default_value' => $this->entity->get('description'),
+      '#resizable' => 'none',
     ];
     // Slider.
     $slider = $this->entity->get('slider');
@@ -1289,91 +1290,91 @@ class SwiperSliderForm extends EntityForm {
       ],
     ];
     // Keyboard control.
-    $form['modules']['keyboard_control'] = [
+    $form['modules']['keyboard'] = [
       '#type' => 'fieldset',
     ];
-    $form['modules']['keyboard_control']['status'] = [
+    $form['modules']['keyboard']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Keyboard control'),
       '#description' => $this->t('Enables keyboard control'),
-      '#default_value' => $modules['keyboard_control']['status'] ?? FALSE,
+      '#default_value' => $modules['keyboard']['status'] ?? FALSE,
     ];
-    $form['modules']['keyboard_control']['only_in_viewport'] = [
+    $form['modules']['keyboard']['only_in_viewport'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Only in viewport'),
       '#description' => $this->t('When enabled it will control sliders that are currently in viewport'),
-      '#default_value' => $modules['keyboard_control']['only_in_viewport'] ?? TRUE,
+      '#default_value' => $modules['keyboard']['only_in_viewport'] ?? TRUE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[keyboard_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[keyboard][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['keyboard_control']['keys'] = [
+    $form['modules']['keyboard']['keys'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Page UP/Down keys'),
       '#description' => $this->t('When enabled it will enable keyboard navigation by Page Up and Page Down keys'),
-      '#default_value' => $modules['keyboard_control']['only_in_viewport'] ?? TRUE,
+      '#default_value' => $modules['keyboard']['only_in_viewport'] ?? TRUE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[keyboard_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[keyboard][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
     // Mousewheel control.
-    $form['modules']['mousewheel_control'] = [
+    $form['modules']['mousewheel'] = [
       '#type' => 'fieldset',
     ];
-    $form['modules']['mousewheel_control']['status'] = [
+    $form['modules']['mousewheel']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Mousewheel control'),
       '#description' => $this->t('Enables mousewheel control'),
-      '#default_value' => $modules['mousewheel_control']['status'] ?? FALSE,
+      '#default_value' => $modules['mousewheel']['status'] ?? FALSE,
     ];
-    $form['modules']['mousewheel_control']['force_to_axis'] = [
+    $form['modules']['mousewheel']['force_to_axis'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Force to axis'),
       '#description' => $this->t('Enable to force mousewheel swipes to axis. So in horizontal mode mousewheel will work only with horizontal mousewheel scrolling, and only with vertical scrolling in vertical mode.'),
-      '#default_value' => $modules['mousewheel_control']['force_to_axis'] ?? FALSE,
+      '#default_value' => $modules['mousewheel']['force_to_axis'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[mousewheel][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['mousewheel_control']['invert_scrolling'] = [
+    $form['modules']['mousewheel']['invert_scrolling'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Invert scrolling'),
       '#description' => $this->t('Enable to invert sliding direction'),
-      '#default_value' => $modules['mousewheel_control']['invert_scrolling'] ?? FALSE,
+      '#default_value' => $modules['mousewheel']['invert_scrolling'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[mousewheel][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['mousewheel_control']['release_on_edges'] = [
+    $form['modules']['mousewheel']['release_on_edges'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Release on edges'),
       '#description' => $this->t('Enable and swiper will release mousewheel event and allow page scrolling when swiper is on edge positions (in the beginning or in the end)'),
-      '#default_value' => $modules['mousewheel_control']['release_on_edges'] ?? FALSE,
+      '#default_value' => $modules['mousewheel']['release_on_edges'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[mousewheel][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['mousewheel_control']['sensitivity'] = [
+    $form['modules']['mousewheel']['sensitivity'] = [
       '#type' => 'range',
       '#title' => $this->t('Sensitivity'),
       '#description' => $this->t('Multiplier of mousewheel data, allows to tweak mouse wheel sensitivity'),
       '#min' => 0.1,
       '#max' => 2,
       '#step' => 0.1,
-      '#default_value' => $modules['mousewheel_control']['sensitivity'] ?? 1,
+      '#default_value' => $modules['mousewheel']['sensitivity'] ?? 1,
       '#states' => [
         'visible' => [
-          ':input[name="modules[mousewheel_control][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[mousewheel][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
@@ -1401,62 +1402,62 @@ class SwiperSliderForm extends EntityForm {
       ],
     ];
     // Lazy loading.
-    $form['modules']['lazy_loading'] = [
+    $form['modules']['lazy'] = [
       '#type' => 'fieldset',
     ];
-    $form['modules']['lazy_loading']['status'] = [
+    $form['modules']['lazy']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Lazy loading'),
       '#description' => $this->t('Enables images lazy loading. It will also enable slides images'),
-      '#default_value' => $modules['lazy_loading']['status'] ?? FALSE,
+      '#default_value' => $modules['lazy']['status'] ?? FALSE,
     ];
-    $form['modules']['lazy_loading']['check_in_view'] = [
+    $form['modules']['lazy']['check_in_view'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Check in view'),
       '#description' => $this->t('Enables to check is the Swiper in view before lazy loading images on initial slides'),
-      '#default_value' => $modules['lazy_loading']['check_in_view'] ?? FALSE,
+      '#default_value' => $modules['lazy']['check_in_view'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[lazy][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['lazy_loading']['load_on_transition_start'] = [
+    $form['modules']['lazy']['load_on_transition_start'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Load on transition start'),
       '#description' => $this->t('By default, Swiper will load lazy images after transition to this slide, so you may enable this parameter if you need it to start loading of new image in the beginning of transition'),
-      '#default_value' => $modules['lazy_loading']['load_on_transition_start'] ?? FALSE,
+      '#default_value' => $modules['lazy']['load_on_transition_start'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[lazy][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['lazy_loading']['load_in_prev_next_slides'] = [
+    $form['modules']['lazy']['load_in_prev_next_slides'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Load in prev next slides'),
       '#description' => $this->t('Enables lazy loading for the closest slides images (for previous and next slide images)'),
-      '#default_value' => $modules['lazy_loading']['load_in_prev_next_slides'] ?? FALSE,
+      '#default_value' => $modules['lazy']['load_in_prev_next_slides'] ?? FALSE,
       '#states' => [
         'visible' => [
-          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[lazy][status]"]' => ['checked' => TRUE],
         ],
       ],
     ];
-    $form['modules']['lazy_loading']['load_in_prev_next_amount'] = [
+    $form['modules']['lazy']['load_in_prev_next_amount'] = [
       '#type' => 'range',
       '#title' => $this->t('Load in prev next amount'),
       '#description' => $this->t('Amount of next/prev slides to preload lazy images in'),
       '#min' => 1,
       '#max' => 10,
       '#step' => 1,
-      '#default_value' => $modules['lazy_loading']['load_in_prev_next_amount'] ?? 1,
+      '#default_value' => $modules['lazy']['load_in_prev_next_amount'] ?? 1,
       '#states' => [
         'visible' => [
-          ':input[name="modules[lazy_loading][status]"]' => ['checked' => TRUE],
+          ':input[name="modules[lazy][status]"]' => ['checked' => TRUE],
         ],
         'disabled' => [
-          ':input[name="modules[lazy_loading][load_in_prev_next_slides]"]' => ['checked' => FALSE],
+          ':input[name="modules[lazy][load_in_prev_next_slides]"]' => ['checked' => FALSE],
         ],
       ],
     ];

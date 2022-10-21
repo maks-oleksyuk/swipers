@@ -379,7 +379,7 @@ swipers.slider.*:
             momentum_velocity_ratio:
               type: float
               label: 'Momentum velocity ratio'
-        keyboard_control:
+        keyboard:
           type: mapping
           label: 'Keyboard control'
           mapping:
@@ -392,7 +392,7 @@ swipers.slider.*:
             keys:
               type: boolean
               label: 'Page UP/Down keys'
-        mousewheel_control:
+        mousewheel:
           type: mapping
           label: 'Mousewheel control'
           mapping:
@@ -421,7 +421,7 @@ swipers.slider.*:
             effect_multiplier:
               type: float
               label: 'Effect multiplier'
-        lazy_loading:
+        lazy:
           type: mapping
           label: 'Lazy loading'
           mapping:
