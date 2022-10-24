@@ -1,3 +1,3 @@
-local:
-
-remote:
+swipers.form:
+  js:
+    js/swipers.form.js: { }

@@ -82,7 +82,6 @@ class SwiperSliderForm extends EntityForm {
         'custom' => 'custom',
       ],
     ];
-    // @todo add ajax function to change max and step parameters
     $form['slider']['style']['w_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Width'),
@@ -101,6 +100,7 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'range',
       '#default_value' => $slider['style']['w_value'] ?? NULL,
       '#min' => 0,
+      '#step' => 1,
       '#states' => [
         'visible' => [
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
@@ -125,6 +125,7 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'range',
       '#default_value' => $slider['style']['h_value'] ?? NULL,
       '#min' => 0,
+      '#step' => 1,
       '#states' => [
         'visible' => [
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
@@ -1687,7 +1688,55 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
+    $form['#attached']['library'][] = 'swipers/swipers.form';
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    parent::submitForm($form, $form_state);
+    $values = $form_state->getValues();
+    if ($values['slider']['style']['size'] == 'responsive') {
+      unset($values['slider']['style']['w_type'],
+            $values['slider']['style']['w_value'],
+            $values['slider']['style']['h_type'],
+            $values['slider']['style']['h_value']);
+    }
+    if (!$values['slides']['content']['images']) {
+      unset($values['slides']['content']['images_set']);
+    }
+    if (!$values['slides']['content']['title'] && !$values['slides']['content']['text']) {
+      unset($values['slides']['content']['position']);
+    }
+    if (!$values['parameters']['direction'] == 'vertical') {
+      unset($values['parameters']['rows']);
+    }
+    foreach ($values['effects'] as $label => $effect) {
+      if (!in_array($label, [$values['effects']['effect'], 'effect', 'duration'])) {
+        unset($values['effects'][$label]);
+      }
+    }
+    foreach ($values['modules'] as $label => $module) {
+      if (!$module['status']) {
+        foreach ($module as $key => $item) {
+          if ($key != 'status') {
+            unset($values['modules'][$label][$key]);
+          }
+        }
+      }
+    }
+
+    $this->entity
+      ->set('label', $values['main']['label'])
+      ->set('id', $values['main']['id'])
+      ->set('status', $values['main']['status'])
+      ->set('description', $values['main']['description'])
+      ->set('slider', $values['slider'])
+      ->set('slides', $values['slides'])
+      ->set('effects', $values['effects'])
+      ->set('modules', $values['modules']);
   }
 
   /**
@@ -1696,12 +1745,6 @@ class SwiperSliderForm extends EntityForm {
    * @throws \Drupal\Core\Entity\EntityMalformedException
    */
   public function save(array $form, FormStateInterface $form_state): int {
-    $values = $form_state->getValues();
-    $this->entity
-      ->set('label', $values['main']['label'])
-      ->set('id', $values['main']['id'])
-      ->set('status', $values['main']['status'])
-      ->set('description', $values['main']['description']);
     $result = parent::save($form, $form_state);
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW
