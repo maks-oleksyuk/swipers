@@ -2,8 +2,12 @@
 
 namespace Drupal\swipers\Form;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Swiper Slider form class.
@@ -13,7 +17,35 @@ use Drupal\Core\Form\FormStateInterface;
 class SwiperSliderForm extends EntityForm {
 
   /**
+   * The temp store factory.
+   *
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
+   */
+  protected $tempStoreFactory;
+
+  /**
+   * Constructs a new Swiper Slider form.
+   *
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
+   *   The temp store factory.
+   */
+  public function __construct(PrivateTempStoreFactory $temp_store_factory) {
+    $this->tempStoreFactory = $temp_store_factory;
+  }
+
+  /**
    * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('tempstore.private'),
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\TempStore\TempStoreException
    */
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
@@ -98,9 +130,10 @@ class SwiperSliderForm extends EntityForm {
     ];
     $form['slider']['style']['w_value'] = [
       '#type' => 'range',
-      '#default_value' => $slider['style']['w_value'] ?? NULL,
       '#min' => 0,
+      '#max' => ($form['slider']['style']['w_type']['#default_value'] == 'relative') ? 100 : 1920,
       '#step' => 1,
+      '#default_value' => $slider['style']['w_value'] ?? 100,
       '#states' => [
         'visible' => [
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
@@ -123,9 +156,10 @@ class SwiperSliderForm extends EntityForm {
     ];
     $form['slider']['style']['h_value'] = [
       '#type' => 'range',
-      '#default_value' => $slider['style']['h_value'] ?? NULL,
       '#min' => 0,
+      '#max' => ($form['slider']['style']['h_type']['#default_value'] == 'relative') ? 100 : 1920,
       '#step' => 1,
+      '#default_value' => $slider['style']['h_value'] ?? 100,
       '#states' => [
         'visible' => [
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
@@ -224,7 +258,18 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    // @todo add form item with modal form to custom content.
+    $form['slides']['content']['custom'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Edit content'),
+      '#url' => Url::fromRoute('entity.slider.custom_content_form'),
+      '#attributes' => [
+        'class' => ['use-ajax', 'button', 'button--small'],
+        'data-dialog-type' => 'modal',
+        'data-dialog-options' => Json::encode([
+          'width' => 'auto',
+        ]),
+      ],
+    ];
     // Slides Styles.
     $form['slides']['style'] = [
       '#type' => 'details',
@@ -1516,7 +1561,19 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'fieldset',
       '#title' => $this->t('Pro parameters'),
     ];
-    // @todo add 'Custom CSS styles' modal form
+    $this->tempStoreFactory->get('swipers')->set('css', $pro['css'] ?? NULL);
+    $form['pro']['css'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Custom CSS styles'),
+      '#url' => Url::fromRoute('entity.slider.custom_css_styles_form'),
+      '#attributes' => [
+        'class' => ['use-ajax', 'button', 'button--small'],
+        'data-dialog-type' => 'modal',
+        'data-dialog-options' => Json::encode([
+          'width' => 'auto',
+        ]),
+      ],
+    ];
     $form['pro']['css_mode'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('CSS mode'),
@@ -1606,28 +1663,17 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    // @todo fix states in observer, observer_parents
     $form['pro']['observer'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Observer'),
       '#description' => $this->t('Enables Mutation Observer on Swiper and its elements. In this case Swiper will be updated (reinitialized) each time if you change its style (like hide/show) or modify its child elements (like adding/removing slides)'),
       '#default_value' => $pro['observer'] ?? FALSE,
-      '#states' => [
-        'checked' => [
-          ':input[name="pro[observer_parents]"]' => ['checked' => TRUE],
-        ],
-      ],
     ];
     $form['pro']['observer_parents'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Observe parents'),
       '#description' => $this->t('Enable if you also need to wa tch Mutations for Swiper parent elements'),
       '#default_value' => $pro['observer_parents'] ?? FALSE,
-      '#states' => [
-        'unchecked' => [
-          ':input[name="pro[observer]"]' => ['unchecked' => TRUE],
-        ],
-      ],
     ];
     $form['pro']['resistance'] = [
       '#type' => 'checkbox',
@@ -1689,6 +1735,7 @@ class SwiperSliderForm extends EntityForm {
       ],
     ];
     $form['#attached']['library'][] = 'swipers/swipers.form';
+    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
     return $form;
   }
 
@@ -1700,9 +1747,9 @@ class SwiperSliderForm extends EntityForm {
     $values = $form_state->getValues();
     if ($values['slider']['style']['size'] == 'responsive') {
       unset($values['slider']['style']['w_type'],
-            $values['slider']['style']['w_value'],
-            $values['slider']['style']['h_type'],
-            $values['slider']['style']['h_value']);
+        $values['slider']['style']['w_value'],
+        $values['slider']['style']['h_type'],
+        $values['slider']['style']['h_value']);
     }
     if (!$values['slides']['content']['images']) {
       unset($values['slides']['content']['images_set']);
@@ -1714,7 +1761,11 @@ class SwiperSliderForm extends EntityForm {
       unset($values['parameters']['rows']);
     }
     foreach ($values['effects'] as $label => $effect) {
-      if (!in_array($label, [$values['effects']['effect'], 'effect', 'duration'])) {
+      if (!in_array($label, [
+        $values['effects']['effect'],
+        'effect',
+        'duration',
+      ])) {
         unset($values['effects'][$label]);
       }
     }
@@ -1727,7 +1778,8 @@ class SwiperSliderForm extends EntityForm {
         }
       }
     }
-
+    // @todo setting temp storage
+    $values['pro']['css'] = $this->tempStoreFactory->get('swipers')->get('css');
     $this->entity
       ->set('label', $values['main']['label'])
       ->set('id', $values['main']['id'])
@@ -1736,16 +1788,19 @@ class SwiperSliderForm extends EntityForm {
       ->set('slider', $values['slider'])
       ->set('slides', $values['slides'])
       ->set('effects', $values['effects'])
-      ->set('modules', $values['modules']);
+      ->set('modules', $values['modules'])
+      ->set('pro', $values['pro']);
   }
 
   /**
    * {@inheritdoc}
    *
    * @throws \Drupal\Core\Entity\EntityMalformedException
+   * @throws \Drupal\Core\TempStore\TempStoreException
    */
   public function save(array $form, FormStateInterface $form_state): int {
     $result = parent::save($form, $form_state);
+    $this->tempStoreFactory->get('swipers')->delete('css');
     $message_args = ['%label' => $this->entity->label()];
     $message = $result == SAVED_NEW
       ? $this->t('Created new slider %label.', $message_args)

@@ -464,6 +464,9 @@ swipers.slider.*:
       type: mapping
       label: 'Pro parameters'
       mapping:
+        css:
+          type: text
+          label: 'Custom CSS styles'
         css_mode:
           type: boolean
           label: 'CSS mode'

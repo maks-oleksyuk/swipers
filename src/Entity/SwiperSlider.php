@@ -17,7 +17,7 @@ use Drupal\swipers\SwiperSliderInterface;
  *     "form" = {
  *       "add" = "Drupal\swipers\Form\SwiperSliderForm",
  *       "edit" = "Drupal\swipers\Form\SwiperSliderForm",
- *       "delete" = "Drupal\swipers\Form\SwiperSliderDeleteForm"
+ *       "delete" = "Drupal\Core\Entity\EntityDeleteForm"
  *     }
  *   },
  *   config_prefix = "slider",

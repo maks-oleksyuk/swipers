@@ -29,3 +29,19 @@ entity.slider.delete_form:
     _title: 'Delete a swiper slider'
   requirements:
     _permission: 'administer swiper-slider'
+
+entity.slider.custom_content_form:
+  path: '/admin/config/media/swiper-studio/slider/custom-content'
+  defaults:
+    _form: '\Drupal\swipers\Form\CustomContentForm'
+    _title: 'Edit content'
+  requirements:
+    _permission: 'administer swiper-slider'
+
+entity.slider.custom_css_styles_form:
+  path: '/admin/config/media/swiper-studio/slider/custom-css'
+  defaults:
+    _form: '\Drupal\swipers\Form\CustomCssStylesForm'
+    _title: 'Custom CSS styles'
+  requirements:
+    _permission: 'administer swiper-slider'

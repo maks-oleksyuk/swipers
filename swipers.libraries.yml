@@ -1,3 +1,4 @@
 swipers.form:
+  version: VERSION
   js:
     js/swipers.form.js: { }
