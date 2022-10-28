@@ -22,7 +22,7 @@ class CustomContentForm extends FormBase {
   protected $tempStoreFactory;
 
   /**
-   * Constructs a new Swiper Slider form.
+   * Constructs a new form to custom content slider.
    *
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The temp store factory.

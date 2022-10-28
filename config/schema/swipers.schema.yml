@@ -41,10 +41,10 @@ swipers.slider.*:
             overflow:
               type: string
               label: 'Overflow'
-            p_start:
+            ps:
               type: integer
               label: 'Padding start'
-            p_end:
+            pe:
               type: integer
               label: 'Padding end'
     slides:

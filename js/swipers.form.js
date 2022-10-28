@@ -11,6 +11,8 @@
     let sliderStyleWidthValue = document.getElementById('edit-slider-style-w-value');
     let sliderStyleHeightType = document.getElementById('edit-slider-style-h-type');
     let sliderStyleHeightValue = document.getElementById('edit-slider-style-h-value');
+    let parametersSlideSizeType = document.getElementById('edit-parameters-size-type');
+    let parametersSlideSizeValue = document.getElementById('edit-parameters-size-value');
 
     sliderStyleWidthType.addEventListener('change', function () {
       if (sliderStyleWidthType.value === 'relative') {
@@ -31,6 +33,17 @@
       else if (sliderStyleHeightType.value === 'fixed') {
         sliderStyleHeightValue.setAttribute('max', '1920');
         sliderStyleHeightValue.setAttribute('value', '540');
+      }
+    })
+
+    parametersSlideSizeType.addEventListener('change', function () {
+      if (parametersSlideSizeType.value === 'relative') {
+        parametersSlideSizeValue.setAttribute('max', '100');
+        parametersSlideSizeValue.setAttribute('value', '100');
+      }
+      else if (parametersSlideSizeType.value === 'fixed') {
+        parametersSlideSizeValue.setAttribute('max', '1920');
+        parametersSlideSizeValue.setAttribute('value', '960');
       }
     })
   }

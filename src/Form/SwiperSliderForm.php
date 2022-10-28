@@ -175,23 +175,23 @@ class SwiperSliderForm extends EntityForm {
         'visible' => 'visible',
       ],
     ];
-    $form['slider']['style']['p_start'] = [
+    $form['slider']['style']['ps'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding start'),
       '#description' => $this->t('Padding top in horizontal direction and padding left in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slider['style']['p_start'] ?? 0,
+      '#default_value' => $slider['style']['ps'] ?? 0,
     ];
-    $form['slider']['style']['p_end'] = [
+    $form['slider']['style']['pe'] = [
       '#type' => 'range',
       '#title' => $this->t('Padding end'),
       '#description' => $this->t('Padding bottom in horizontal direction and padding right in vertical direction'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slider['style']['p_end'] ?? 0,
+      '#default_value' => $slider['style']['pe'] ?? 0,
     ];
     // Slides Content & Styles.
     $slides = $this->entity->get('slides');
@@ -382,7 +382,7 @@ class SwiperSliderForm extends EntityForm {
     $form['parameters']['size_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Slide size'),
-      '#default_value' => $params['size_type'] ?? NULL,
+      '#default_value' => $params['size_type'] ?? 'relative',
       '#options' => [
         'relative' => 'relative',
         'fixed' => 'fixed',
@@ -395,8 +395,10 @@ class SwiperSliderForm extends EntityForm {
     ];
     $form['parameters']['size_value'] = [
       '#type' => 'range',
-      '#default_value' => $params['size_value'] ?? NULL,
       '#min' => 0,
+      '#max' => ($form['parameters']['size_type']['#default_value'] == 'relative') ? 100 : 1920,
+      '#step' => 1,
+      '#default_value' => $params['size_value'] ?? 100,
       '#states' => [
         'visible' => [
           'select[name="parameters[per_view]"]' => ['value' => 'auto'],
@@ -1561,7 +1563,8 @@ class SwiperSliderForm extends EntityForm {
       '#type' => 'fieldset',
       '#title' => $this->t('Pro parameters'),
     ];
-    $this->tempStoreFactory->get('swipers')->set('css', $pro['css'] ?? NULL);
+    $css = $this->tempStoreFactory->get('swipers')->get('css') ?? ($pro['css'] ?? NULL);
+    $this->tempStoreFactory->get('swipers')->set('css', $css);
     $form['pro']['css'] = [
       '#type' => 'link',
       '#title' => $this->t('Custom CSS styles'),
@@ -1757,8 +1760,8 @@ class SwiperSliderForm extends EntityForm {
     if (!$values['slides']['content']['title'] && !$values['slides']['content']['text']) {
       unset($values['slides']['content']['position']);
     }
-    if (!$values['parameters']['direction'] == 'vertical') {
-      unset($values['parameters']['rows']);
+    if ($values['parameters']['per_view'] != 'auto') {
+      unset($values['parameters']['size_type'], $values['parameters']['size_value']);
     }
     foreach ($values['effects'] as $label => $effect) {
       if (!in_array($label, [
@@ -1787,6 +1790,7 @@ class SwiperSliderForm extends EntityForm {
       ->set('description', $values['main']['description'])
       ->set('slider', $values['slider'])
       ->set('slides', $values['slides'])
+      ->set('parameters', $values['parameters'])
       ->set('effects', $values['effects'])
       ->set('modules', $values['modules'])
       ->set('pro', $values['pro']);

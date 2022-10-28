@@ -1,21 +1,45 @@
 {
-  "name": "drupal/swipers",
-  "description": "A module to create sliders using swiper slider js library",
-  "minimum-stability": "stable",
-  "homepage": "https://www.drupal.org/project/swipers",
-  "license": "proprietary",
-  "authors": [
-    {
-      "name": "Maks Oleksyuk",
-      "email": "maksym.oleksyuk@gmail.com"
-    }
-  ],
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/swipers",
-    "source": "https://git.drupalcode.org/project/swipers"
-  },
-  "require": {
-    "drupal/core": "^9",
-    "nolimits4web/swiper": "^4.5"
-  }
+    "name": "drupal/swipers",
+    "description": "A module to create sliders using swiper slider js library",
+    "type": "drupal-module",
+    "keywords": [
+        "Drupal",
+        "swiper",
+        "swipe",
+        "slider",
+        "slideshow",
+        "carousel"
+    ],
+    "homepage": "https://www.drupal.org/project/swipers",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Maks Oleksyuk",
+            "email": "maksym.oleksyuk@gmail.com",
+            "homepage": "https://www.drupal.org/u/maks-oleksyuk",
+            "role": "Creator, Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/swipers",
+        "source": "https://git.drupalcode.org/project/swipers"
+    },
+    "require": {
+        "drupal/core": "^9 || ^10"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "nolimits4web/swiper",
+                "type": "drupal-library",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/nolimits4web/swiper/archive/refs/heads/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ]
 }

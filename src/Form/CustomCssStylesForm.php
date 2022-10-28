@@ -22,7 +22,7 @@ class CustomCssStylesForm extends FormBase {
   protected $tempStoreFactory;
 
   /**
-   * Constructs a new Swiper Slider form.
+   * Constructs a new form to custom css.
    *
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The temp store factory.
@@ -98,7 +98,6 @@ class CustomCssStylesForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $css = $form_state->getValue('css');
-    $this->tempStoreFactory->get('swipers')->delete('css');
     $this->tempStoreFactory->get('swipers')->set('css', $css);
   }
 
