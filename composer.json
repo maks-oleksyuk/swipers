@@ -27,19 +27,5 @@
     "require": {
         "drupal/core": "^9 || ^10"
     },
-    "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "nolimits4web/swiper",
-                "type": "drupal-library",
-                "version": "dev-master",
-                "dist": {
-                    "url": "https://github.com/nolimits4web/swiper/archive/refs/heads/master.zip",
-                    "type": "zip"
-                }
-            }
-        }
-    ]
+    "minimum-stability": "dev"
 }

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Manages installation and update of swipers module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function swipers_requirements($phase) {
+  $requirements = [];
+  if ($phase === 'runtime') {
+    if (file_exists(DRUPAL_ROOT . '/libraries/swiper/core/core.js')) {
+      $requirements['swipers'] = [
+        'title' => t('Swiper library'),
+        'value' => t('Installed (npm package)'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+    elseif (file_exists(DRUPAL_ROOT . '/libraries/swiper/src/core/core.js')) {
+      $requirements['swipers'] = [
+        'title' => t('Swiper library'),
+        'value' => t('Installed (from git or composer merge)'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+    else {
+      $requirements['swipers'] = [
+        'title' => t('Swiper library'),
+        'value' => t('Missing loaded library (using CDN)'),
+        'description' => t('If you want to use the Swipers, you must download the <a href=":url">swiper.js</a> library and copy it to :library', [
+          ':url' => 'https://github.com/nolimits4web/swiper',
+          ':library' => DRUPAL_ROOT . '/libraries/swiper/',
+        ]),
+        'severity' => REQUIREMENT_WARNING,
+      ];
+    }
+  }
+  return $requirements;
+}

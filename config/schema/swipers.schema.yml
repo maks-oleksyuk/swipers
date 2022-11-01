@@ -255,9 +255,9 @@ swipers.slider.*:
           type: mapping
           label: 'Navigation'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Navigation'
             color:
               type: string
               label: 'Color'
@@ -274,9 +274,9 @@ swipers.slider.*:
           type: mapping
           label: 'Pagination'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Pagination'
             color:
               type: string
               label: 'Color'
@@ -308,9 +308,9 @@ swipers.slider.*:
           type: mapping
           label: 'Autoplay'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Autoplay'
             delay:
               type: integer
               label: 'Delay'
@@ -330,9 +330,9 @@ swipers.slider.*:
           type: mapping
           label: 'Scrollbar'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Scrollbar'
             track_color:
               type: string
               label: 'Track color'
@@ -358,9 +358,9 @@ swipers.slider.*:
           type: mapping
           label: 'Free mode'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Free mode'
             sticky:
               type: boolean
               label: 'Sticky'
@@ -383,9 +383,9 @@ swipers.slider.*:
           type: mapping
           label: 'Keyboard control'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Keyboard control'
             only_in_viewport:
               type: boolean
               label: 'Only in viewport'
@@ -396,9 +396,9 @@ swipers.slider.*:
           type: mapping
           label: 'Mousewheel control'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Mousewheel control'
             force_to_axis:
               type: boolean
               label: 'Force to axis'
@@ -415,9 +415,9 @@ swipers.slider.*:
           type: mapping
           label: 'Parallax'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Parallax'
             effect_multiplier:
               type: float
               label: 'Effect multiplier'
@@ -425,9 +425,9 @@ swipers.slider.*:
           type: mapping
           label: 'Lazy loading'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Lazy loading'
             check_in_view:
               type: boolean
               label: 'Check in view'
@@ -444,16 +444,16 @@ swipers.slider.*:
           type: mapping
           label: 'Accessibility'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enabled '
         zoom:
           type: mapping
           label: 'Zoom'
           mapping:
-            status:
+            enabled:
               type: boolean
-              label: 'Status'
+              label: 'Enable Zoom'
             minimal_ratio:
               type: integer
               label: 'Minimal ratio'

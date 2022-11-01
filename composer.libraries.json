@@ -1,0 +1,19 @@
+{
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal-library/swiper",
+                "type": "drupal-library",
+                "version": "dev-master",
+                "dist": {
+                    "url": "https://github.com/nolimits4web/swiper/archive/refs/heads/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "require": {
+        "drupal-library/swiper": "*"
+    }
+}

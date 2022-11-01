@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Defines Drupal hooks for Swipers module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function swipers_theme($existing, $type, $theme, $path) {
+  return [
+    'swiper_studio' => [
+      'render element' => 'form',
+    ],
+  ];
+}

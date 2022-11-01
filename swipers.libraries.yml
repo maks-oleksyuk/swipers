@@ -1,3 +1,16 @@
+swipers.remote:
+  remote: https://github.com/nolimits4web/swiper
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/nolimits4web/swiper/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css: { }
+  js:
+    https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js: { }
+
 swipers.form:
   version: VERSION
   js:
