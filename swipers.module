@@ -8,10 +8,22 @@
 /**
  * Implements hook_theme().
  */
-function swipers_theme($existing, $type, $theme, $path) {
+function swipers_theme($existing, $type, $theme, $path): array {
   return [
-    'swiper_studio' => [
-      'render element' => 'form',
+    'page__admin__config__media__swiper_studio_slider' => [
+      'template' => 'swiper-studio',
+      'base hook' => 'page',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function swipers_theme_suggestions_page_alter(array &$suggestions, array $variables): array {
+  if (in_array(\Drupal::routeMatch()
+    ->getRouteName(), ['entity.slider.edit_form', 'entity.slider.add_form'])) {
+    $suggestions[] = 'page__admin__config__media__swiper_studio_slider';
+  }
+  return $suggestions;
 }

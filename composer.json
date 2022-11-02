@@ -24,8 +24,5 @@
         "issues": "https://www.drupal.org/project/issues/swipers",
         "source": "https://git.drupalcode.org/project/swipers"
     },
-    "require": {
-        "drupal/core": "^9 || ^10"
-    },
     "minimum-stability": "dev"
 }
