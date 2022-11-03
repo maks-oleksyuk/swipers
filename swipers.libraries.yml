@@ -15,3 +15,9 @@ swipers.form:
   version: VERSION
   js:
     js/swipers.form.js: { }
+
+swiper-studio:
+  version: VERSION
+  css:
+    theme:
+      css/swiper-studio.css: { }

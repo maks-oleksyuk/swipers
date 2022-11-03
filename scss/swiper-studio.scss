@@ -1,0 +1,83 @@
+.swiper-studio {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(18, 18, 18, 1);
+    padding-inline: 1rem;
+
+    &--toggle {
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      cursor: default;
+      color: rgba(255, 255, 255, 0.5);
+      border-width: 1px;
+      border-style: none;
+      border-radius: 0.25rem;
+      background-color: transparent;
+      font-size: 20px;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+
+    &__info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      &__logo {
+        display: flex;
+        align-items: center;
+
+        &:focus {
+          box-shadow: none !important;
+        }
+
+        img {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+
+      &__label {
+        color: rgba(255, 255, 255, 1);
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 0.875rem;
+        font-weight: 700;
+        line-height: 1.25rem;
+      }
+    }
+
+    &__breakpoints {
+      display: flex;
+      gap: 32px;
+    }
+
+    &__export a {
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      color: rgba(255, 255, 255, 1);
+      gap: 8px;
+      border-radius: 0.25rem;
+
+      svg {
+        opacity: 0.5;
+      }
+
+      &:hover {
+        color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+}

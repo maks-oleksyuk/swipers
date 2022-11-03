@@ -21,9 +21,39 @@ function swipers_theme($existing, $type, $theme, $path): array {
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function swipers_theme_suggestions_page_alter(array &$suggestions, array $variables): array {
-  if (in_array(\Drupal::routeMatch()
-    ->getRouteName(), ['entity.slider.edit_form', 'entity.slider.add_form'])) {
-    $suggestions[] = 'page__admin__config__media__swiper_studio_slider';
+  switch (\Drupal::routeMatch()->getRouteName()) {
+    case 'entity.slider.add_form':
+    case 'entity.slider.edit_form':
+      $suggestions[] = 'page__admin__config__media__swiper_studio_slider';
+      break;
+
+    default:
+      break;
   }
   return $suggestions;
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function swipers_preprocess_page(&$variables) {
+  $route_match = \Drupal::routeMatch();
+  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_list */
+  $module_list = \Drupal::service('extension.list.module');
+  $route_name = $route_match->getRouteName();
+  switch ($route_name) {
+    case 'entity.slider.add_form':
+    case 'entity.slider.edit_form':
+      if ($route_name === 'entity.slider.edit_form') {
+        $variables['page']['label'] = $route_match->getParameters()
+          ->get('slider')
+          ->label();
+      }
+      $variables['module_path'] = base_path() . $module_list->getPath('swipers');
+      $variables['#attached']['library'][] = 'swipers/swiper-studio';
+      break;
+
+    default:
+      break;
+  }
 }
