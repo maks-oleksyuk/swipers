@@ -1,4 +1,6 @@
 .swiper-studio {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   &-header {
     display: flex;
     align-items: center;
@@ -21,11 +23,16 @@
       font-size: 20px;
 
       &:hover {
+        color: rgba(255, 255, 255, 1);
         background-color: rgba(255, 255, 255, 0.05);
       }
 
       &:focus {
         box-shadow: none !important;
+      }
+
+      &.active {
+        color: rgba(0, 128, 255, 1);
       }
     }
 
@@ -46,11 +53,16 @@
           width: 2rem;
           height: 2rem;
         }
+
+        @media (max-width: 575px) {
+          display: none;
+        }
       }
 
       &__label {
+        @extend %hidden;
+
         color: rgba(255, 255, 255, 1);
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 0.875rem;
         font-weight: 700;
         line-height: 1.25rem;
@@ -59,7 +71,20 @@
 
     &__breakpoints {
       display: flex;
-      gap: 32px;
+      overflow-x: auto;
+
+      &-preview,
+      &-settings {
+        display: flex;
+
+        @media (min-width: 575px) {
+          gap: 4px;
+        }
+      }
+
+      @media (min-width: 575px) {
+        gap: 32px;
+      }
     }
 
     &__export a {
@@ -69,15 +94,30 @@
       color: rgba(255, 255, 255, 1);
       gap: 8px;
       border-radius: 0.25rem;
-
-      svg {
-        opacity: 0.5;
-      }
+      font-weight: 500;
 
       &:hover {
         color: rgba(255, 255, 255, 1);
         background-color: rgba(255, 255, 255, 0.05);
       }
+
+      &:focus {
+        box-shadow: none !important;
+      }
+
+      svg {
+        opacity: 0.5;
+      }
+
+      span {
+        @extend %hidden;
+      }
     }
+  }
+}
+
+%hidden {
+  @media (max-width: 1024px) {
+    display: none;
   }
 }

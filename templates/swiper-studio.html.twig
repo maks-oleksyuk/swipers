@@ -41,12 +41,12 @@
  * @see html.html.twig
  */
 #}
-<header class="swiper-studio-header">
+<header class="swiper-studio swiper-studio-header">
   <div class="swiper-studio-header__info">
     <a class="swiper-studio-header__info__logo" href="https://studio.swiperjs.com">
       <img src="{{ module_path }}/images/logo.svg" alt="Swiper Studio logo" title="Swiper Studio Official site">
     </a>
-    <button class="swiper-studio-header--toggle" data-tooltip="Toggle left pane">
+    <button class="swiper-studio-header--toggle active" data-tooltip="Toggle left pane">
       {% include '@swipers/images/toolbar/toggle-left-pane.svg' %}
     </button>
     {% if page.label %}
@@ -67,7 +67,7 @@
       <button class="swiper-studio-header--toggle" data-tooltip="Preview on desktop">
         {% include '@swipers/images/toolbar/desktop.svg' %}
       </button>
-      <button class="swiper-studio-header--toggle" data-tooltip="Responsive mode">
+      <button class="swiper-studio-header--toggle active" data-tooltip="Responsive mode">
         {% include '@swipers/images/toolbar/responsive-mode.svg' %}
       </button>
     </div>
@@ -75,7 +75,7 @@
       <button class="swiper-studio-header--toggle" data-tooltip="Toggle breakpoint">
         {% include '@swipers/images/toolbar/toggle-breakpoint.svg' %}
       </button>
-      <button class="swiper-studio-header--toggle" data-tooltip="Toggle preview frame background">
+      <button class="swiper-studio-header--toggle active" data-tooltip="Toggle preview frame background">
         {% include '@swipers/images/toolbar/toggle-preview-frame-background.svg' %}
       </button>
     </div>
@@ -88,9 +88,15 @@
   </div>
 </header>
 
-<div class="layout-container">
-  <main class="page-content clearfix" role="main">
-    {# {{ page.highlighted }} #}
+<div class="swiper-studio swiper-studio-main">
+  <div class="swiper-studio-form">
     {{ page.content }}
-  </main>
+    {{ page.content|without('edit-actions') }}
+  </div>
+
+  <div class="swiper-studio-live-demo">
+    {# {{ page.highlighted }} #}
+
+  </div>
+
 </div>
