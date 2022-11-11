@@ -1743,8 +1743,6 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['#attached']['library'][] = 'swipers/swipers.form';
-    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
     return $form;
   }
 

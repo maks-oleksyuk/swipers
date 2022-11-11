@@ -11,13 +11,10 @@ swipers.remote:
   js:
     https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js: { }
 
-swipers.form:
-  version: VERSION
-  js:
-    js/swipers.form.js: { }
-
 swiper-studio:
   version: VERSION
   css:
     theme:
       css/swiper-studio.css: { }
+  js:
+    js/swiper-studio.js: { }

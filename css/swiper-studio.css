@@ -3,11 +3,13 @@
 }
 .swiper-studio-header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   width: 100%;
   height: 3rem;
+  border-bottom: 1px solid rgb(34, 34, 34);
   background-color: rgb(18, 18, 18);
   padding-inline: 1rem;
 }
@@ -32,6 +34,13 @@
 .swiper-studio-header--toggle.active {
   color: rgb(0, 128, 255);
 }
+.swiper-studio-header--toggle.disabled {
+  opacity: 0.3;
+}
+.swiper-studio-header--toggle.disabled:hover {
+  color: rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+}
 .swiper-studio-header__info {
   display: flex;
   align-items: center;
@@ -48,7 +57,6 @@
   width: 2rem;
   height: 2rem;
 }
-
 @media (max-width: 575px) {
   .swiper-studio-header__info__logo {
     display: none;
@@ -64,18 +72,14 @@
   display: flex;
   overflow-x: auto;
 }
-.swiper-studio-header__breakpoints-preview,
-.swiper-studio-header__breakpoints-settings {
+.swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
   display: flex;
 }
-
 @media (min-width: 575px) {
-  .swiper-studio-header__breakpoints-preview,
-  .swiper-studio-header__breakpoints-settings {
+  .swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
     gap: 4px;
   }
 }
-
 @media (min-width: 575px) {
   .swiper-studio-header__breakpoints {
     gap: 32px;
@@ -85,10 +89,11 @@
   display: flex;
   align-items: center;
   padding: 0.25rem 0.5rem;
+  text-decoration: inherit;
   color: rgb(255, 255, 255);
-  gap: 8px;
   border-radius: 0.25rem;
   font-weight: 500;
+  gap: 8px;
 }
 .swiper-studio-header__export a:hover {
   color: rgb(255, 255, 255);
@@ -100,10 +105,44 @@
 .swiper-studio-header__export a svg {
   opacity: 0.5;
 }
+.swiper-studio-main {
+  display: flex;
+  overflow: hidden;
+  flex-shrink: 1;
+  min-width: 0;
+  height: 100%;
+}
+.swiper-studio-main__form {
+  overflow: auto;
+  width: 20rem;
+  height: 100%;
+  background-color: rgb(18, 18, 18);
+}
+.swiper-studio-main__form::-webkit-scrollbar {
+  width: 0.8rem;
+  background-color: transparent;
+}
+.swiper-studio-main__form::-webkit-scrollbar-thumb {
+  height: 30%;
+  border: 0.3rem rgb(18, 18, 18) solid;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
 
 @media (max-width: 1024px) {
-  .swiper-studio-header__info__label,
-  .swiper-studio-header__export a span {
+  .swiper-studio-header__info__label, .swiper-studio-header__export a span {
     display: none;
   }
 }
+
+html {
+  overflow: hidden;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/*# sourceMappingURL=swiper-studio.css.map */

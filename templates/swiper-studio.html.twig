@@ -46,7 +46,7 @@
     <a class="swiper-studio-header__info__logo" href="https://studio.swiperjs.com">
       <img src="{{ module_path }}/images/logo.svg" alt="Swiper Studio logo" title="Swiper Studio Official site">
     </a>
-    <button class="swiper-studio-header--toggle active" data-tooltip="Toggle left pane">
+    <button class="swiper-studio-header--toggle active" id="swiper-form-toggle" data-tooltip="Toggle left pane">
       {% include '@swipers/images/toolbar/toggle-left-pane.svg' %}
     </button>
     {% if page.label %}
@@ -72,7 +72,7 @@
       </button>
     </div>
     <div class="swiper-studio-header__breakpoints-settings">
-      <button class="swiper-studio-header--toggle" data-tooltip="Toggle breakpoint">
+      <button class="swiper-studio-header--toggle disabled" data-tooltip="Toggle breakpoint">
         {% include '@swipers/images/toolbar/toggle-breakpoint.svg' %}
       </button>
       <button class="swiper-studio-header--toggle active" data-tooltip="Toggle preview frame background">
@@ -89,14 +89,13 @@
 </header>
 
 <div class="swiper-studio swiper-studio-main">
-  <div class="swiper-studio-form">
-    {{ page.content }}
-    {{ page.content|without('edit-actions') }}
+
+  <div class="swiper-studio-main__form" id="swiper-form-wrapper">
+    {{ page.form }}
   </div>
 
-  <div class="swiper-studio-live-demo">
+  <div class="swiper-studio-main__live-demo">
     {# {{ page.highlighted }} #}
-
   </div>
 
 </div>

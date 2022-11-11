@@ -10,7 +10,7 @@
  */
 function swipers_theme($existing, $type, $theme, $path): array {
   return [
-    'page__admin__config__media__swiper_studio_slider' => [
+    'swiper_studio_page' => [
       'template' => 'swiper-studio',
       'base hook' => 'page',
     ],
@@ -24,7 +24,7 @@ function swipers_theme_suggestions_page_alter(array &$suggestions, array $variab
   switch (\Drupal::routeMatch()->getRouteName()) {
     case 'entity.slider.add_form':
     case 'entity.slider.edit_form':
-      $suggestions[] = 'page__admin__config__media__swiper_studio_slider';
+      $suggestions[] = 'swiper_studio_page';
       break;
 
     default:

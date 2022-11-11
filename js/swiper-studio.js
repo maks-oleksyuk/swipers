@@ -6,13 +6,30 @@
 
   'use strict';
 
+  let byId = (id) => document.getElementById(id);
+
+  function toolbar() {
+    let form = byId('swiper-form-wrapper');
+    let formToggle = byId('swiper-form-toggle');
+    formToggle.addEventListener('click', function () {
+      if (this.classList.contains('active')) {
+        this.classList.remove('active');
+        form.style.display = 'none';
+      }
+      else {
+        this.classList.add('active');
+        form.style.display = 'block';
+      }
+    })
+  }
+
   function rangeAttributes() {
-    let sliderStyleWidthType = document.getElementById('edit-slider-style-w-type');
-    let sliderStyleWidthValue = document.getElementById('edit-slider-style-w-value');
-    let sliderStyleHeightType = document.getElementById('edit-slider-style-h-type');
-    let sliderStyleHeightValue = document.getElementById('edit-slider-style-h-value');
-    let parametersSlideSizeType = document.getElementById('edit-parameters-size-type');
-    let parametersSlideSizeValue = document.getElementById('edit-parameters-size-value');
+    let sliderStyleWidthType = byId('edit-slider-style-w-type');
+    let sliderStyleWidthValue = byId('edit-slider-style-w-value');
+    let sliderStyleHeightType = byId('edit-slider-style-h-type');
+    let sliderStyleHeightValue = byId('edit-slider-style-h-value');
+    let parametersSlideSizeType = byId('edit-parameters-size-type');
+    let parametersSlideSizeValue = byId('edit-parameters-size-value');
 
     sliderStyleWidthType.addEventListener('change', function () {
       if (sliderStyleWidthType.value === 'relative') {
@@ -49,23 +66,24 @@
   }
 
   function observeCheckboxes() {
-    let observer = document.getElementById('edit-pro-observer');
-    let observerParents = document.getElementById('edit-pro-observer-parents');
+    let observer = byId('edit-pro-observer');
+    let observerParents = byId('edit-pro-observer-parents');
 
     observer.addEventListener('change', function () {
-      if (!observer.checked && observerParents.checked) {
+      if (!this.checked && observerParents.checked) {
         observerParents.checked = false;
       }
     })
 
     observerParents.addEventListener('change', function () {
-      if (observerParents.checked && !observer.checked) {
+      if (this.checked && !observer.checked) {
         observer.checked = true;
       }
     })
   }
 
+  toolbar();
   rangeAttributes();
-  observeCheckboxes()
+  observeCheckboxes();
 
 }(Drupal));
