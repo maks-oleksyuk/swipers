@@ -32,33 +32,33 @@
     let parametersSlideSizeValue = byId('edit-parameters-size-value');
 
     sliderStyleWidthType.addEventListener('change', function () {
-      if (sliderStyleWidthType.value === 'relative') {
+      if (this.value === 'relative') {
         sliderStyleWidthValue.setAttribute('max', '100');
         sliderStyleWidthValue.setAttribute('value', '100');
       }
-      else if (sliderStyleWidthType.value === 'fixed') {
+      else if (this.value === 'fixed') {
         sliderStyleWidthValue.setAttribute('max', '1920');
         sliderStyleWidthValue.setAttribute('value', '960');
       }
     })
 
     sliderStyleHeightType.addEventListener('change', function () {
-      if (sliderStyleHeightType.value === 'relative') {
+      if (this.value === 'relative') {
         sliderStyleHeightValue.setAttribute('max', '100');
         sliderStyleHeightValue.setAttribute('value', '100');
       }
-      else if (sliderStyleHeightType.value === 'fixed') {
+      else if (this.value === 'fixed') {
         sliderStyleHeightValue.setAttribute('max', '1920');
         sliderStyleHeightValue.setAttribute('value', '540');
       }
     })
 
     parametersSlideSizeType.addEventListener('change', function () {
-      if (parametersSlideSizeType.value === 'relative') {
+      if (this.value === 'relative') {
         parametersSlideSizeValue.setAttribute('max', '100');
         parametersSlideSizeValue.setAttribute('value', '100');
       }
-      else if (parametersSlideSizeType.value === 'fixed') {
+      else if (this.value === 'fixed') {
         parametersSlideSizeValue.setAttribute('max', '1920');
         parametersSlideSizeValue.setAttribute('value', '960');
       }
@@ -85,5 +85,11 @@
   toolbar();
   rangeAttributes();
   observeCheckboxes();
+
+  tippy('[data-tippy-content]', {
+    arrow: false,
+    offset: [0, 3],
+    theme: 'swiper',
+  });
 
 }(Drupal));

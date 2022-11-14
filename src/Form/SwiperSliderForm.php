@@ -62,6 +62,7 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Label'),
       '#description' => $this->t('Label for the slider.'),
       '#default_value' => $this->entity->label(),
+      '#theme_wrappers' => ['swiper_studio_label'],
     ];
     $form['main']['id'] = [
       '#type' => 'machine_name',

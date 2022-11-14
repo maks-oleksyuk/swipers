@@ -1,5 +1,7 @@
 .swiper-studio {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.75rem;
+  line-height: 1rem;
 
   &-header {
     display: flex;
@@ -37,7 +39,7 @@
         color: rgba(0, 128, 255, 1);
       }
 
-      &.disabled {
+      &:disabled {
         opacity: 0.3;
 
         &:hover {
@@ -105,7 +107,9 @@
       text-decoration: inherit;
       color: rgba(255, 255, 255, 1);
       border-radius: 0.25rem;
+      font-size: 0.875rem;
       font-weight: 500;
+      line-height: 1.25rem;
       gap: 8px;
 
       &:hover {
@@ -150,6 +154,39 @@
         border: 0.3rem rgba(18, 18, 18, 1) solid;
         border-radius: 9999px;
         background: rgba(255, 255, 255, 0.1);
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      form {
+        padding: 1rem 0 1rem 0.8rem;
+      }
+
+      /* Fieldset style */
+      .fieldset {
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+
+        &__label {
+          margin: 0 0 8px;
+          padding: 0 0 0 1rem;
+          user-select: none;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.5);
+          font-weight: 500;
+        }
+
+        &__wrapper {
+          margin: 0 0 1rem;
+          color: rgba(255, 255, 255, 1);
+          border-radius: 0.5rem;
+          background-color: rgba(28, 28, 28, 1);
+        }
       }
     }
   }
@@ -169,4 +206,13 @@ html {
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+/* Tippy js theme style */
+.tippy-box[data-theme~="swiper"] {
+  max-width: 240px;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: rgba(0, 0, 0, 1);
+  font-size: 0.75rem;
+  line-height: 1rem;
 }

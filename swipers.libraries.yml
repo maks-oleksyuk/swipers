@@ -17,4 +17,6 @@ swiper-studio:
     theme:
       css/swiper-studio.css: { }
   js:
+    https://unpkg.com/@popperjs/core@2: { minified: true }
+    https://unpkg.com/tippy.js@6: { minified: true }
     js/swiper-studio.js: { }
