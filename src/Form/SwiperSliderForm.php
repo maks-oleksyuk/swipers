@@ -60,9 +60,9 @@ class SwiperSliderForm extends EntityForm {
       '#maxlength' => 255,
       '#required' => TRUE,
       '#title' => $this->t('Label'),
-      '#description' => $this->t('Label for the slider.'),
+      '#description' => $this->t('Label for the swiper slider'),
       '#default_value' => $this->entity->label(),
-      '#theme_wrappers' => ['swiper_studio_label'],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['main']['id'] = [
       '#type' => 'machine_name',
@@ -72,18 +72,25 @@ class SwiperSliderForm extends EntityForm {
         'source' => ['main', 'label'],
       ],
       '#disabled' => !$this->entity->isNew(),
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['main']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enabled'),
+      '#title_display' => 'inline',
       '#default_value' => $this->entity->status(),
+      '#description' => $this->t('Mark this checkbox to enable this swiper slider template'),
+      '#theme' => 'swiper_studio_input__checkbox__toggle',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['main']['description'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Description'),
-      '#description' => $this->t('Description of the slider.'),
+      '#description' => $this->t('Description for this swiper slider template'),
       '#default_value' => $this->entity->get('description'),
       '#resizable' => 'none',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
+
     ];
     // Slider.
     $slider = $this->entity->get('slider');

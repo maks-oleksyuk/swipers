@@ -43,7 +43,7 @@
 #}
 <header class="swiper-studio swiper-studio-header">
   <div class="swiper-studio-header__info">
-    <a class="swiper-studio-header__info__logo" href="https://studio.swiperjs.com">
+    <a class="swiper-studio-header__info__logo" href="https://studio.swiperjs.com" target="_blank">
       <img src="{{ module_path }}/images/logo.svg" alt="Swiper Studio logo" title="Swiper Studio Official site">
     </a>
     <button class="swiper-studio-header--toggle active" id="swiper-form-toggle" data-tippy-content="Toggle left pane">
@@ -81,7 +81,7 @@
     </div>
   </div>
   <div class="swiper-studio-header__export" data-tippy-content="Export yml configuration">
-    <a href="{{ path('config.export_single') }}">
+    <a href="{{ path('config.export_single') }}" target="_blank">
       {% include '@swipers/images/toolbar/export.svg' %}
       <span>Export</span>
     </a>

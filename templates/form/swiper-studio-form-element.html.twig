@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for a form element.
+ *
+ * @see template_preprocess_form_element()
+ */
+#}
+{#
+Most of core-provided js assumes that the CSS class pattern js-form-item-[something] or
+js-form-type-[something] exists on form items. We have to keep them.
+#}
+{% set classes = [
+  'js-form-item',
+  'form-item',
+  'js-form-type-' ~ type|clean_class,
+  'form-type--' ~ type|clean_class,
+  type in ['checkbox', 'radio'] ? 'form-type--boolean',
+  'js-form-item-' ~ name|clean_class,
+  'form-item--' ~ name|clean_class,
+  title_display == 'before' ? 'form-item-title-before' : 'form-item-title-inline',
+  'form-item--swiper-studio',
+  disabled == 'disabled' ? 'form-item--disabled',
+] %}
+<div{{ attributes.addClass(classes) }}>
+  <div class="form-item-title-wrapper">
+    {{ label }}
+    {% if description.content %}
+      <span class="help-icon" data-tippy-content="{{ description.content }}">
+        {% include '@swipers/images/icons/info.svg' %}
+      </span>
+    {% endif %}
+  </div>
+  <div class="form-item-children-wrapper">
+    {{ children }}
+    {% if suffix is not empty %}
+      <span class="form-item__suffix{{ disabled == 'disabled' ? ' is-disabled' }}">{{ suffix }}</span>
+    {% endif %}
+  </div>
+</div>
