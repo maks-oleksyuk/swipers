@@ -5,8 +5,6 @@
  * Defines Drupal hooks for Swipers module.
  */
 
-use Drupal\Core\Template\Attribute;
-
 /**
  * Implements hook_theme().
  */
@@ -30,17 +28,14 @@ function swipers_theme($existing, $type, $theme, $path): array {
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
-function swipers_theme_suggestions_page_alter(array &$suggestions, array $variables): array {
-  switch (\Drupal::routeMatch()->getRouteName()) {
-    case 'entity.slider.add_form':
-    case 'entity.slider.edit_form':
-      $suggestions[] = 'swiper_studio_page';
-      break;
-
-    default:
-      break;
+function swipers_theme_suggestions_page_alter(array &$suggestions, array $variables): void {
+  $suggestion = match (\Drupal::routeMatch()->getRouteName()) {
+    'entity.slider.add_form', 'entity.slider.edit_form' => 'swiper_studio_page',
+    default => NULL,
+  };
+  if (!empty($suggestion)) {
+    $suggestions[] = $suggestion;
   }
-  return $suggestions;
 }
 
 /**

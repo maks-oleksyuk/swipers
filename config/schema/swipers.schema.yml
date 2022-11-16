@@ -10,8 +10,10 @@ swipers.slider.*:
       label: 'Label'
     uuid:
       type: string
+      label: 'UUID'
     description:
-      type: string
+      type: text
+      label: 'Description'
     slider:
       type: mapping
       label: 'Slider'
@@ -81,7 +83,7 @@ swipers.slider.*:
               type: integer
               label: 'Slide border width'
             br_color:
-              type: string
+              type: color_hex
               label: 'Slide border color'
             vertical_start:
               type: integer
@@ -90,13 +92,13 @@ swipers.slider.*:
               type: integer
               label: 'Content horizontal padding'
             background_color:
-              type: string
+              type: color_hex
               label: 'Background color'
             title_color:
-              type: string
+              type: color_hex
               label: 'Title color'
             text_color:
-              type: string
+              type: color_hex
               label: 'Text color'
     parameters:
       type: mapping
@@ -106,7 +108,7 @@ swipers.slider.*:
           type: string
           label: 'Slide direction'
         per_view:
-          type: string
+          type: integer
           label: 'Slides per view'
         size_type:
           type: string
@@ -115,7 +117,7 @@ swipers.slider.*:
           type: integer
           label: 'Slide size value'
         per_group:
-          type: string
+          type: integer
           label: 'Slides per group'
         rows:
           type: integer
@@ -259,7 +261,7 @@ swipers.slider.*:
               type: boolean
               label: 'Enable Navigation'
             color:
-              type: string
+              type: color_hex
               label: 'Color'
             placement:
               type: string
@@ -278,7 +280,7 @@ swipers.slider.*:
               type: boolean
               label: 'Enable Pagination'
             color:
-              type: string
+              type: color_hex
               label: 'Color'
             placement:
               type: string
@@ -334,10 +336,10 @@ swipers.slider.*:
               type: boolean
               label: 'Enable Scrollbar'
             track_color:
-              type: string
+              type: color_hex
               label: 'Track color'
             thumb_color:
-              type: string
+              type: color_hex
               label: 'Thumb color'
             placement:
               type: string

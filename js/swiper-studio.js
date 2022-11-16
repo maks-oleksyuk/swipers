@@ -20,7 +20,7 @@
         this.classList.add('active');
         form.style.display = 'block';
       }
-    })
+    });
   }
 
   function rangeAttributes() {
@@ -40,7 +40,7 @@
         sliderStyleWidthValue.setAttribute('max', '1920');
         sliderStyleWidthValue.setAttribute('value', '960');
       }
-    })
+    });
 
     sliderStyleHeightType.addEventListener('change', function () {
       if (this.value === 'relative') {
@@ -51,7 +51,7 @@
         sliderStyleHeightValue.setAttribute('max', '1920');
         sliderStyleHeightValue.setAttribute('value', '540');
       }
-    })
+    });
 
     parametersSlideSizeType.addEventListener('change', function () {
       if (this.value === 'relative') {
@@ -62,7 +62,7 @@
         parametersSlideSizeValue.setAttribute('max', '1920');
         parametersSlideSizeValue.setAttribute('value', '960');
       }
-    })
+    });
   }
 
   function observeCheckboxes() {
@@ -73,13 +73,13 @@
       if (!this.checked && observerParents.checked) {
         observerParents.checked = false;
       }
-    })
+    });
 
     observerParents.addEventListener('change', function () {
       if (this.checked && !observer.checked) {
         observer.checked = true;
       }
-    })
+    });
   }
 
   toolbar();

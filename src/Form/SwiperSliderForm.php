@@ -372,7 +372,7 @@ class SwiperSliderForm extends EntityForm {
         '8' => 8,
         '9' => 9,
         '10' => 10,
-        'auto' => 'auto',
+        '-1' => 'auto',
       ],
       '#default_value' => $params['per_view'] ?? 1,
       '#states' => [
@@ -428,7 +428,7 @@ class SwiperSliderForm extends EntityForm {
         '8' => 8,
         '9' => 9,
         '10' => 10,
-        'auto' => 'auto',
+        '-1' => 'auto',
       ],
       '#default_value' => $params['per_group'] ?? 1,
       '#states' => [
