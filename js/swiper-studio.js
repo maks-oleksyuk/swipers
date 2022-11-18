@@ -75,12 +75,31 @@
     });
   }
 
+  function rangeProcess() {
+    const ps = byId('edit-slider-style-ps');
+    const pe = byId('edit-slider-style-pe');
+    const psCounter = byId('edit-slider-style-ps-counter');
+    const peCounter = byId('edit-slider-style-pe-counter');
+
+    psCounter.textContent = ps.value + psCounter.getAttribute('data-unit');
+    peCounter.textContent = pe.value + peCounter.getAttribute('data-unit');
+
+    ps.addEventListener('input', function () {
+      psCounter.textContent = this.value + psCounter.getAttribute('data-unit');
+    });
+    pe.addEventListener('input', function () {
+      peCounter.textContent = this.value + peCounter.getAttribute('data-unit');
+    });
+  }
+
   toolbar();
   rangeAttributes();
+  rangeProcess();
   observeCheckboxes();
 
   tippy('[data-tippy-content]', {
     arrow: false,
+    maxWidth: 240,
     offset: [0, 3],
     theme: 'swiper',
   });

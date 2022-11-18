@@ -18,8 +18,12 @@ function swipers_theme($existing, $type, $theme, $path): array {
       'base hook' => 'form_element',
       'path' => $path . '/templates/form',
     ],
-    'swiper_studio_input__checkbox__toggle' => [
+    'swiper_studio_switch' => [
       'base hook' => 'input',
+      'path' => $path . '/templates/form',
+    ],
+    'swiper_studio_details' => [
+      'base hook' => 'details',
       'path' => $path . '/templates/form',
     ],
   ];

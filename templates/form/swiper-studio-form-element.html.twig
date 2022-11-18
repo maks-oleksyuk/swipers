@@ -24,6 +24,9 @@ js-form-type-[something] exists on form items. We have to keep them.
 ] %}
 <div{{ attributes.addClass(classes) }}>
   <div class="form-item-title-wrapper">
+    {% if element['#icon'] %}
+      {% include '@swipers/images/icons/' ~ element['#icon'] %}
+    {% endif %}
     {{ label }}
     {% if description.content %}
       <span class="help-icon" data-tippy-content="{{ description.content }}">
@@ -33,6 +36,9 @@ js-form-type-[something] exists on form items. We have to keep them.
   </div>
   <div class="form-item-children-wrapper">
     {{ children }}
+    {% if element['#type'] == 'range' %}
+      <span class="range-counter" id="{{ element['#id'] ~ '-counter' }}" data-unit={{ element['#unit'] }}></span>
+    {% endif %}
     {% if suffix is not empty %}
       <span class="form-item__suffix{{ disabled == 'disabled' ? ' is-disabled' }}">{{ suffix }}</span>
     {% endif %}

@@ -75,13 +75,10 @@ class SwiperSliderForm extends EntityForm {
       '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['main']['status'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Enabled'),
-      '#title_display' => 'inline',
       '#default_value' => $this->entity->status(),
       '#description' => $this->t('Mark this checkbox to enable this swiper slider template'),
-      '#theme' => 'swiper_studio_input__checkbox__toggle',
-      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['main']['description'] = [
       '#type' => 'textarea',
@@ -90,7 +87,6 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $this->entity->get('description'),
       '#resizable' => 'none',
       '#theme_wrappers' => ['swiper_studio_form_element'],
-
     ];
     // Slider.
     $slider = $this->entity->get('slider');
@@ -101,30 +97,39 @@ class SwiperSliderForm extends EntityForm {
     $form['slider']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t('Language direction'),
+      '#title_display' => 'inline',
       '#default_value' => $slider['direction'] ?? 'ltr',
       '#options' => [
         'ltr' => 'LTR',
         'rtl' => 'RTL',
       ],
+      '#icon' => 'language-direction.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     // Slider sizes & styles.
     $form['slider']['style'] = [
       '#type' => 'details',
       '#open' => FALSE,
       '#title' => $this->t('Slider sizes & styles'),
+      '#icon' => 'slider-size.svg',
+      '#theme_wrappers' => ['swiper_studio_details'],
     ];
     $form['slider']['style']['size'] = [
       '#type' => 'select',
       '#title' => $this->t('Slider size'),
+      '#title_display' => 'inline',
       '#default_value' => $slider['style']['size'] ?? 'responsive',
       '#options' => [
         'responsive' => 'responsive',
         'custom' => 'custom',
       ],
+      '#icon' => 'slider-size.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['w_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Width'),
+      '#title_display' => 'inline',
       '#default_value' => $slider['style']['w_type'] ?? 'relative',
       '#options' => [
         'relative' => 'relative',
@@ -135,6 +140,8 @@ class SwiperSliderForm extends EntityForm {
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
         ],
       ],
+      '#icon' => 'width.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['w_value'] = [
       '#type' => 'range',
@@ -147,10 +154,12 @@ class SwiperSliderForm extends EntityForm {
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['h_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Height'),
+      '#title_display' => 'inline',
       '#default_value' => $slider['style']['h_type'] ?? 'relative',
       '#options' => [
         'relative' => 'relative',
@@ -161,6 +170,8 @@ class SwiperSliderForm extends EntityForm {
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
         ],
       ],
+      '#icon' => 'height.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['h_value'] = [
       '#type' => 'range',
@@ -173,15 +184,19 @@ class SwiperSliderForm extends EntityForm {
           'select[name="slider[style][size]"]' => ['value' => 'custom'],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['overflow'] = [
       '#type' => 'select',
       '#title' => $this->t('Overflow'),
+      '#title_display' => 'inline',
       '#default_value' => $slider['style']['overflow'] ?? 'hidden',
       '#options' => [
         'hidden' => 'hidden',
         'visible' => 'visible',
       ],
+      '#icon' => 'overflow.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['ps'] = [
       '#type' => 'range',
@@ -190,7 +205,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
+      '#unit' => 'px',
       '#default_value' => $slider['style']['ps'] ?? 0,
+      '#icon' => 'p-start.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slider']['style']['pe'] = [
       '#type' => 'range',
@@ -199,7 +217,10 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
+      '#unit' => 'px',
       '#default_value' => $slider['style']['pe'] ?? 0,
+      '#icon' => 'p-end.svg',
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     // Slides Content & Styles.
     $slides = $this->entity->get('slides');
@@ -214,13 +235,14 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides content'),
     ];
     $form['slides']['content']['images'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Images'),
       '#default_value' => $slides['content']['images'] ?? FALSE,
     ];
     $form['slides']['content']['images_set'] = [
       '#type' => 'select',
       '#title' => $this->t('Images set'),
+      '#title_display' => 'inline',
       '#options' => [
         'nature' => 'nature',
         'models' => 'models',
@@ -233,20 +255,22 @@ class SwiperSliderForm extends EntityForm {
           'input[name="slides[content][images]"]' => ['checked' => TRUE],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slides']['content']['title'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Title'),
       '#default_value' => $slides['content']['title'] ?? TRUE,
     ];
     $form['slides']['content']['text'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Text'),
       '#default_value' => $slides['content']['text'] ?? FALSE,
     ];
     $form['slides']['content']['position'] = [
       '#type' => 'select',
       '#title' => $this->t('Content position'),
+      '#title_display' => 'inline',
       '#options' => [
         'left_top' => 'left top',
         'center_top' => 'center top',
@@ -265,6 +289,7 @@ class SwiperSliderForm extends EntityForm {
           [':input[name="slides[content][text]"]' => ['checked' => TRUE]],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slides']['content']['custom'] = [
       '#type' => 'link',
@@ -1573,7 +1598,8 @@ class SwiperSliderForm extends EntityForm {
     ];
     // Clear temp storage when created new item, or set exist value on edit.
     if ($this->entity->isNew()) {
-      $css = $pro['css'] ?? ($this->tempStoreFactory->get('swipers')->get('css') ?? NULL);
+      $css = $pro['css'] ?? ($this->tempStoreFactory->get('swipers')
+        ->get('css') ?? NULL);
       $this->tempStoreFactory->get('swipers')->set('css', $css);
     }
     else {
