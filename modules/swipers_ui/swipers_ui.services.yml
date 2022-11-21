@@ -1,5 +1,5 @@
 services:
   swipers.page_display_variant_subscriber:
-    class: Drupal\swipers\EventSubscriber\SwipersDisplayVariantSubscriber
+    class: Drupal\swipers_ui\EventSubscriber\SwipersDisplayVariantSubscriber
     tags:
       - { name: event_subscriber }

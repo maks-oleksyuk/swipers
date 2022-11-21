@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\swipers\Plugin\DisplayVariant;
+namespace Drupal\swipers_ui\Plugin\DisplayVariant;
 
 use Drupal\Core\Display\PageVariantInterface;
 use Drupal\Core\Display\VariantBase;

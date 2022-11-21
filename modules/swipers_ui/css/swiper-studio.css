@@ -60,7 +60,6 @@
   width: 2rem;
   height: 2rem;
 }
-
 @media (max-width: 575px) {
   .swiper-studio-header__info__logo {
     display: none;
@@ -76,18 +75,14 @@
   display: flex;
   overflow-x: auto;
 }
-.swiper-studio-header__breakpoints-preview,
-.swiper-studio-header__breakpoints-settings {
+.swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
   display: flex;
 }
-
 @media (min-width: 575px) {
-  .swiper-studio-header__breakpoints-preview,
-  .swiper-studio-header__breakpoints-settings {
+  .swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
     gap: 4px;
   }
 }
-
 @media (min-width: 575px) {
   .swiper-studio-header__breakpoints {
     gap: 32px;
@@ -195,9 +190,9 @@
 .swiper-studio-main__form .form-item-title-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
 }
 .swiper-studio-main__form .form-item-title-wrapper > svg {
+  margin-right: 1rem;
   opacity: 0.8;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -215,6 +210,7 @@
 .swiper-studio-main__form .form-item-title-wrapper .help-icon {
   display: flex;
   align-items: center;
+  margin-left: 0.25rem;
   opacity: 0;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -314,6 +310,41 @@
 .swiper-studio-main__form .form-item-children-wrapper select option:hover {
   background-color: rgb(0, 128, 255) !important;
 }
+.swiper-studio-main__form .form-item-range-wrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+}
+.swiper-studio-main__form .form-item-range-wrapper input[type=range] {
+  flex-shrink: 1;
+  width: 100%;
+  height: 1rem;
+  background: transparent;
+  box-shadow: none;
+  appearance: none;
+}
+.swiper-studio-main__form .form-item-range-wrapper input[type=range]::-webkit-slider-thumb {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.35rem;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+  -webkit-appearance: none;
+}
+.swiper-studio-main__form .form-item-range-wrapper input[type=range]::-webkit-slider-runnable-track {
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.075);
+}
+.swiper-studio-main__form .form-item-range-wrapper .range-counter {
+  flex-shrink: 0;
+  width: 20%;
+  margin-left: 1rem;
+  text-align: end;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
 .swiper-studio-main__form details {
   margin: 0;
   border: none;
@@ -343,7 +374,9 @@
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1rem;
-  gap: 0.25rem;
+}
+.swiper-studio-main__form details summary > svg {
+  margin-right: 1rem;
 }
 .swiper-studio-main__form details summary:hover {
   color: rgb(0, 128, 255);
@@ -367,10 +400,13 @@
 }
 
 @media (max-width: 1024px) {
-  .swiper-studio-header__info__label,
-  .swiper-studio-header__export a span {
+  .swiper-studio-header__info__label, .swiper-studio-header__export a span {
     display: none;
   }
+}
+
+.swiper-studio-main__form .form-item-range-wrapper .range-counter {
+  font-family: "Roboto Mono", Menlo, Monaco, ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 html {
@@ -390,3 +426,5 @@ html {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+
+/*# sourceMappingURL=swiper-studio.css.map */

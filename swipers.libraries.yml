@@ -11,36 +11,7 @@ swipers.remote:
   js:
     https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js: { type: external, minified: true }
 
-swiper-studio:
+swipers.form:
   version: VERSION
-  css:
-    theme:
-      css/swiper-studio.css: { }
   js:
-    https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
-    https://unpkg.com/tippy.js@6: { type: external, minified: true }
-    js/swiper-studio.js: { }
-  dependencies:
-    - swipers/tippyjs
-
-popperjs:
-  remote: https://unpkg.com
-  version: VERSION
-  license:
-    name: MIT
-    url: https://unpkg.com/@popperjs/core@2/LICENSE.md
-    gpl-compatible: true
-  js:
-    https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
-
-tippyjs:
-  remote: https://unpkg.com
-  version: VERSION
-  license:
-    name: MIT
-    url: https://unpkg.com/tippy.js@6/LICENSE
-    gpl-compatible: true
-  js:
-    https://unpkg.com/tippy.js@6: { type: external, minified: true }
-  dependencies:
-    - swipers/popperjs
+    js/swipers-form.js: { }

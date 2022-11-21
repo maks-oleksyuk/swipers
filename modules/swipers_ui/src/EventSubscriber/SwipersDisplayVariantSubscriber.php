@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\swipers\EventSubscriber;
+namespace Drupal\swipers_ui\EventSubscriber;
 
 use Drupal\Core\Render\PageDisplayVariantSelectionEvent;
 use Drupal\Core\Render\RenderEvents;

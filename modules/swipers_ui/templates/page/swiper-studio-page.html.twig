@@ -47,7 +47,7 @@
       <img src="{{ module_path }}/images/logo.svg" alt="Swiper Studio logo" title="Swiper Studio Official site">
     </a>
     <button class="swiper-studio-header--toggle active" id="swiper-form-toggle" data-tippy-content="Toggle left pane">
-      {% include '@swipers/images/toolbar/toggle-left-pane.svg' %}
+      {% include '@swipers_ui/images/toolbar/toggle-left-pane.svg' %}
     </button>
     {% if page.label %}
       <span class="swiper-studio-header__info__label">{{ page.label }}</span>
@@ -56,33 +56,33 @@
   <div class="swiper-studio-header__breakpoints">
     <div class="swiper-studio-header__breakpoints-preview">
       <button class="swiper-studio-header--toggle" data-tippy-content="Preview on phone">
-        {% include '@swipers/images/toolbar/phone.svg' %}
+        {% include '@swipers_ui/images/toolbar/phone.svg' %}
       </button>
       <button class="swiper-studio-header--toggle" data-tippy-content="Preview on tablet">
-        {% include '@swipers/images/toolbar/tablet.svg' %}
+        {% include '@swipers_ui/images/toolbar/tablet.svg' %}
       </button>
       <button class="swiper-studio-header--toggle" data-tippy-content="Preview on laptop">
-        {% include '@swipers/images/toolbar/laptop.svg' %}
+        {% include '@swipers_ui/images/toolbar/laptop.svg' %}
       </button>
       <button class="swiper-studio-header--toggle" data-tippy-content="Preview on desktop">
-        {% include '@swipers/images/toolbar/desktop.svg' %}
+        {% include '@swipers_ui/images/toolbar/desktop.svg' %}
       </button>
       <button class="swiper-studio-header--toggle active" data-tippy-content="Responsive mode">
-        {% include '@swipers/images/toolbar/responsive-mode.svg' %}
+        {% include '@swipers_ui/images/toolbar/responsive-mode.svg' %}
       </button>
     </div>
     <div class="swiper-studio-header__breakpoints-settings">
       <button class="swiper-studio-header--toggle" disabled data-tippy-content="Toggle breakpoint">
-        {% include '@swipers/images/toolbar/toggle-breakpoint.svg' %}
+        {% include '@swipers_ui/images/toolbar/toggle-breakpoint.svg' %}
       </button>
       <button class="swiper-studio-header--toggle active" data-tippy-content="Toggle preview frame background">
-        {% include '@swipers/images/toolbar/toggle-preview-frame-background.svg' %}
+        {% include '@swipers_ui/images/toolbar/toggle-preview-frame-background.svg' %}
       </button>
     </div>
   </div>
   <div class="swiper-studio-header__export" data-tippy-content="Export yml configuration">
     <a href="{{ path('config.export_single') }}" target="_blank">
-      {% include '@swipers/images/toolbar/export.svg' %}
+      {% include '@swipers_ui/images/toolbar/export.svg' %}
       <span>Export</span>
     </a>
   </div>

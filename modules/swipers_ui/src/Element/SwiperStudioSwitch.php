@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\swipers\Element;
+namespace Drupal\swipers_ui\Element;
 
 use Drupal\Core\Render\Element\Checkbox;
 

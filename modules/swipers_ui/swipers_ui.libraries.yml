@@ -1,0 +1,31 @@
+swiper-studio:
+  version: VERSION
+  css:
+    theme:
+      css/swiper-studio.css: { }
+  js:
+    js/swiper-studio.js: { }
+  dependencies:
+    - swipers_ui/tippyjs
+
+popperjs:
+  remote: https://unpkg.com
+  version: VERSION
+  license:
+    name: MIT
+    url: https://unpkg.com/@popperjs/core@2/LICENSE.md
+    gpl-compatible: true
+  js:
+    https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
+
+tippyjs:
+  remote: https://unpkg.com
+  version: VERSION
+  license:
+    name: MIT
+    url: https://unpkg.com/tippy.js@6/LICENSE
+    gpl-compatible: true
+  js:
+    https://unpkg.com/tippy.js@6: { type: external, minified: true }
+  dependencies:
+    - swipers_ui/popperjs

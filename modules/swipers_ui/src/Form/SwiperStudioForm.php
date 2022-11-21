@@ -1,221 +1,62 @@
 <?php
 
-namespace Drupal\swipers\Form;
+namespace Drupal\swipers_ui\Form;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Url;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\swipers\Form\SwiperSliderForm;
 
 /**
- * Swiper Slider form class.
+ * Swiper Studio form class.
  *
  * @property \Drupal\swipers\SwiperSliderInterface $entity
  */
-class SwiperSliderForm extends EntityForm {
-
-  /**
-   * The temp store factory.
-   *
-   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
-   */
-  protected $tempStoreFactory;
-
-  /**
-   * Constructs a new Swiper Slider form.
-   *
-   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
-   *   The temp store factory.
-   */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory) {
-    $this->tempStoreFactory = $temp_store_factory;
-  }
+class SwiperStudioForm extends SwiperSliderForm {
 
   /**
    * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('tempstore.private'),
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @throws \Drupal\Core\TempStore\TempStoreException
    */
   public function form(array $form, FormStateInterface $form_state): array {
     $form = parent::form($form, $form_state);
-    $form['#tree'] = TRUE;
     // Main config settings.
-    $form['main'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Main Settings'),
-    ];
-    $form['main']['label'] = [
-      '#type' => 'textfield',
-      '#maxlength' => 255,
-      '#required' => TRUE,
-      '#title' => $this->t('Label'),
-      '#description' => $this->t('Label for the swiper slider'),
-      '#default_value' => $this->entity->label(),
-    ];
-    $form['main']['id'] = [
-      '#type' => 'machine_name',
-      '#default_value' => $this->entity->id(),
-      '#machine_name' => [
-        'exists' => '\Drupal\swipers\Entity\SwiperSlider::load',
-        'source' => ['main', 'label'],
-      ],
-      '#disabled' => !$this->entity->isNew(),
-    ];
-    $form['main']['status'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enabled'),
-      '#default_value' => $this->entity->status(),
-      '#description' => $this->t('Mark this checkbox to enable this swiper slider template'),
-    ];
-    $form['main']['description'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Description'),
-      '#description' => $this->t('Description for this swiper slider template'),
-      '#default_value' => $this->entity->get('description'),
-      '#resizable' => 'none',
-    ];
+    $form['main']['label']['#theme_wrappers'][]       = 'swiper_studio_form_element';
+    $form['main']['id']['#theme_wrappers'][]          = 'swiper_studio_form_element';
+    $form['main']['status']['#type']                  = 'swiper_studio_switch';
+    $form['main']['description']['#theme_wrappers'][] = 'swiper_studio_form_element';
     // Slider.
-    $slider = $this->entity->get('slider');
-    $form['slider'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Slider'),
-    ];
-    $form['slider']['direction'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Language direction'),
-      '#default_value' => $slider['direction'] ?? 'ltr',
-      '#options' => [
-        'ltr' => 'LTR',
-        'rtl' => 'RTL',
-      ],
-    ];
+    $form['slider']['direction']['#icon']             = 'language-direction.svg';
+    $form['slider']['direction']['#title_display']    = 'inline';
+    $form['slider']['direction']['#theme_wrappers'][] = 'swiper_studio_form_element';
     // Slider sizes & styles.
-    $form['slider']['style'] = [
-      '#type' => 'details',
-      '#open' => FALSE,
-      '#title' => $this->t('Slider sizes & styles'),
-    ];
-    $form['slider']['style']['size'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slider size'),
-      '#default_value' => $slider['style']['size'] ?? 'responsive',
-      '#options' => [
-        'responsive' => 'responsive',
-        'custom' => 'custom',
-      ],
-    ];
-    $form['slider']['style']['w_type'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Width'),
-      '#default_value' => $slider['style']['w_type'] ?? 'relative',
-      '#options' => [
-        'relative' => 'relative',
-        'fixed' => 'fixed',
-      ],
-      '#states' => [
-        'visible' => [
-          'select[name="slider[style][size]"]' => ['value' => 'custom'],
-        ],
-      ],
-    ];
-    $form['slider']['style']['w_value'] = [
-      '#type' => 'range',
-      '#min' => 0,
-      '#max' => ($form['slider']['style']['w_type']['#default_value'] == 'relative') ? 100 : 1920,
-      '#step' => 1,
-      '#default_value' => $slider['style']['w_value'] ?? 100,
-      '#states' => [
-        'visible' => [
-          'select[name="slider[style][size]"]' => ['value' => 'custom'],
-        ],
-      ],
-    ];
-    $form['slider']['style']['h_type'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Height'),
-      '#default_value' => $slider['style']['h_type'] ?? 'relative',
-      '#options' => [
-        'relative' => 'relative',
-        'fixed' => 'fixed',
-      ],
-      '#states' => [
-        'visible' => [
-          'select[name="slider[style][size]"]' => ['value' => 'custom'],
-        ],
-      ],
-    ];
-    $form['slider']['style']['h_value'] = [
-      '#type' => 'range',
-      '#min' => 0,
-      '#max' => ($form['slider']['style']['h_type']['#default_value'] == 'relative') ? 100 : 1920,
-      '#step' => 1,
-      '#default_value' => $slider['style']['h_value'] ?? 100,
-      '#states' => [
-        'visible' => [
-          'select[name="slider[style][size]"]' => ['value' => 'custom'],
-        ],
-      ],
-    ];
-    $form['slider']['style']['overflow'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Overflow'),
-      '#default_value' => $slider['style']['overflow'] ?? 'hidden',
-      '#options' => [
-        'hidden' => 'hidden',
-        'visible' => 'visible',
-      ],
-    ];
-    $form['slider']['style']['ps'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Padding start'),
-      '#description' => $this->t('Padding top in horizontal direction and padding left in vertical direction'),
-      '#min' => 0,
-      '#max' => 120,
-      '#step' => 4,
-      '#unit' => 'px',
-      '#default_value' => $slider['style']['ps'] ?? 0,
-    ];
-    $form['slider']['style']['pe'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Padding end'),
-      '#description' => $this->t('Padding bottom in horizontal direction and padding right in vertical direction'),
-      '#min' => 0,
-      '#max' => 120,
-      '#step' => 4,
-      '#unit' => 'px',
-      '#default_value' => $slider['style']['pe'] ?? 0,
-    ];
+    $form['slider']['style']['#theme_wrappers'][]             = 'swiper_studio_details';
+    $form['slider']['style']['#icon']                         = 'slider-size.svg';
+    $form['slider']['style']['size']['#icon']                 = 'slider-size.svg';
+    $form['slider']['style']['size']['#title_display']        = 'inline';
+    $form['slider']['style']['size']['#theme_wrappers'][]     = 'swiper_studio_form_element';
+    $form['slider']['style']['w_type']['#icon']               = 'width.svg';
+    $form['slider']['style']['w_type']['#title_display']      = 'inline';
+    $form['slider']['style']['w_type']['#theme_wrappers'][]   = 'swiper_studio_form_element';
+    $form['slider']['style']['w_value']['#theme_wrappers'][]  = 'swiper_studio_form_element';
+    $form['slider']['style']['h_type']['#icon']               = 'height.svg';
+    $form['slider']['style']['h_type']['#title_display']      = 'inline';
+    $form['slider']['style']['h_type']['#theme_wrappers'][]   = 'swiper_studio_form_element';
+    $form['slider']['style']['h_value']['#theme_wrappers'][]  = 'swiper_studio_form_element';
+    $form['slider']['style']['overflow']['#icon']             = 'overflow.svg';
+    $form['slider']['style']['overflow']['#title_display']    = 'inline';
+    $form['slider']['style']['overflow']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['slider']['style']['ps']['#icon']                   = 'p-start.svg';
+    $form['slider']['style']['ps']['#theme_wrappers'][]       = 'swiper_studio_form_element';
+    $form['slider']['style']['pe']['#icon']                   = 'p-end.svg';
+    $form['slider']['style']['pe']['#theme_wrappers'][]       = 'swiper_studio_form_element';
     // Slides Content & Styles.
-    $slides = $this->entity->get('slides');
-    $form['slides'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Slides Content & Styles'),
-    ];
     // Slides Content.
-    $form['slides']['content'] = [
-      '#type' => 'details',
-      '#open' => FALSE,
-      '#title' => $this->t('Slides content'),
-    ];
-    $form['slides']['content']['images'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Images'),
-      '#default_value' => $slides['content']['images'] ?? FALSE,
-    ];
+    $form['slides']['content']['#theme_wrappers'][] = 'swiper_studio_details';
+    $form['slides']['content']['images']['#type'] = 'swiper_studio_switch';
     $form['slides']['content']['images_set'] = [
       '#type' => 'select',
       '#title' => $this->t('Images set'),
+      '#title_display' => 'inline',
       '#options' => [
         'nature' => 'nature',
         'models' => 'models',
@@ -228,20 +69,22 @@ class SwiperSliderForm extends EntityForm {
           'input[name="slides[content][images]"]' => ['checked' => TRUE],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slides']['content']['title'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Title'),
       '#default_value' => $slides['content']['title'] ?? TRUE,
     ];
     $form['slides']['content']['text'] = [
-      '#type' => 'checkbox',
+      '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Text'),
       '#default_value' => $slides['content']['text'] ?? FALSE,
     ];
     $form['slides']['content']['position'] = [
       '#type' => 'select',
       '#title' => $this->t('Content position'),
+      '#title_display' => 'inline',
       '#options' => [
         'left_top' => 'left top',
         'center_top' => 'center top',
@@ -260,6 +103,7 @@ class SwiperSliderForm extends EntityForm {
           [':input[name="slides[content][text]"]' => ['checked' => TRUE]],
         ],
       ],
+      '#theme_wrappers' => ['swiper_studio_form_element'],
     ];
     $form['slides']['content']['custom'] = [
       '#type' => 'link',
@@ -1747,79 +1591,7 @@ class SwiperSliderForm extends EntityForm {
         ],
       ],
     ];
-    $form['#attached']['library'][] = 'swipers/swipers.form';
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    parent::submitForm($form, $form_state);
-    $values = $form_state->getValues();
-    if ($values['slider']['style']['size'] == 'responsive') {
-      unset($values['slider']['style']['w_type'],
-        $values['slider']['style']['w_value'],
-        $values['slider']['style']['h_type'],
-        $values['slider']['style']['h_value']);
-    }
-    if (!$values['slides']['content']['images']) {
-      unset($values['slides']['content']['images_set']);
-    }
-    if (!$values['slides']['content']['title'] && !$values['slides']['content']['text']) {
-      unset($values['slides']['content']['position']);
-    }
-    if ($values['parameters']['per_view'] != 'auto') {
-      unset($values['parameters']['size_type'], $values['parameters']['size_value']);
-    }
-    foreach ($values['effects'] as $label => $effect) {
-      if (!in_array($label, [
-        $values['effects']['effect'],
-        'effect',
-        'duration',
-      ])) {
-        unset($values['effects'][$label]);
-      }
-    }
-    foreach ($values['modules'] as $label => $module) {
-      if (!$module['enabled']) {
-        foreach ($module as $key => $item) {
-          if ($key != 'enabled') {
-            unset($values['modules'][$label][$key]);
-          }
-        }
-      }
-    }
-    $values['pro']['css'] = $this->tempStoreFactory->get('swipers')->get('css');
-    $this->entity
-      ->set('label', $values['main']['label'])
-      ->set('id', $values['main']['id'])
-      ->set('status', $values['main']['status'])
-      ->set('description', $values['main']['description'])
-      ->set('slider', $values['slider'])
-      ->set('slides', $values['slides'])
-      ->set('parameters', $values['parameters'])
-      ->set('effects', $values['effects'])
-      ->set('modules', $values['modules'])
-      ->set('pro', $values['pro']);
-  }
-
-  /**
-   * {@inheritdoc}
-   *
-   * @throws \Drupal\Core\Entity\EntityMalformedException
-   * @throws \Drupal\Core\TempStore\TempStoreException
-   */
-  public function save(array $form, FormStateInterface $form_state): int {
-    $result = parent::save($form, $form_state);
-    $this->tempStoreFactory->get('swipers')->delete('css');
-    $message_args = ['%label' => $this->entity->label()];
-    $message = $result == SAVED_NEW
-      ? $this->t('Created new slider %label.', $message_args)
-      : $this->t('Updated slider %label.', $message_args);
-    $this->messenger()->addStatus($message);
-    $form_state->setRedirectUrl($this->entity->toUrl('collection'));
-    return $result;
   }
 
 }

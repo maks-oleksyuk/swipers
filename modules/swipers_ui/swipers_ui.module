@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Defines Drupal hooks for Swipers module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function swipers_ui_theme($existing, $type, $theme, $path): array {
+  return [
+    'swiper_studio_page' => [
+      'base hook' => 'page',
+      'path' => $path . '/templates/page',
+    ],
+    'swiper_studio_form_element' => [
+      'base hook' => 'form_element',
+      'path' => $path . '/templates/form',
+    ],
+    'swiper_studio_switch' => [
+      'base hook' => 'input',
+      'path' => $path . '/templates/form',
+    ],
+    'swiper_studio_details' => [
+      'base hook' => 'details',
+      'path' => $path . '/templates/form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function swipers_ui_theme_suggestions_page_alter(array &$suggestions, array $variables): void {
+  $suggestion = match (\Drupal::routeMatch()->getRouteName()) {
+    'entity.slider.add_form', 'entity.slider.edit_form' => 'swiper_studio_page',
+    default => NULL,
+  };
+  if (!empty($suggestion)) {
+    $suggestions[] = $suggestion;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function swipers_ui_preprocess_page(&$variables) {
+  $route_match = \Drupal::routeMatch();
+  /** @var \Drupal\Core\Extension\ModuleExtensionList $module_list */
+  $module_list = \Drupal::service('extension.list.module');
+  $route_name = $route_match->getRouteName();
+  switch ($route_name) {
+    case 'entity.slider.add_form':
+    case 'entity.slider.edit_form':
+      if ($route_name === 'entity.slider.edit_form') {
+        $variables['page']['label'] = $route_match->getParameters()
+          ->get('slider')
+          ->label();
+      }
+      $variables['module_path'] = base_path() . $module_list->getPath('swipers_ui');
+      $variables['#attached']['library'][] = 'swipers_ui/swiper-studio';
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function swipers_ui_entity_type_build(array &$entity_types): void {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface $entity_types */
+  $entity_types['slider']
+    ->setFormClass('add', 'Drupal\swipers_ui\Form\SwiperStudioForm')
+    ->setFormClass('edit', 'Drupal\swipers_ui\Form\SwiperStudioForm');
+}

@@ -1,0 +1,8 @@
+name: 'Swiper Studio UI'
+type: module
+description: 'Swiper Studio is new GUI that allows you to visually make custom, powerful sliders with the Swiper.js library.'
+package: Swiper
+version: VERSION
+core_version_requirement: ^9 || ^10
+dependencies:
+  - swipers:swipers
