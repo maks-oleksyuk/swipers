@@ -183,7 +183,9 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#unit' => 'px',
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
       '#default_value' => $slider['style']['ps'] ?? 0,
     ];
     $form['slider']['style']['pe'] = [
@@ -193,7 +195,9 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#unit' => 'px',
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
       '#default_value' => $slider['style']['pe'] ?? 0,
     ];
     // Slides Content & Styles.

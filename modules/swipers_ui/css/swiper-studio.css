@@ -334,7 +334,7 @@
 .swiper-studio-main__form .form-item-range-wrapper input[type=range]::-webkit-slider-runnable-track {
   height: 0.25rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.075);
+  background: linear-gradient(90deg, rgb(0, 128, 255) var(--percentage), rgba(255, 255, 255, 0.075) var(--percentage));
 }
 .swiper-studio-main__form .form-item-range-wrapper .range-counter {
   flex-shrink: 0;

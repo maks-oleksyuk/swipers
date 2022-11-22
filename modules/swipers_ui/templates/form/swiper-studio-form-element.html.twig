@@ -38,7 +38,7 @@ js-form-type-[something] exists on form items. We have to keep them.
     {% if element['#type'] == 'range' %}
       <div class="form-item-range-wrapper">
         {{ children }}
-        <span class="range-counter" id="{{ element['#id'] ~ '-counter' }}" data-unit={{ element['#unit'] }}></span>
+        <span class="range-counter" id="{{ element['#id'] ~ '-counter' }}"></span>
       </div>
     {% else %}
       {{ children }}
