@@ -218,6 +218,10 @@
           &-inline {
             display: flex;
             justify-content: space-between;
+
+            &.d-block {
+              display: block;
+            }
           }
 
           &-wrapper {
@@ -328,7 +332,8 @@
               }
             }
 
-            select {
+            .nice-select {
+              @extend %font-mono;
               height: 20px;
               min-height: auto;
               padding: 0 1.1rem 0 0;
@@ -340,24 +345,36 @@
               background-size: 16px 16px;
               box-shadow: none;
               font-size: 0.875rem;
-              font-weight: 500;
+              font-weight: 600;
               line-height: 1.25rem;
 
               &:focus {
                 box-shadow: none;
               }
 
-              option {
-                background-color: rgba(40, 40, 40, 1);
-
-                &:checked {
-                  color: rgba(0, 128, 255, 1);
-                }
-
-                &:hover {
-                  background-color: rgba(0, 128, 255, 1) !important;
-                }
+              &:after {
+                content: none;
               }
+
+              // @todo fix style for new select
+              &-dropdown {
+                position: absolute;
+                z-index: 10;
+                right: -0.5rem;
+                left: -14.25rem;
+                background-color: rgba(40, 40, 40, 1);
+              }
+              //option {
+              //  background-color: rgba(40, 40, 40, 1);
+              //
+              //  &:checked {
+              //    color: rgba(0, 128, 255, 1);
+              //  }
+              //
+              //  &:hover {
+              //    background-color: rgba(0, 128, 255, 1) !important;
+              //  }
+              //}
             }
           }
         }

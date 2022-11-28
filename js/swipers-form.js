@@ -5,6 +5,20 @@
 (() => {
   const byId = (id) => document.getElementById(id);
 
+  function updateRangeAttributes(e, el, value) {
+    if (e.currentTarget.value === 'relative') {
+      el.setAttribute('max', '100');
+      el.setAttribute('value', '100');
+      el.setAttribute('data-unit', '%');
+      el.dispatchEvent(new Event('input'));
+    } else if (e.currentTarget.value === 'fixed') {
+      el.setAttribute('max', '1920');
+      el.setAttribute('value', value);
+      el.setAttribute('data-unit', 'px');
+    }
+    el.dispatchEvent(new Event('input'));
+  }
+
   function rangeAttributes() {
     const sliderStyleWidthType = byId('edit-slider-style-w-type');
     const sliderStyleWidthValue = byId('edit-slider-style-w-value');
@@ -14,33 +28,15 @@
     const parametersSlideSizeValue = byId('edit-parameters-size-value');
 
     sliderStyleWidthType.addEventListener('change', (e) => {
-      if (e.currentTarget.value === 'relative') {
-        sliderStyleWidthValue.setAttribute('max', '100');
-        sliderStyleWidthValue.setAttribute('value', '100');
-      } else if (e.currentTarget.value === 'fixed') {
-        sliderStyleWidthValue.setAttribute('max', '1920');
-        sliderStyleWidthValue.setAttribute('value', '960');
-      }
+      updateRangeAttributes(e, sliderStyleWidthValue, '960');
     });
 
     sliderStyleHeightType.addEventListener('change', (e) => {
-      if (e.currentTarget.value === 'relative') {
-        sliderStyleHeightValue.setAttribute('max', '100');
-        sliderStyleHeightValue.setAttribute('value', '100');
-      } else if (e.currentTarget.value === 'fixed') {
-        sliderStyleHeightValue.setAttribute('max', '1920');
-        sliderStyleHeightValue.setAttribute('value', '540');
-      }
+      updateRangeAttributes(e, sliderStyleHeightValue, '540');
     });
 
     parametersSlideSizeType.addEventListener('change', (e) => {
-      if (e.currentTarget.value === 'relative') {
-        parametersSlideSizeValue.setAttribute('max', '100');
-        parametersSlideSizeValue.setAttribute('value', '100');
-      } else if (e.currentTarget.value === 'fixed') {
-        parametersSlideSizeValue.setAttribute('max', '1920');
-        parametersSlideSizeValue.setAttribute('value', '960');
-      }
+      updateRangeAttributes(e, parametersSlideSizeValue, '960');
     });
   }
 

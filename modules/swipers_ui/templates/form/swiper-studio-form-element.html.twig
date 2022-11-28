@@ -23,17 +23,19 @@ js-form-type-[something] exists on form items. We have to keep them.
   disabled == 'disabled' ? 'form-item--disabled',
 ] %}
 <div{{ attributes.addClass(classes) }}>
-  <div class="form-item-title-wrapper">
-    {% if element['#icon'] %}
-      {% include '@swipers_ui/images/icons/' ~ element['#icon'] %}
-    {% endif %}
-    {{ label }}
-    {% if description.content %}
-      <span class="help-icon" data-tippy-content="{{ description.content }}">
-        {% include '@swipers_ui/images/icons/info.svg' %}
-      </span>
-    {% endif %}
-  </div>
+  {% if label['#title'] %}
+    <div class="form-item-title-wrapper">
+      {% if element['#icon'] %}
+        {% include '@swipers_ui/images/icons/' ~ element['#icon'] %}
+      {% endif %}
+      {{ label }}
+      {% if description.content %}
+        <span class="help-icon" data-tippy-content="{{ description.content }}">
+          {% include '@swipers_ui/images/icons/info.svg' %}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="form-item-children-wrapper">
     {% if element['#type'] == 'range' %}
       <div class="form-item-range-wrapper">

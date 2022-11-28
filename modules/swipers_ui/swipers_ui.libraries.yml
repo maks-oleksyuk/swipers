@@ -7,10 +7,11 @@ swiper-studio:
     js/swiper-studio.js: { }
   dependencies:
     - swipers_ui/tippyjs
+    - swipers_ui/nice-select2
 
 popperjs:
   remote: https://unpkg.com
-  version: VERSION
+  version: 2.11.6
   license:
     name: MIT
     url: https://unpkg.com/@popperjs/core@2/LICENSE.md
@@ -20,7 +21,7 @@ popperjs:
 
 tippyjs:
   remote: https://unpkg.com
-  version: VERSION
+  version: 6.3.7
   license:
     name: MIT
     url: https://unpkg.com/tippy.js@6/LICENSE
@@ -29,3 +30,16 @@ tippyjs:
     https://unpkg.com/tippy.js@6: { type: external, minified: true }
   dependencies:
     - swipers_ui/popperjs
+
+nice-select2:
+  remote: https://github.com/bluzky/nice-select2
+  version: 2.0.0
+  license:
+    name: MIT
+    url: https://github.com/bluzky/nice-select2/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    theme:
+      css/nice-select2.min.css: { minified: true }
+  js:
+    js/nice-select2.min.js: { minified: true }

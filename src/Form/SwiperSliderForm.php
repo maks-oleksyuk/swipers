@@ -134,6 +134,12 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => ($form['slider']['style']['w_type']['#default_value'] == 'relative') ? 100 : 1920,
       '#step' => 1,
+      '#attributes' => [
+        'data-unit' => ($form['slider']['style']['w_type']['#default_value'] == 'relative') ? '%' : 'px',
+      ],
+      '#wrapper_attributes' => [
+        'class' => 'd-block',
+      ],
       '#default_value' => $slider['style']['w_value'] ?? 100,
       '#states' => [
         'visible' => [
@@ -160,6 +166,12 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => ($form['slider']['style']['h_type']['#default_value'] == 'relative') ? 100 : 1920,
       '#step' => 1,
+      '#attributes' => [
+        'data-unit' => ($form['slider']['style']['h_type']['#default_value'] == 'relative') ? '%' : 'px',
+      ],
+      '#wrapper_attributes' => [
+        'class' => 'd-block',
+      ],
       '#default_value' => $slider['style']['h_value'] ?? 100,
       '#states' => [
         'visible' => [

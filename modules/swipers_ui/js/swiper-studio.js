@@ -5,10 +5,6 @@
 (() => {
   const byId = (id) => document.getElementById(id);
 
-  function addMultipleEventListener(element, events, handler) {
-    events.forEach((e) => element.addEventListener(e, handler));
-  }
-
   function toolbar() {
     const form = byId('swiper-form-wrapper');
     const formToggle = byId('swiper-form-toggle');
@@ -33,16 +29,28 @@
   }
 
   function rangeProcess() {
-    const ps = byId('edit-slider-style-ps');
-    const pe = byId('edit-slider-style-pe');
+    const wv = byId('edit-slider-style-w-value');
+    wv.addEventListener('input', rangeChange);
+    wv.dispatchEvent(new Event('input'));
 
-    addMultipleEventListener(ps, ['load', 'input'], rangeChange);
-    addMultipleEventListener(pe, ['load', 'input'], rangeChange);
-    ps.addEventListener('c', rangeChange);
+    const hv = byId('edit-slider-style-h-value');
+    hv.addEventListener('input', rangeChange);
+    hv.dispatchEvent(new Event('input'));
+
+    const ps = byId('edit-slider-style-ps');
+    ps.addEventListener('input', rangeChange);
+    ps.dispatchEvent(new Event('input'));
+
+    const pe = byId('edit-slider-style-pe');
+    pe.addEventListener('input', rangeChange);
+    pe.dispatchEvent(new Event('input'));
   }
 
   toolbar();
   rangeProcess();
+
+  // eslint-disable-next-line no-undef
+  NiceSelect.bind(document.getElementById('edit-slider-direction'), {});
 
   // eslint-disable-next-line no-undef
   tippy('[data-tippy-content]', {
