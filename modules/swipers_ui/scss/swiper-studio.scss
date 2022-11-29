@@ -336,8 +336,8 @@
               @extend %font-mono;
               height: 20px;
               min-height: auto;
+              margin: 0;
               padding: 0 1.1rem 0 0;
-              opacity: 0.8;
               color: rgba(255, 255, 255, 1);
               border: none;
               background-color: transparent;
@@ -345,7 +345,6 @@
               background-size: 16px 16px;
               box-shadow: none;
               font-size: 0.875rem;
-              font-weight: 600;
               line-height: 1.25rem;
 
               &:focus {
@@ -356,25 +355,49 @@
                 content: none;
               }
 
-              // @todo fix style for new select
+              .current {
+                opacity: 0.8;
+              }
+
               &-dropdown {
                 position: absolute;
-                z-index: 10;
                 right: -0.5rem;
                 left: -14.25rem;
+                margin: 0;
+                padding: 0.5rem 0;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 0.5rem;
                 background-color: rgba(40, 40, 40, 1);
+                box-shadow: none;
+
+                .list {
+                  margin: 0;
+                  border-radius: 0;
+                }
               }
-              //option {
-              //  background-color: rgba(40, 40, 40, 1);
-              //
-              //  &:checked {
-              //    color: rgba(0, 128, 255, 1);
-              //  }
-              //
-              //  &:hover {
-              //    background-color: rgba(0, 128, 255, 1) !important;
-              //  }
-              //}
+
+              .option {
+                padding: 0.25rem 2rem;
+                font-size: 0.875rem;
+                font-weight: 500;
+                line-height: 1.25rem;
+
+                &.selected {
+                  color: var(--swiper-studio--color-primary);
+                  font-weight: 500;
+                }
+
+                &:hover,
+                &.selected:hover {
+                  color: var(--swiper-studio--color-white);
+                  background-color: var(--swiper-studio--color-primary);
+                }
+
+                &.focus {
+                  color: var(--swiper-studio--color-primary);
+                  background-color: rgba(40, 40, 40, 1);
+                }
+              }
             }
           }
         }

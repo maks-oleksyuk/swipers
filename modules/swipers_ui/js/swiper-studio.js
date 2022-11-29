@@ -49,8 +49,11 @@
   toolbar();
   rangeProcess();
 
-  // eslint-disable-next-line no-undef
-  NiceSelect.bind(document.getElementById('edit-slider-direction'), {});
+  // @todo fix select on close details in Chrome
+  document.querySelectorAll('.form-element--type-select').forEach((el) => {
+    // eslint-disable-next-line no-undef
+    NiceSelect.bind(el, {});
+  });
 
   // eslint-disable-next-line no-undef
   tippy('[data-tippy-content]', {
