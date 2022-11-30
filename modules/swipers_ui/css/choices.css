@@ -1,0 +1,50 @@
+.choices {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  background-color: transparent;
+  font-family: var(--swiper-studio--font-family-mono);
+  font-size: 0.875rem;
+}
+.choices:focus {
+  box-shadow: none !important;
+}
+.choices:after {
+  content: none !important;
+}
+.choices__inner {
+  min-height: auto;
+  padding: 0 !important;
+  border: none;
+  background-color: unset;
+  background-image: url(../images/icons/arrow-select.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 16px 16px;
+}
+.choices__list--single {
+  padding: 0 1.1rem 0 0;
+  color: var(--swiper-studio--color-white);
+}
+.choices__list--dropdown, .choices__list[aria-expanded] {
+  right: -0.65rem;
+  width: 280px;
+  padding: 0.5rem 0;
+  border: 1px solid var(--swiper-studio--color-white-a05) !important;
+  border-radius: 0.5rem;
+  background-color: rgb(40, 40, 40);
+}
+.choices__item--choice {
+  padding: 0.25rem 2rem !important;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+.choices__item.is-selected {
+  color: var(--swiper-studio--color-primary);
+}
+.choices__item.is-highlighted {
+  color: var(--swiper-studio--color-white);
+  background-color: var(--swiper-studio--color-primary) !important;
+}
+
+/*# sourceMappingURL=choices.css.map */

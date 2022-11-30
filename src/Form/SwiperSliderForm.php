@@ -103,7 +103,6 @@ class SwiperSliderForm extends EntityForm {
     // Slider sizes & styles.
     $form['slider']['style'] = [
       '#type' => 'details',
-      '#open' => FALSE,
       '#title' => $this->t('Slider sizes & styles'),
     ];
     $form['slider']['style']['size'] = [

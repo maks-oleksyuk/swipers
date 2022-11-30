@@ -1,4 +1,6 @@
 .swiper-studio {
   --swiper-studio--color-white: #ffff;
+  --swiper-studio--color-white-a05: #ffffff0c;
   --swiper-studio--color-primary: #0080ffff;
+  --swiper-studio--font-family-mono: "Roboto Mono", menlo, monaco, ui-monospace, sfmono-regular, consolas, "Liberation Mono", "Courier New", monospace;
 }

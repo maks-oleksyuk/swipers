@@ -286,62 +286,6 @@
 .swiper-studio-main__form .form-item-children-wrapper input[type=checkbox]:checked {
   background-color: rgb(0, 128, 255);
 }
-.swiper-studio-main__form .form-item-children-wrapper .nice-select {
-  height: 20px;
-  min-height: auto;
-  margin: 0;
-  padding: 0 1.1rem 0 0;
-  color: rgb(255, 255, 255);
-  border: none;
-  background-color: transparent;
-  background-image: url(../images/icons/arrow-select.svg);
-  background-size: 16px 16px;
-  box-shadow: none;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select:focus {
-  box-shadow: none;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select:after {
-  content: none;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select .current {
-  opacity: 0.8;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select-dropdown {
-  position: absolute;
-  right: -0.5rem;
-  left: -14.25rem;
-  margin: 0;
-  padding: 0.5rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 0.5rem;
-  background-color: rgb(40, 40, 40);
-  box-shadow: none;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select-dropdown .list {
-  margin: 0;
-  border-radius: 0;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select .option {
-  padding: 0.25rem 2rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.25rem;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select .option.selected {
-  color: var(--swiper-studio--color-primary);
-  font-weight: 500;
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select .option:hover, .swiper-studio-main__form .form-item-children-wrapper .nice-select .option.selected:hover {
-  color: var(--swiper-studio--color-white);
-  background-color: var(--swiper-studio--color-primary);
-}
-.swiper-studio-main__form .form-item-children-wrapper .nice-select .option.focus {
-  color: var(--swiper-studio--color-primary);
-  background-color: rgb(40, 40, 40);
-}
 .swiper-studio-main__form .form-item-range-wrapper {
   display: flex;
   align-items: center;
@@ -373,6 +317,7 @@
   width: 20%;
   margin-left: 1rem;
   text-align: end;
+  font-family: var(--swiper-studio--font-family-mono);
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -435,10 +380,6 @@
   .swiper-studio-header__info__label, .swiper-studio-header__export a span {
     display: none;
   }
-}
-
-.swiper-studio-main__form .form-item-children-wrapper .nice-select, .swiper-studio-main__form .form-item-range-wrapper .range-counter {
-  font-family: "Roboto Mono", Menlo, Monaco, ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 html {

@@ -8,7 +8,7 @@ swiper-studio:
     js/swiper-studio.js: { }
   dependencies:
     - swipers_ui/tippyjs
-    - swipers_ui/nice-select2
+    - swipers_ui/choices
 
 popperjs:
   remote: https://unpkg.com
@@ -32,15 +32,16 @@ tippyjs:
   dependencies:
     - swipers_ui/popperjs
 
-nice-select2:
-  remote: https://github.com/bluzky/nice-select2
-  version: 2.0.0
+choices:
+  remote: https://github.com/Choices-js/Choices
+  version: 10.2.0
   license:
     name: MIT
-    url: https://github.com/bluzky/nice-select2/blob/master/LICENSE
+    url: https://github.com/Choices-js/Choices/blob/master/LICENSE
     gpl-compatible: true
   css:
     theme:
-      css/nice-select2.min.css: { minified: true }
+      https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css: { type: external, minified: true }
+      css/choices.css: { }
   js:
-    js/nice-select2.min.js: { minified: true }
+    https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js: { type: external, minified: true }
