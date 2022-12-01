@@ -60,6 +60,7 @@
   width: 2rem;
   height: 2rem;
 }
+
 @media (max-width: 575px) {
   .swiper-studio-header__info__logo {
     display: none;
@@ -75,14 +76,18 @@
   display: flex;
   overflow-x: auto;
 }
-.swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
+.swiper-studio-header__breakpoints-preview,
+.swiper-studio-header__breakpoints-settings {
   display: flex;
 }
+
 @media (min-width: 575px) {
-  .swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
+  .swiper-studio-header__breakpoints-preview,
+  .swiper-studio-header__breakpoints-settings {
     gap: 4px;
   }
 }
+
 @media (min-width: 575px) {
   .swiper-studio-header__breakpoints {
     gap: 32px;
@@ -204,7 +209,6 @@
   padding: 0 !important;
   cursor: default;
   user-select: none;
-  opacity: 0.8;
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.75rem;
   font-weight: 500;
@@ -323,12 +327,13 @@
   line-height: 1.25rem;
 }
 .swiper-studio-main__form details {
+  min-height: 32px;
   margin: 0;
   border: none;
   background-color: transparent;
 }
 .swiper-studio-main__form details[open] summary {
-  color: rgb(0, 128, 255);
+  color: var(--swiper-studio--color-white);
   font-weight: 500;
 }
 .swiper-studio-main__form details[open] summary:after {
@@ -337,11 +342,12 @@
   transform: rotate(90deg);
 }
 .swiper-studio-main__form details[open] summary:focus {
-  color: rgb(0, 128, 255) !important;
+  color: var(--swiper-studio--color-white) !important;
 }
 .swiper-studio-main__form details summary {
   display: flex;
   align-items: center;
+  min-height: 32px;
   margin: 0;
   padding: 0.375rem 1rem !important;
   cursor: default;
@@ -356,14 +362,14 @@
   margin-right: 1rem;
 }
 .swiper-studio-main__form details summary:hover {
-  color: rgb(0, 128, 255);
+  color: var(--swiper-studio--color-white);
   background-color: rgb(34, 34, 34);
 }
 .swiper-studio-main__form details summary:before {
   content: none;
 }
 .swiper-studio-main__form details summary:after {
-  top: 0.4rem;
+  top: 0.5rem;
   right: 1rem;
   bottom: unset;
   left: unset;
@@ -377,7 +383,8 @@
 }
 
 @media (max-width: 1024px) {
-  .swiper-studio-header__info__label, .swiper-studio-header__export a span {
+  .swiper-studio-header__info__label,
+  .swiper-studio-header__export a span {
     display: none;
   }
 }
@@ -399,5 +406,3 @@ html {
   font-size: 0.75rem;
   line-height: 1rem;
 }
-
-/*# sourceMappingURL=swiper-studio.css.map */

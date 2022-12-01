@@ -45,6 +45,7 @@
   &__item {
     &--choice {
       padding: 0.25rem 2rem !important;
+      color: var(--swiper-studio--color-white);
       font-weight: 500;
       line-height: 1.25rem;
     }
@@ -56,6 +57,45 @@
     &.is-highlighted {
       color: var(--swiper-studio--color-white);
       background-color: var(--swiper-studio--color-primary) !important;
+    }
+  }
+}
+
+.form-item--slides-content-position {
+  .choices {
+    &__list {
+      &--dropdown,
+      &[aria-expanded] {
+        padding: 0;
+      }
+
+      &[role=listbox] {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        word-spacing: 4rem;
+      }
+    }
+
+    &__item {
+      &--choice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 0.5rem !important;
+        text-align: center;
+        border-width: 0 1px 1px 0;
+        border-style: solid;
+        border-color: var(--swiper-studio--color-white-a10);
+        font-size: 12px;
+
+        &:nth-child(3n) {
+          border-right-width: 0;
+        }
+
+        &:nth-last-child(-n+3) {
+          border-bottom-width: 0;
+        }
+      }
     }
   }
 }

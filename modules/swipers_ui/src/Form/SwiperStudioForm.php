@@ -29,8 +29,8 @@ class SwiperStudioForm extends SwiperSliderForm {
     $form['slider']['direction']['#title_display']    = 'inline';
     $form['slider']['direction']['#theme_wrappers'][] = 'swiper_studio_form_element';
     // Slider sizes & styles.
-    $form['slider']['style']['#theme_wrappers'][]             = 'swiper_studio_details';
     $form['slider']['style']['#icon']                         = 'slider-size.svg';
+    $form['slider']['style']['#theme_wrappers'][]             = 'swiper_studio_details';
     $form['slider']['style']['size']['#icon']                 = 'slider-size.svg';
     $form['slider']['style']['size']['#title_display']        = 'inline';
     $form['slider']['style']['size']['#theme_wrappers'][]     = 'swiper_studio_form_element';
@@ -51,26 +51,13 @@ class SwiperStudioForm extends SwiperSliderForm {
     $form['slider']['style']['pe']['#theme_wrappers'][]       = 'swiper_studio_form_element';
     // Slides Content & Styles.
     // Slides Content.
+    $form['slides']['content']['#icon'] = 'slider-content.svg';
     $form['slides']['content']['#theme_wrappers'][] = 'swiper_studio_details';
+    $form['slides']['content']['images']['#icon'] = 'images.svg';
     $form['slides']['content']['images']['#type'] = 'swiper_studio_switch';
-    $form['slides']['content']['images_set'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Images set'),
-      '#title_display' => 'inline',
-      '#options' => [
-        'nature' => 'nature',
-        'models' => 'models',
-        'movies' => 'movies',
-        'custom' => 'custom',
-      ],
-      '#default_value' => $slides['content']['images_set'] ?? 'nature',
-      '#states' => [
-        'visible' => [
-          'input[name="slides[content][images]"]' => ['checked' => TRUE],
-        ],
-      ],
-      '#theme_wrappers' => ['swiper_studio_form_element'],
-    ];
+    $form['slides']['content']['images_set']['#icon'] = 'slider-content.svg';
+    $form['slides']['content']['images_set']['#title_display'][] = 'inline';
+    $form['slides']['content']['images_set']['#theme_wrappers'][] = 'swiper_studio_form_element';
     $form['slides']['content']['title'] = [
       '#type' => 'swiper_studio_switch',
       '#title' => $this->t('Title'),
