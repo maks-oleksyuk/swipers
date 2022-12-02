@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Theme override for a form element.
+ *
+ * @see template_preprocess_form_element()
+ */
+#}
+{#
+Most of core-provided js assumes that the CSS class pattern js-form-item-[something] or
+js-form-type-[something] exists on form items. We have to keep them.
+#}
+{% set classes = [
+  'js-form-item',
+  'form-item',
+  'js-form-type-' ~ type|clean_class,
+  'form-type--swiper-studio--' ~ type|clean_class,
+  disabled == 'disabled' ? 'form-item--disabled',
+] %}
+<div{{ attributes.addClass(classes) }}>
+  {% if element['#icon'] %}
+    {% include '@swipers_ui/images/icons/' ~ element['#icon'] %}
+  {% endif %}
+  {% if description.content %}
+    <span class="help-icon" data-tippy-content="{{ description.content }}">
+      {% include '@swipers_ui/images/icons/info.svg' %}
+    </span>
+  {% endif %}
+  {{ element['#markup'] }}
+</div>

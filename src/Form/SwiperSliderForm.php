@@ -291,7 +291,6 @@ class SwiperSliderForm extends EntityForm {
     // Slides Styles.
     $form['slides']['style'] = [
       '#type' => 'details',
-      '#open' => FALSE,
       '#title' => $this->t('Slides styles'),
     ];
     $form['slides']['style']['br_radius'] = [
@@ -300,6 +299,9 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 64,
       '#step' => 2,
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
       '#default_value' => $slides['style']['br_radius'] ?? 0,
     ];
     $form['slides']['style']['br_width'] = [

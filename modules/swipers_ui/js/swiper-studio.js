@@ -44,6 +44,10 @@
     const pe = byId('edit-slider-style-pe');
     pe.addEventListener('input', rangeChange);
     pe.dispatchEvent(new Event('input'));
+
+    const brRadius = byId('edit-slides-style-br-radius');
+    brRadius.addEventListener('input', rangeChange);
+    brRadius.dispatchEvent(new Event('input'));
   }
 
   toolbar();

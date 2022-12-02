@@ -60,7 +60,6 @@
   width: 2rem;
   height: 2rem;
 }
-
 @media (max-width: 575px) {
   .swiper-studio-header__info__logo {
     display: none;
@@ -76,18 +75,14 @@
   display: flex;
   overflow-x: auto;
 }
-.swiper-studio-header__breakpoints-preview,
-.swiper-studio-header__breakpoints-settings {
+.swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
   display: flex;
 }
-
 @media (min-width: 575px) {
-  .swiper-studio-header__breakpoints-preview,
-  .swiper-studio-header__breakpoints-settings {
+  .swiper-studio-header__breakpoints-preview, .swiper-studio-header__breakpoints-settings {
     gap: 4px;
   }
 }
-
 @media (min-width: 575px) {
   .swiper-studio-header__breakpoints {
     gap: 32px;
@@ -201,8 +196,7 @@
 }
 .swiper-studio-main__form .form-item-title-wrapper > svg {
   margin-right: 1rem;
-  opacity: 0.8;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--swiper-studio--color-white-a80);
 }
 .swiper-studio-main__form .form-item-title-wrapper label {
   margin: 0;
@@ -337,7 +331,7 @@
   font-weight: 500;
 }
 .swiper-studio-main__form details[open] summary:after {
-  top: 0.3rem;
+  top: 0.45rem;
   right: 1.2rem;
   transform: rotate(90deg);
 }
@@ -381,10 +375,51 @@
 .swiper-studio-main__form details > div {
   margin: 0;
 }
+.swiper-studio-main__form .form-type--swiper-studio--link {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 32px;
+  margin: 0;
+  padding: 0.375rem 1rem !important;
+  cursor: default;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.5rem !important;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+.swiper-studio-main__form .form-type--swiper-studio--link > svg {
+  margin-right: 1rem;
+}
+.swiper-studio-main__form .form-type--swiper-studio--link > a {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  color: var(--swiper-studio--color-white-a80);
+  border: none !important;
+  box-shadow: none !important;
+}
+.swiper-studio-main__form .form-type--swiper-studio--link > a:hover, .swiper-studio-main__form .form-type--swiper-studio--link > a:focus {
+  color: var(--swiper-studio--color-white);
+  background-color: transparent;
+}
+.swiper-studio-main__form .form-type--swiper-studio--link > a:after {
+  top: 0.5rem;
+  right: 1rem;
+  bottom: unset;
+  left: unset;
+  content: url(../images/icons/arrow-detalis.svg);
+  transition: all 0.12s linear 0s;
+  opacity: 1;
+  box-shadow: none;
+}
 
 @media (max-width: 1024px) {
-  .swiper-studio-header__info__label,
-  .swiper-studio-header__export a span {
+  .swiper-studio-header__info__label, .swiper-studio-header__export a span {
     display: none;
   }
 }
@@ -406,3 +441,5 @@ html {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+
+/*# sourceMappingURL=swiper-studio.css.map */

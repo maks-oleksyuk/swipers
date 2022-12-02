@@ -51,73 +51,27 @@ class SwiperStudioForm extends SwiperSliderForm {
     $form['slider']['style']['pe']['#theme_wrappers'][]       = 'swiper_studio_form_element';
     // Slides Content & Styles.
     // Slides Content.
-    $form['slides']['content']['#icon'] = 'slider-content.svg';
-    $form['slides']['content']['#theme_wrappers'][] = 'swiper_studio_details';
-    $form['slides']['content']['images']['#icon'] = 'images.svg';
-    $form['slides']['content']['images']['#type'] = 'swiper_studio_switch';
-    $form['slides']['content']['images_set']['#icon'] = 'slider-content.svg';
-    $form['slides']['content']['images_set']['#title_display'][] = 'inline';
+    $form['slides']['content']['#icon']                           = 'slider-content.svg';
+    $form['slides']['content']['#theme_wrappers'][]               = 'swiper_studio_details';
+    $form['slides']['content']['images']['#icon']                 = 'images.svg';
+    $form['slides']['content']['images']['#type']                 = 'swiper_studio_switch';
+    $form['slides']['content']['images_set']['#icon']             = 'slider-content.svg';
+    $form['slides']['content']['images_set']['#title_display'][]  = 'inline';
     $form['slides']['content']['images_set']['#theme_wrappers'][] = 'swiper_studio_form_element';
-    $form['slides']['content']['title'] = [
-      '#type' => 'swiper_studio_switch',
-      '#title' => $this->t('Title'),
-      '#default_value' => $slides['content']['title'] ?? TRUE,
-    ];
-    $form['slides']['content']['text'] = [
-      '#type' => 'swiper_studio_switch',
-      '#title' => $this->t('Text'),
-      '#default_value' => $slides['content']['text'] ?? FALSE,
-    ];
-    $form['slides']['content']['position'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Content position'),
-      '#title_display' => 'inline',
-      '#options' => [
-        'left_top' => 'left top',
-        'center_top' => 'center top',
-        'right_top' => 'right top',
-        'left' => 'left',
-        'center' => 'center',
-        'right' => 'right',
-        'left_bottom' => 'left bottom',
-        'center_bottom' => 'center bottom',
-        'right_bottom' => 'right bottom',
-      ],
-      '#default_value' => $slides['content']['position'] ?? 'center',
-      '#states' => [
-        'visible' => [
-          [':input[name="slides[content][title]"]' => ['checked' => TRUE]],
-          [':input[name="slides[content][text]"]' => ['checked' => TRUE]],
-        ],
-      ],
-      '#theme_wrappers' => ['swiper_studio_form_element'],
-    ];
-    $form['slides']['content']['custom'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Edit content'),
-      '#url' => Url::fromRoute('entity.slider.custom_content_form'),
-      '#attributes' => [
-        'class' => ['use-ajax', 'button', 'button--small'],
-        'data-dialog-type' => 'modal',
-        'data-dialog-options' => Json::encode([
-          'width' => 'auto',
-        ]),
-      ],
-    ];
+    $form['slides']['content']['title']['#icon']                  = 'title.svg';
+    $form['slides']['content']['title']['#type']                  = 'swiper_studio_switch';
+    $form['slides']['content']['text']['#icon']                   = 'text.svg';
+    $form['slides']['content']['text']['#type']                   = 'swiper_studio_switch';
+    $form['slides']['content']['position']['#icon']               = 'content-position.svg';
+    $form['slides']['content']['position']['#title_display']      = 'inline';
+    $form['slides']['content']['position']['#theme_wrappers'][]   = 'swiper_studio_form_element';
+    $form['slides']['content']['custom']['#icon']                 = 'custom-content.svg';
+    $form['slides']['content']['custom']['#theme_wrappers'][]     = 'swiper_studio_form_element__link';
     // Slides Styles.
-    $form['slides']['style'] = [
-      '#type' => 'details',
-      '#open' => FALSE,
-      '#title' => $this->t('Slides styles'),
-    ];
-    $form['slides']['style']['br_radius'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Slide border radius'),
-      '#min' => 0,
-      '#max' => 64,
-      '#step' => 2,
-      '#default_value' => $slides['style']['br_radius'] ?? 0,
-    ];
+    $form['slides']['style']['#icon'] = 'slides-styles.svg';
+    $form['slides']['style']['#theme_wrappers'][] = 'swiper_studio_details';
+    $form['slides']['style']['br_radius']['#icon'] = 'br-radius.svg';
+    $form['slides']['style']['br_radius']['#theme_wrappers'][] = 'swiper_studio_form_element';
     $form['slides']['style']['br_width'] = [
       '#type' => 'range',
       '#title' => $this->t('Slide border width'),
