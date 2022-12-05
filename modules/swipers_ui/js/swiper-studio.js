@@ -4,6 +4,7 @@
  */
 (() => {
   const byId = (id) => document.getElementById(id);
+  const $ = (selectors) => document.querySelectorAll(selectors);
 
   function toolbar() {
     const form = byId('swiper-form-wrapper');
@@ -29,31 +30,16 @@
   }
 
   function rangeProcess() {
-    const wv = byId('edit-slider-style-w-value');
-    wv.addEventListener('input', rangeChange);
-    wv.dispatchEvent(new Event('input'));
-
-    const hv = byId('edit-slider-style-h-value');
-    hv.addEventListener('input', rangeChange);
-    hv.dispatchEvent(new Event('input'));
-
-    const ps = byId('edit-slider-style-ps');
-    ps.addEventListener('input', rangeChange);
-    ps.dispatchEvent(new Event('input'));
-
-    const pe = byId('edit-slider-style-pe');
-    pe.addEventListener('input', rangeChange);
-    pe.dispatchEvent(new Event('input'));
-
-    const brRadius = byId('edit-slides-style-br-radius');
-    brRadius.addEventListener('input', rangeChange);
-    brRadius.dispatchEvent(new Event('input'));
+    $('.form-range').forEach((el) => {
+      el.addEventListener('input', rangeChange);
+      el.dispatchEvent(new Event('input'));
+    });
   }
 
   toolbar();
   rangeProcess();
 
-  document.querySelectorAll('.form-element--type-select').forEach((el) => {
+  $('.form-element--type-select').forEach((el) => {
     // eslint-disable-next-line no-undef
     return new Choices(el, {
       searchEnabled: false,
@@ -68,5 +54,16 @@
     maxWidth: 240,
     offset: [0, 3],
     theme: 'swiper',
+  });
+
+  $('.form-element--type-color').forEach((el) => {
+    // eslint-disable-next-line no-undef
+    return new Alwan(el, {
+      theme: 'dark',
+      color: el.value,
+      inputs: { hex: true, rgb: false, hsl: false },
+      preview: false,
+      copy: false,
+    });
   });
 })();

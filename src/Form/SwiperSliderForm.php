@@ -310,6 +310,9 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 16,
       '#step' => 1,
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
       '#default_value' => $slides['style']['br_width'] ?? 0,
     ];
     $form['slides']['style']['br_color'] = [
@@ -317,27 +320,33 @@ class SwiperSliderForm extends EntityForm {
       '#default_value' => $slides['style']['br_color'] ?? '#ff0000',
       '#title' => $this->t('Slide border color'),
     ];
-    $form['slides']['style']['vertical_start'] = [
+    $form['slides']['style']['cvp'] = [
       '#type' => 'range',
       '#title' => $this->t('Content vertical padding'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slides['style']['vertical_start'] ?? 48,
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
+      '#default_value' => $slides['style']['cvp'] ?? 48,
     ];
-    $form['slides']['style']['horizontal_start'] = [
+    $form['slides']['style']['chp'] = [
       '#type' => 'range',
       '#title' => $this->t('Content horizontal padding'),
       '#min' => 0,
       '#max' => 120,
       '#step' => 4,
-      '#default_value' => $slides['style']['horizontal_start'] ?? 48,
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
+      '#default_value' => $slides['style']['chp'] ?? 48,
     ];
-    $form['slides']['style']['background_color'] = [
+    $form['slides']['style']['bg_color'] = [
       '#type' => 'color',
       '#title' => $this->t('Background color'),
       '#description' => $this->t('Slide background color, will be disabled if parallax and images are enabled'),
-      '#default_value' => $slides['style']['background_color'] ?? '#333333',
+      '#default_value' => $slides['style']['bg_color'] ?? '#333333',
     ];
     $form['slides']['style']['title_color'] = [
       '#type' => 'color',
@@ -374,17 +383,17 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides per view'),
       '#description' => $this->t("Number of slides per view (slides visible at the same time on slider's container)"),
       '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
-        '-1' => 'auto',
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+        10 => 10,
+        -1 => 'auto',
       ],
       '#default_value' => $params['per_view'] ?? 1,
       '#states' => [
@@ -409,7 +418,7 @@ class SwiperSliderForm extends EntityForm {
       ],
       '#states' => [
         'visible' => [
-          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
+          'select[name="parameters[per_view]"]' => ['value' => -1],
         ],
       ],
     ];
@@ -418,10 +427,13 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => ($form['parameters']['size_type']['#default_value'] == 'relative') ? 100 : 1920,
       '#step' => 1,
+      '#attributes' => [
+        'data-unit' => ($form['parameters']['size_type']['#default_value'] == 'relative') ? '%' : 'px',
+      ],
       '#default_value' => $params['size_value'] ?? 100,
       '#states' => [
         'visible' => [
-          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
+          'select[name="parameters[per_view]"]' => ['value' => -1],
         ],
       ],
     ];
@@ -430,17 +442,17 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides per group'),
       '#description' => $this->t('Set numbers of slides to define and enable group sliding. Useful to use with "Slides per view" > 1'),
       '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
-        '-1' => 'auto',
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+        10 => 10,
+        -1 => 'auto',
       ],
       '#default_value' => $params['per_group'] ?? 1,
       '#states' => [
@@ -461,16 +473,16 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Slides rows'),
       '#description' => $this->t('Number of slides rows, for multirow layout'),
       '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
+        10 => 10,
       ],
       '#default_value' => $params['rows'] ?? 1,
       '#states' => [
@@ -511,16 +523,16 @@ class SwiperSliderForm extends EntityForm {
       '#title' => $this->t('Initial slide'),
       '#description' => $this->t('Index number of initial slide (starts from 0)'),
       '#options' => [
-        '0' => 0,
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
+        0 => 0,
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        7 => 7,
+        8 => 8,
+        9 => 9,
       ],
       '#default_value' => $params['initial_slide'] ?? 0,
     ];

@@ -68,203 +68,47 @@ class SwiperStudioForm extends SwiperSliderForm {
     $form['slides']['content']['custom']['#icon']                 = 'custom-content.svg';
     $form['slides']['content']['custom']['#theme_wrappers'][]     = 'swiper_studio_form_element__link';
     // Slides Styles.
-    $form['slides']['style']['#icon'] = 'slides-styles.svg';
-    $form['slides']['style']['#theme_wrappers'][] = 'swiper_studio_details';
-    $form['slides']['style']['br_radius']['#icon'] = 'br-radius.svg';
-    $form['slides']['style']['br_radius']['#theme_wrappers'][] = 'swiper_studio_form_element';
-    $form['slides']['style']['br_width'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Slide border width'),
-      '#min' => 0,
-      '#max' => 16,
-      '#step' => 1,
-      '#default_value' => $slides['style']['br_width'] ?? 0,
-    ];
-    $form['slides']['style']['br_color'] = [
-      '#type' => 'color',
-      '#default_value' => $slides['style']['br_color'] ?? '#ff0000',
-      '#title' => $this->t('Slide border color'),
-    ];
-    $form['slides']['style']['vertical_start'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Content vertical padding'),
-      '#min' => 0,
-      '#max' => 120,
-      '#step' => 4,
-      '#default_value' => $slides['style']['vertical_start'] ?? 48,
-    ];
-    $form['slides']['style']['horizontal_start'] = [
-      '#type' => 'range',
-      '#title' => $this->t('Content horizontal padding'),
-      '#min' => 0,
-      '#max' => 120,
-      '#step' => 4,
-      '#default_value' => $slides['style']['horizontal_start'] ?? 48,
-    ];
-    $form['slides']['style']['background_color'] = [
-      '#type' => 'color',
-      '#title' => $this->t('Background color'),
-      '#description' => $this->t('Slide background color, will be disabled if parallax and images are enabled'),
-      '#default_value' => $slides['style']['background_color'] ?? '#333333',
-    ];
-    $form['slides']['style']['title_color'] = [
-      '#type' => 'color',
-      '#title' => $this->t('Title color'),
-      '#default_value' => $slides['style']['title_color'] ?? '#ffffff',
-    ];
-    $form['slides']['style']['text_color'] = [
-      '#type' => 'color',
-      '#title' => $this->t('Text color'),
-      '#default_value' => $slides['style']['text_color'] ?? '#ffffff',
-    ];
+    $form['slides']['style']['#icon']                            = 'slides-styles.svg';
+    $form['slides']['style']['#theme_wrappers'][]                = 'swiper_studio_details';
+    $form['slides']['style']['br_radius']['#icon']               = 'br-radius.svg';
+    $form['slides']['style']['br_radius']['#theme_wrappers'][]   = 'swiper_studio_form_element';
+    $form['slides']['style']['br_width']['#icon']                = 'br-width.svg';
+    $form['slides']['style']['br_width']['#theme_wrappers'][]    = 'swiper_studio_form_element';
+    $form['slides']['style']['br_color']['#icon']                = 'br-color.svg';
+    $form['slides']['style']['br_color']['#title_display']       = 'inline';
+    $form['slides']['style']['br_color']['#theme_wrappers'][]    = 'swiper_studio_form_element';
+    $form['slides']['style']['cvp']['#icon']                     = 'cvp.svg';
+    $form['slides']['style']['cvp']['#theme_wrappers'][]         = 'swiper_studio_form_element';
+    $form['slides']['style']['chp']['#icon']                     = 'chp.svg';
+    $form['slides']['style']['chp']['#theme_wrappers'][]         = 'swiper_studio_form_element';
+    $form['slides']['style']['bg_color']['#icon']                = 'bg-color.svg';
+    $form['slides']['style']['bg_color']['#title_display']       = 'inline';
+    $form['slides']['style']['bg_color']['#theme_wrappers'][]    = 'swiper_studio_form_element';
+    $form['slides']['style']['title_color']['#icon']             = 'title.svg';
+    $form['slides']['style']['title_color']['#title_display']    = 'inline';
+    $form['slides']['style']['title_color']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['slides']['style']['text_color']['#icon']              = 'text.svg';
+    $form['slides']['style']['text_color']['#title_display']     = 'inline';
+    $form['slides']['style']['text_color']['#theme_wrappers'][]  = 'swiper_studio_form_element';
     // Parameters.
-    $params = $this->entity->get('parameters');
-    $form['parameters'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Parameters'),
-    ];
-    $form['parameters']['direction'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slide direction'),
-      '#options' => [
-        'horizontal' => 'horizontal',
-        'vertical' => 'vertical',
-      ],
-      '#default_value' => $params['direction'] ?? 'horizontal',
-      '#states' => [
-        'disabled' => [
-          'select[name="effects[effect]"]' => ['value' => 'carousel'],
-        ],
-      ],
-    ];
-    $form['parameters']['per_view'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slides per view'),
-      '#description' => $this->t("Number of slides per view (slides visible at the same time on slider's container)"),
-      '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
-        '-1' => 'auto',
-      ],
-      '#default_value' => $params['per_view'] ?? 1,
-      '#states' => [
-        'disabled' => [
-          ['select[name="effects[effect]"]' => ['value' => 'fade']],
-          ['select[name="effects[effect]"]' => ['value' => 'cube']],
-          ['select[name="effects[effect]"]' => ['value' => 'flip']],
-          ['select[name="effects[effect]"]' => ['value' => 'cards']],
-          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
-          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
-          ['select[name="effects[effect]"]' => ['value' => 'gl']],
-        ],
-      ],
-    ];
-    $form['parameters']['size_type'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slide size'),
-      '#default_value' => $params['size_type'] ?? 'relative',
-      '#options' => [
-        'relative' => 'relative',
-        'fixed' => 'fixed',
-      ],
-      '#states' => [
-        'visible' => [
-          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
-        ],
-      ],
-    ];
-    $form['parameters']['size_value'] = [
-      '#type' => 'range',
-      '#min' => 0,
-      '#max' => ($form['parameters']['size_type']['#default_value'] == 'relative') ? 100 : 1920,
-      '#step' => 1,
-      '#default_value' => $params['size_value'] ?? 100,
-      '#states' => [
-        'visible' => [
-          'select[name="parameters[per_view]"]' => ['value' => 'auto'],
-        ],
-      ],
-    ];
-    $form['parameters']['per_group'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slides per group'),
-      '#description' => $this->t('Set numbers of slides to define and enable group sliding. Useful to use with "Slides per view" > 1'),
-      '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
-        '-1' => 'auto',
-      ],
-      '#default_value' => $params['per_group'] ?? 1,
-      '#states' => [
-        'disabled' => [
-          ['select[name="effects[effect]"]' => ['value' => 'fade']],
-          ['select[name="effects[effect]"]' => ['value' => 'cube']],
-          ['select[name="effects[effect]"]' => ['value' => 'flip']],
-          ['select[name="effects[effect]"]' => ['value' => 'cards']],
-          ['select[name="effects[effect]"]' => ['value' => 'carousel']],
-          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
-          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
-          ['select[name="effects[effect]"]' => ['value' => 'gl']],
-        ],
-      ],
-    ];
-    $form['parameters']['rows'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Slides rows'),
-      '#description' => $this->t('Number of slides rows, for multirow layout'),
-      '#options' => [
-        '1' => 1,
-        '2' => 2,
-        '3' => 3,
-        '4' => 4,
-        '5' => 5,
-        '6' => 6,
-        '7' => 7,
-        '8' => 8,
-        '9' => 9,
-        '10' => 10,
-      ],
-      '#default_value' => $params['rows'] ?? 1,
-      '#states' => [
-        'disabled' => [
-          'select[name="parameters[direction]"]' => ['value' => 'vertical'],
-        ],
-      ],
-    ];
-    $form['parameters']['centered'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Centered slides'),
-      '#description' => $this->t('If enabled, then active slide will be centered, not always on the left side'),
-      '#default_value' => $params['centered'] ?? FALSE,
-      '#states' => [
-        'disabled' => [
-          ['select[name="effects[effect]"]' => ['value' => 'fade']],
-          ['select[name="effects[effect]"]' => ['value' => 'cube']],
-          ['select[name="effects[effect]"]' => ['value' => 'flip']],
-          ['select[name="effects[effect]"]' => ['value' => 'cards']],
-          ['select[name="effects[effect]"]' => ['value' => 'carousel']],
-          ['select[name="effects[effect]"]' => ['value' => 'shutters']],
-          ['select[name="effects[effect]"]' => ['value' => 'slicer']],
-          ['select[name="effects[effect]"]' => ['value' => 'gl']],
-        ],
-      ],
-    ];
+    $form['parameters']['direction']['#icon'] = 'slide-direction.svg';
+    $form['parameters']['direction']['#title_display'] = 'inline';
+    $form['parameters']['direction']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['per_view']['#icon'] = 'per-view.svg';
+    $form['parameters']['per_view']['#title_display'] = 'inline';
+    $form['parameters']['per_view']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['size_type']['#icon'] = 'slider-size.svg';
+    $form['parameters']['size_type']['#title_display'] = 'inline';
+    $form['parameters']['size_type']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['size_value']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['per_group']['#icon'] = 'per-group.svg';
+    $form['parameters']['per_group']['#title_display'] = 'inline';
+    $form['parameters']['per_group']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['rows']['#icon'] = 'rows.svg';
+    $form['parameters']['rows']['#title_display'] = 'inline';
+    $form['parameters']['rows']['#theme_wrappers'][] = 'swiper_studio_form_element';
+    $form['parameters']['centered']['#icon'] = 'centered.svg';
+    $form['parameters']['centered']['#type'] = 'swiper_studio_switch';
     $form['parameters']['space'] = [
       '#type' => 'range',
       '#title' => $this->t('Space between slides'),

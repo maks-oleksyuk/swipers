@@ -85,10 +85,8 @@ class CustomCssStylesForm extends FormBase {
    *   An AJAX response that display validation error messages or represents a
    *   successful submission.
    */
-  public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state) {
-    $response = new AjaxResponse();
-    $response->addCommand(new CloseModalDialogCommand());
-    return $response;
+  public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
+    return (new AjaxResponse())->addCommand(new CloseModalDialogCommand());
   }
 
   /**

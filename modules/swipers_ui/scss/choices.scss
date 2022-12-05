@@ -33,12 +33,17 @@
 
     &--dropdown,
     &[aria-expanded] {
+      z-index: 10;
       right: -0.65rem;
       width: 280px;
       padding: 0.5rem 0;
       border: 1px solid var(--swiper-studio--color-white-a05) !important;
       border-radius: 0.5rem;
       background-color: rgba(40, 40, 40, 1);
+    }
+
+    .choices__list {
+      max-height: fit-content !important;
     }
   }
 

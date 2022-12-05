@@ -9,6 +9,7 @@ swiper-studio:
   dependencies:
     - swipers_ui/tippyjs
     - swipers_ui/choices
+    - swipers_ui/alwan
 
 popperjs:
   remote: https://unpkg.com
@@ -45,3 +46,16 @@ choices:
       css/choices.css: { }
   js:
     https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js: { type: external, minified: true }
+
+alwan:
+  remote: https://github.com/SofianChouaib/alwan
+  version: 1.0.5
+  license:
+    name: MIT
+    url: https://github.com/SofianChouaib/alwan/blob/main/LICENSE
+    gpl-compatible: true
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/alwan/dist/css/alwan.min.css: { type: external, minified: true }
+  js:
+    https://cdn.jsdelivr.net/npm/alwan/dist/js/alwan.min.js: { type: external, minified: true }

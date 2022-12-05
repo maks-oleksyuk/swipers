@@ -18,7 +18,7 @@ js-form-type-[something] exists on form items. We have to keep them.
   type in ['checkbox', 'radio'] ? 'form-type--boolean',
   'js-form-item-' ~ name|clean_class,
   'form-item--' ~ name|clean_class,
-  title_display == 'before' ? 'form-item-title-before' : 'form-item-title-inline',
+  title_display == 'inline' ? 'form-item-title-inline' : 'form-item-title-before',
   'form-item--swiper-studio',
   disabled == 'disabled' ? 'form-item--disabled',
 ] %}
@@ -30,7 +30,7 @@ js-form-type-[something] exists on form items. We have to keep them.
       {% endif %}
       {{ label }}
       {% if description.content %}
-        <span class="help-icon" data-tippy-content="{{ description.content }}">
+        <span class="help-icon" data-tippy-content="{{ description.content|replace({'"':'\"'}) }}">
           {% include '@swipers_ui/images/icons/info.svg' %}
         </span>
       {% endif %}
