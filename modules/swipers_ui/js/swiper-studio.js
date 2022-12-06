@@ -41,11 +41,29 @@
 
   $('.form-element--type-select').forEach((el) => {
     // eslint-disable-next-line no-undef
-    return new Choices(el, {
+    const choices = new Choices(el, {
       searchEnabled: false,
       itemSelectText: '',
       shouldSort: false,
     });
+
+    el.addEventListener('change', () => {
+      if (el.disabled) {
+        choices.disable();
+      } else {
+        choices.enable();
+      }
+    });
+
+    const callback = (mutationList) => {
+      mutationList.forEach((mutation) => {
+        if (mutation.type === 'attributes') {
+          mutation.target.dispatchEvent(new Event('change'));
+        }
+      });
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(el, { attributes: true });
   });
 
   // eslint-disable-next-line no-undef

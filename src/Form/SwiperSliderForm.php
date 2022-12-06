@@ -516,6 +516,9 @@ class SwiperSliderForm extends EntityForm {
       '#min' => 0,
       '#max' => 100,
       '#step' => 1,
+      '#attributes' => [
+        'data-unit' => 'px',
+      ],
       '#default_value' => $params['space'] ?? 0,
     ];
     $form['parameters']['initial_slide'] = [
