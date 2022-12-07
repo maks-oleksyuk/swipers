@@ -1,10 +1,8 @@
 swiper-studio:
   version: VERSION
   css:
-    base:
-      css/base/variables.css: { }
     theme:
-      css/swiper-studio.css: { }
+      css/swipers_ui.admin.theme.css: { }
   js:
     js/swiper-studio.js: { }
   dependencies:

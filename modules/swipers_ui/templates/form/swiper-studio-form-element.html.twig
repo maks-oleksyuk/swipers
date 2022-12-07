@@ -12,15 +12,14 @@ js-form-type-[something] exists on form items. We have to keep them.
 #}
 {% set classes = [
   'js-form-item',
-  'form-item',
   'js-form-type-' ~ type|clean_class,
   'form-type--' ~ type|clean_class,
   type in ['checkbox', 'radio'] ? 'form-type--boolean',
   'js-form-item-' ~ name|clean_class,
   'form-item--' ~ name|clean_class,
-  title_display == 'inline' ? 'form-item-title-inline' : 'form-item-title-before',
   'form-item--swiper-studio',
   disabled == 'disabled' ? 'form-item--disabled',
+  title_display == 'inline' ? 'form-item-title-inline' : 'form-item-title-before',
 ] %}
 <div{{ attributes.addClass(classes) }}>
   {% if label['#title'] %}
@@ -36,7 +35,7 @@ js-form-type-[something] exists on form items. We have to keep them.
       {% endif %}
     </div>
   {% endif %}
-  <div class="form-item-children-wrapper">
+  <div class="form-item-elements-wrapper">
     {% if element['#type'] == 'range' %}
       <div class="form-item-range-wrapper">
         {{ children }}
