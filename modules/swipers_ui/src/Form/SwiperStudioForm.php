@@ -56,7 +56,7 @@ class SwiperStudioForm extends SwiperSliderForm {
     $form['slides']['content']['images']['#icon']                 = 'images.svg';
     $form['slides']['content']['images']['#type']                 = 'swiper_studio_switch';
     $form['slides']['content']['images_set']['#icon']             = 'slider-content.svg';
-    $form['slides']['content']['images_set']['#title_display'][]  = 'inline';
+    $form['slides']['content']['images_set']['#title_display']    = 'inline';
     $form['slides']['content']['images_set']['#theme_wrappers'][] = 'swiper_studio_form_element';
     $form['slides']['content']['title']['#icon']                  = 'title.svg';
     $form['slides']['content']['title']['#type']                  = 'swiper_studio_switch';

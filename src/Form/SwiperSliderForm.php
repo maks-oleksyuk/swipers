@@ -18,10 +18,8 @@ class SwiperSliderForm extends EntityForm {
 
   /**
    * The temp store factory.
-   *
-   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
    */
-  protected $tempStoreFactory;
+  protected PrivateTempStoreFactory $tempStoreFactory;
 
   /**
    * Constructs a new Swiper Slider form.
@@ -36,7 +34,7 @@ class SwiperSliderForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): SwiperSliderForm|static {
     return new static(
       $container->get('tempstore.private'),
     );

@@ -21,11 +21,11 @@ popperjs:
     https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
 
 tippyjs:
-  remote: https://unpkg.com
+  remote: https://github.com/atomiks/tippyjs
   version: 6.3.7
   license:
     name: MIT
-    url: https://unpkg.com/tippy.js@6/LICENSE
+    url: https://github.com/atomiks/tippyjs/blob/master/LICENSE
     gpl-compatible: true
   js:
     https://unpkg.com/tippy.js@6: { type: external, minified: true }
@@ -42,7 +42,6 @@ choices:
   css:
     theme:
       https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css: { type: external, minified: true }
-      css/choices.css: { }
   js:
     https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js: { type: external, minified: true }
 

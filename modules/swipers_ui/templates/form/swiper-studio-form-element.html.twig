@@ -12,12 +12,11 @@ js-form-type-[something] exists on form items. We have to keep them.
 #}
 {% set classes = [
   'js-form-item',
-  'js-form-type-' ~ type|clean_class,
-  'form-type--' ~ type|clean_class,
-  type in ['checkbox', 'radio'] ? 'form-type--boolean',
   'js-form-item-' ~ name|clean_class,
-  'form-item--' ~ name|clean_class,
+  'js-form-type-' ~ type|clean_class,
   'form-item--swiper-studio',
+  'form-item--' ~ name|clean_class,
+  'form-type--' ~ type|clean_class,
   disabled == 'disabled' ? 'form-item--disabled',
   title_display == 'inline' ? 'form-item-title-inline' : 'form-item-title-before',
 ] %}

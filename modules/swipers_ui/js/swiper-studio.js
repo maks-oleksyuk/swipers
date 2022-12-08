@@ -78,10 +78,13 @@
     // eslint-disable-next-line no-undef
     return new Alwan(el, {
       theme: 'dark',
+      preset: false,
       color: el.value,
       inputs: { hex: true, rgb: false, hsl: false },
       preview: false,
       copy: false,
+    }).on('color', (color) => {
+      el.value = color.hex();
     });
   });
 })();
