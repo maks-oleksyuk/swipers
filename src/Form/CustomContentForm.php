@@ -16,10 +16,8 @@ class CustomContentForm extends FormBase {
 
   /**
    * The temp store factory.
-   *
-   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
    */
-  protected $tempStoreFactory;
+  protected PrivateTempStoreFactory $tempStoreFactory;
 
   /**
    * Constructs a new form to custom content slider.
@@ -34,7 +32,7 @@ class CustomContentForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): CustomContentForm|static {
     return new static(
       $container->get('tempstore.private'),
     );
@@ -43,14 +41,14 @@ class CustomContentForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'custom_swipers_content';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $texts = [
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores nemo saepe vero aliquid assumenda! Ipsa maxime sit reiciendis velit odit aliquam,',
       'Repellat porro animi ad autem mollitia dolorum unde facere zlaboriosam nostrum, non fuga sapiente incidunt explicabo voluptates voluptas, dolor quisquam corrupti ea ab.',
@@ -97,7 +95,7 @@ class CustomContentForm extends FormBase {
         '#button_type' => 'primary',
         '#ajax' => [
           'event' => 'click',
-          'callback' => '::ajaxSubmitCallback',
+          'callback' => [$this, 'ajaxSubmitCallback'],
         ],
       ],
     ];
@@ -116,10 +114,8 @@ class CustomContentForm extends FormBase {
    *   An AJAX response that display validation error messages or represents a
    *   successful submission.
    */
-  public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state) {
-    $response = new AjaxResponse();
-    $response->addCommand(new CloseModalDialogCommand());
-    return $response;
+  public function ajaxSubmitCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
+    return (new AjaxResponse())->addCommand(new CloseModalDialogCommand());
   }
 
   /**

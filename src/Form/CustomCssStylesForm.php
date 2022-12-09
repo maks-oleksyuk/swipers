@@ -16,10 +16,8 @@ class CustomCssStylesForm extends FormBase {
 
   /**
    * The temp store factory.
-   *
-   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory
    */
-  protected $tempStoreFactory;
+  protected PrivateTempStoreFactory $tempStoreFactory;
 
   /**
    * Constructs a new form to custom css.
@@ -34,7 +32,7 @@ class CustomCssStylesForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container): CustomCssStylesForm|static {
     return new static(
       $container->get('tempstore.private'),
     );
@@ -43,14 +41,14 @@ class CustomCssStylesForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'custom_css_styles';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $css = $this->tempStoreFactory->get('swipers')->get('css');
     $form['css'] = [
       '#type' => 'textarea',
@@ -66,7 +64,7 @@ class CustomCssStylesForm extends FormBase {
         '#button_type' => 'primary',
         '#ajax' => [
           'event' => 'click',
-          'callback' => '::ajaxSubmitCallback',
+          'callback' => [$this, 'ajaxSubmitCallback'],
         ],
       ],
     ];
